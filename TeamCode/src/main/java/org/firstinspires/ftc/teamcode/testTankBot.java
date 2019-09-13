@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by User on 4/19/2018.
  */
-@TeleOp(name="DemoBot",group = "")
-public class DemoBot extends LinearOpMode
+@TeleOp(name="testTankBot",group = "")
+public class testTankBot extends LinearOpMode
 {
     double zScale = 1.0;
     double speed = 1.0;
@@ -30,35 +29,42 @@ public class DemoBot extends LinearOpMode
         motorRB = hardwareMap.dcMotor.get("motorRB");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLB = hardwareMap.dcMotor.get("motorLB");
-        shooter = hardwareMap.dcMotor.get("shooter");
+        //shooter = hardwareMap.dcMotor.get("shooter");
 
         //Setting motors to brake when stopped
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        int target = 1680 + shooter.getCurrentPosition();
+        //int target = 1680 + shooter.getCurrentPosition();
 
         waitForStart();
         while (opModeIsActive())
         {
-            /*
-            robot.motorRF.setPower(-gamepad1.right_stick_y);
-            robot.motorRB.setPower(-gamepad1.right_stick_y);
-            robot.motorLF.setPower(gamepad1.left_stick_y);
-            robot.motorLB.setPower(gamepad1.left_stick_y);
-            */
+
+
+
+
+
+            motorRF.setPower(-gamepad1.right_stick_y);
+            motorRB.setPower(-gamepad1.right_stick_y);
+            motorLF.setPower(gamepad1.left_stick_y);
+            motorLB.setPower(gamepad1.left_stick_y);
+
 
             //sets motor power according to joystick input
+            /*
             motorRF.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
             motorRB.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
             motorLB.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
             motorLF.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
+
             //Sends data back to driver station
+
             telemetry.addData("Motor RF Power", motorRF.getPower());
             telemetry.addData("motor LF power", motorLF.getPower());
             telemetry.addData("Motor RB power", motorRB.getPower());
@@ -78,6 +84,7 @@ public class DemoBot extends LinearOpMode
                 shooter.setPower(0);
                 target += 1680;
             }
+             */
     }
 
     }
