@@ -13,7 +13,7 @@ public class testTankBot extends LinearOpMode
     double zScale = 1.0;
     double speed = 1.0;
 
-    //This sets the motorXX to DcMotor Objects
+    //This sets the motorXX to MyDcMotor Objects
     DcMotor motorRF = null;
     DcMotor motorLF = null;
     DcMotor motorRB = null;
@@ -36,7 +36,7 @@ public class testTankBot extends LinearOpMode
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //shooter.setZeroPowerBehavior(MyDcMotor.ZeroPowerBehavior.BRAKE);
 
 
         //int target = 1680 + shooter.getCurrentPosition();
