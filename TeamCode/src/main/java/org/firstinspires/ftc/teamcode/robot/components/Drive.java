@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.robot.components;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -19,23 +19,8 @@ enum driveStyle
 {
     FORWARD, BACKWARD, STRAFE_LEFT, STRAFE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_RIGHT, BACKWARD_LEFT, PIVOT_RIGHT, PIVOT_LEFT
 }
-public class Drive_MK2 extends LinearOpMode
+public class Drive extends LinearOpMode
 {
-
-   /*public static double drivePower = 0.75;
-    public static double strafePower = 0.85;
-    public static double pivotPower = 0.6;
-    public static boolean isMethodShareForwardFinished = false;
-    public static boolean isMethodShareEncoderTestFinished = false;
-    public static double time = 0;
-    public static double encoder = 0;
-    public static double startingEncoder = 0;
-    */
-
-   /*Method that contains the appropriate algorithms for each motor in the mecanum drive train.
-     This method is called in our autonomous and teleop programs to reduce duplicate code and inconsistencies
-     The algrotithms are adpated from our TeleOp. The arguments represent the joystick values that would be put in if ues in TeleOp.
-    */
 
    /*Argument Breakdown:
      dirX - Represents left joystick X value
@@ -475,52 +460,6 @@ public class Drive_MK2 extends LinearOpMode
         motors[2].setPower(setPower(0, 0, motorPower)[2]);
         motors[3].setPower(setPower(0, 0, motorPower)[3]);
     }
-
-       /*public void methodShareDriveForward(double motorPower, double methodTime, MyDcMotor[] motors)
-       {
-           motors[0].setPower(setPower(0, -motorPower, 0)[0]);
-           motors[1].setPower(setPower(0, -motorPower, 0)[1]);
-           motors[2].setPower(setPower(0, -motorPower, 0)[2]);
-           motors[3].setPower(setPower(0, -motorPower, 0)[3]);
-           time++;
-           sleep(1);
-           if (time >= methodTime)
-           {
-               motors[0].setPower(setPower(0, 0, 0)[0]);
-               motors[1].setPower(setPower(0, 0, 0)[1]);
-               motors[2].setPower(setPower(0, 0, 0)[2]);
-               motors[3].setPower(setPower(0, 0, 0)[3]);
-               isMethodShareForwardFinished = true;
-           }
-       }
-
-        public void methodShareModPower(double motorPower, MyDcMotor[] motors)
-        {
-            motors[0].setPower(setPower(0, -motorPower, 0)[0]);
-            motors[1].setPower(setPower(0, -motorPower, 0)[1]);
-            motors[2].setPower(setPower(0, -motorPower, 0)[2]);
-            motors[3].setPower(setPower(0, -motorPower, 0)[3]);
-        }
-
-        public void methodShareEncoderTest(double motorPower, double methodEncoder, MyDcMotor[] motors)
-        {
-            encoder = motors[1].getCurrentPosition();
-            motors[0].setPower(setPower(0, -motorPower, 0)[0]);
-            motors[1].setPower(setPower(0, -motorPower, 0)[1]);
-            motors[2].setPower(setPower(0, -motorPower, 0)[2]);
-            motors[3].setPower(setPower(0, -motorPower, 0)[3]);
-            if(encoder >= methodEncoder + startingEncoder)
-            {
-                motors[0].setPower(setPower(0, 0, 0)[0]);
-                motors[1].setPower(setPower(0, 0, 0)[1]);
-                motors[2].setPower(setPower(0, 0, 0)[2]);
-                motors[3].setPower(setPower(0, 0, 0)[3]);
-                isMethodShareEncoderTestFinished = true;
-            }
-        }
-        */
-
-
 
     @Override
     public void runOpMode()
