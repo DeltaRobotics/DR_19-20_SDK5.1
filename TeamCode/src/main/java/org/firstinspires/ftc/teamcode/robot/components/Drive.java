@@ -22,12 +22,26 @@ enum driveStyle
 public class Drive extends LinearOpMode
 {
 
+    DcMotor motorRF;
+    DcMotor motorRB;
+    DcMotor motorLF;
+    DcMotor motorLB;
+
    /*Argument Breakdown:
      dirX - Represents left joystick X value
      dirY - Represents left joystick Y value
      pivot - Represents right joystick X value
     */
-   public double[] setPower(double dirX, double dirY, double pivot)
+
+   public Drive(DcMotor motorRF, DcMotor motorRB, DcMotor motorLF, DcMotor motorLB)
+   {
+       this.motorRF = motorRF;
+       this.motorRB = motorRB;
+       this.motorLF = motorLF;
+       this.motorLB = motorLB;
+   }
+
+   public double[] mecanumAlgo(double dirX, double dirY, double pivot)
     {
         //Array is used to store motors so they can be easily accessed in the method call based on the return value
         double[] motorPowers = new double[4];
@@ -55,7 +69,7 @@ public class Drive extends LinearOpMode
     motorPower - Desired motor power the drive motors will run at
     motors - Array that contains the drive motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
      */
-    public boolean encoderDrive(int encoderDelta, driveStyle drive, double motorPower, DcMotor[] motors)
+    public boolean encoderDrive(int encoderDelta, driveStyle drive, double motorPower)
     {
         //ElapsedTime runtime = new ElapsedTime();
 
@@ -68,18 +82,18 @@ public class Drive extends LinearOpMode
             case FORWARD:
             {
                 //Declares a sets a variable for the starting encoder value on a specific motor
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 //Calculates desired encoder value by adding/subtracting the reading taken above by the desired encoder delta
                 double target = (encoderReadingLB + encoderDelta);
 
                 //Method declaration that will set the correct motor powers to move the robot the desired direction (based on which case you are in) with desired motor power
-                forward(motorPower, motors);
+                forward(motorPower);
 
                 /*
                 Loop that haults the code from progressing till the desired encoder count is met.
                 This desired encoder value could either be positive or negative, so the appropriate logic is applied.
                 */
-                while (motors[2].getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() <= target)
                 {
 
                 }
@@ -94,11 +108,11 @@ public class Drive extends LinearOpMode
 
             case BACKWARD:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderReadingLB - encoderDelta);
-                backward(motorPower, motors);
+                backward(motorPower);
 
-                while (motors[2].getCurrentPosition() >= target)
+                while (motorRB.getCurrentPosition() >= target)
                 {
 
                 }
@@ -109,11 +123,11 @@ public class Drive extends LinearOpMode
 
             case STRAFE_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
-                strafeLeft(motorPower, motors);
+                strafeLeft(motorPower);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() <= target)
                 {
 
                 }
@@ -124,11 +138,11 @@ public class Drive extends LinearOpMode
 
             case STRAFE_RIGHT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
-                strafeRight(motorPower, motors);
+                strafeRight(motorPower);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() <= target)
                 {
 
                 }
@@ -139,10 +153,10 @@ public class Drive extends LinearOpMode
 
             case FORWARD_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderReadingLB - encoderDelta);
-                forwardLeft(motorPower, motors);
-                while (motors[2].getCurrentPosition() >= target)
+                forwardLeft(motorPower);
+                while (motorRB.getCurrentPosition() >= target)
                 {
 
                 }
@@ -153,11 +167,11 @@ public class Drive extends LinearOpMode
 
             case FORWARD_RIGHT:
             {
-                double encoderReadingRB = motors[1].getCurrentPosition();
+                double encoderReadingRB = motorRF.getCurrentPosition();
                 double target = (encoderReadingRB + encoderDelta);
-                forwardRight(motorPower, motors);
+                forwardRight(motorPower);
 
-                while (motors[1].getCurrentPosition() <= target)
+                while (motorRF.getCurrentPosition() <= target)
                 {
 
                 }
@@ -168,11 +182,11 @@ public class Drive extends LinearOpMode
 
             case BACKWARD_LEFT:
             {
-                double encoderReadingRB = motors[1].getCurrentPosition();
+                double encoderReadingRB = motorRF.getCurrentPosition();
                 double target = (encoderDelta - encoderReadingRB);
-                backwardLeft(motorPower, motors);
+                backwardLeft(motorPower);
 
-                while (motors[1].getCurrentPosition() >= target)
+                while (motorRF.getCurrentPosition() >= target)
                 {
 
                 }
@@ -183,11 +197,11 @@ public class Drive extends LinearOpMode
 
             case BACKWARD_RIGHT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB =motorRB.getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
-                backwardRight(motorPower, motors);
+                backwardRight(motorPower);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() <= target)
                 {
 
                 }
@@ -198,11 +212,11 @@ public class Drive extends LinearOpMode
 
             case PIVOT_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
-                pivotLeft(motorPower, motors);
+                pivotLeft(motorPower);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() <= target)
                 {
 
                 }
@@ -213,11 +227,11 @@ public class Drive extends LinearOpMode
 
             case PIVOT_RIGHT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motorRB.getCurrentPosition();
                 double target = (encoderDelta - encoderReadingLB);
-                pivotRight(motorPower, motors);
+                pivotRight(motorPower);
 
-                while (motors[2].getCurrentPosition() >= target)
+                while (motorRB.getCurrentPosition() >= target)
                 {
 
                 }
@@ -230,22 +244,19 @@ public class Drive extends LinearOpMode
         }
 
         //Stops all the motors
-        motors[0].setPower(setPower(0, 0, 0)[0]);
-        motors[1].setPower(setPower(0, 0, 0)[1]);
-        motors[2].setPower(setPower(0, 0, 0)[2]);
-        motors[3].setPower(setPower(0, 0, 0)[3]);
+        stopMotors();
 
        //Return value to see if the method was successfully executed
        return true;
     }
 
-    public void timeDrive(long time, double motorPower, driveStyle drive, DcMotor[] motors)
+    public void timeDrive(long time, double motorPower, driveStyle drive)
     {
         switch(drive)
         {
             case FORWARD:
                 {
-                    forward(motorPower, motors);
+                    forward(motorPower);
 
                     sleep(time);
 
@@ -257,7 +268,7 @@ public class Drive extends LinearOpMode
 
             case BACKWARD:
             {
-                backward(motorPower, motors);
+                backward(motorPower);
 
                 sleep(time);
 
@@ -268,7 +279,7 @@ public class Drive extends LinearOpMode
 
             case STRAFE_LEFT:
             {
-                strafeLeft(motorPower, motors);
+                strafeLeft(motorPower);
 
                 sleep(time);
 
@@ -278,7 +289,7 @@ public class Drive extends LinearOpMode
 
             case STRAFE_RIGHT:
             {
-                strafeRight(motorPower, motors);
+                strafeRight(motorPower);
 
                 sleep(time);
 
@@ -287,7 +298,7 @@ public class Drive extends LinearOpMode
 
             case FORWARD_LEFT:
             {
-                forwardLeft(motorPower, motors);
+                forwardLeft(motorPower);
 
                 sleep(time);
 
@@ -296,7 +307,7 @@ public class Drive extends LinearOpMode
 
             case FORWARD_RIGHT:
             {
-                forwardRight(motorPower, motors);
+                forwardRight(motorPower);
 
 
                 sleep(time);
@@ -306,7 +317,7 @@ public class Drive extends LinearOpMode
 
             case BACKWARD_LEFT:
             {
-                backwardLeft(motorPower, motors);
+                backwardLeft(motorPower);
 
                 sleep(time);
 
@@ -315,7 +326,7 @@ public class Drive extends LinearOpMode
 
             case BACKWARD_RIGHT:
             {
-                backwardRight(motorPower, motors);
+                backwardRight(motorPower);
 
                 sleep(time);
 
@@ -324,7 +335,7 @@ public class Drive extends LinearOpMode
 
             case PIVOT_LEFT:
             {
-                pivotLeft(motorPower, motors);
+                pivotLeft(motorPower);
 
 
 
@@ -336,7 +347,7 @@ public class Drive extends LinearOpMode
 
             case PIVOT_RIGHT:
             {
-                pivotRight(motorPower, motors);
+                pivotRight(motorPower);
 
 
                 sleep(time);
@@ -347,13 +358,11 @@ public class Drive extends LinearOpMode
         }
 
 
-        motors[0].setPower(setPower(-motorPower, 0, 0)[0]);
-        motors[1].setPower(setPower(-motorPower, 0, 0)[1]);
-        motors[2].setPower(setPower(-motorPower, 0, 0)[2]);
-        motors[3].setPower(setPower(-motorPower, 0, 0)[3]);
+        //Stops all the motors
+        stopMotors();
 
     }
-    public void OrientationDrive(double TargetOr, double motorPower, DcMotor[] motors, BNO055IMU imu) {
+    public void OrientationDrive(double TargetOr, double motorPower, BNO055IMU imu) {
         Orientation angles;
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -362,103 +371,108 @@ public class Drive extends LinearOpMode
 
         if (PivotDeg > 0)
         {
-            pivotLeft(motorPower, motors);
+            pivotLeft(motorPower);
 
             while (TargetOr > AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle)) {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }
-            motors[0].setPower(setPower(0, 0, 0)[0]);
-            motors[1].setPower(setPower(0, 0, 0)[1]);
-            motors[2].setPower(setPower(0, 0, 0)[2]);
-            motors[3].setPower(setPower(0, 0, 0)[3]);
+            //Stops all the motors
+            stopMotors();
         }
         else
         {
-            pivotRight(motorPower, motors);
+            pivotRight(motorPower);
 
             while (TargetOr < AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle)) {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }
 
-            motors[0].setPower(setPower(0, 0, 0)[0]);
-            motors[1].setPower(setPower(0, 0, 0)[1]);
-            motors[2].setPower(setPower(0, 0, 0)[2]);
-            motors[3].setPower(setPower(0, 0, 0)[3]);
+            //Stops all the motors
+            stopMotors();
 
         }
     }
 
 
-    public void forward(double motorPower, DcMotor[] motors)
+    public void forward(double motorPower)
     {
-        motors[0].setPower(setPower(0, -motorPower, 0)[0]);
-        motors[1].setPower(setPower(0, -motorPower, 0)[1]);
-        motors[2].setPower(setPower(0, -motorPower, 0)[2]);
-        motors[3].setPower(setPower(0, -motorPower, 0)[3]);
+        motorRF.setPower(mecanumAlgo(0, -motorPower, 0)[0]);
+        motorRB.setPower(mecanumAlgo(0, -motorPower, 0)[1]);
+        motorLB.setPower(mecanumAlgo(0, -motorPower, 0)[2]);
+        motorLF.setPower(mecanumAlgo(0, -motorPower, 0)[3]);
     }
-    public void backward(double motorPower, DcMotor[] motors)
+    public void backward(double motorPower)
     {
-        motors[0].setPower(setPower(0, motorPower, 0)[0]);
-        motors[1].setPower(setPower(0, motorPower, 0)[1]);
-        motors[2].setPower(setPower(0, motorPower, 0)[2]);
-        motors[3].setPower(setPower(0, motorPower, 0)[3]);
+        motorRF.setPower(mecanumAlgo(0, motorPower, 0)[0]);
+        motorRB.setPower(mecanumAlgo(0, motorPower, 0)[1]);
+        motorLB.setPower(mecanumAlgo(0, motorPower, 0)[2]);
+        motorLF.setPower(mecanumAlgo(0, motorPower, 0)[3]);
     }
-    public void strafeLeft(double motorPower, DcMotor[] motors)
+    public void strafeLeft(double motorPower)
     {
-        motors[0].setPower(setPower(-motorPower, 0, 0)[0]);
-        motors[1].setPower(setPower(-motorPower, 0, 0)[1]);
-        motors[2].setPower(setPower(-motorPower, 0, 0)[2]);
-        motors[3].setPower(setPower(-motorPower, 0, 0)[3]);
+        motorRF.setPower(mecanumAlgo(-motorPower, 0, 0)[0]);
+        motorRB.setPower(mecanumAlgo(-motorPower, 0, 0)[1]);
+        motorLB.setPower(mecanumAlgo(-motorPower, 0, 0)[2]);
+        motorLF.setPower(mecanumAlgo(-motorPower, 0, 0)[3]);
     }
-    public void strafeRight(double motorPower, DcMotor[] motors)
+    public void strafeRight(double motorPower)
     {
-        motors[0].setPower(setPower(motorPower, 0, 0)[0]);
-        motors[1].setPower(setPower(motorPower, 0, 0)[1]);
-        motors[2].setPower(setPower(motorPower, 0, 0)[2]);
-        motors[3].setPower(setPower(motorPower, 0, 0)[3]);
+        motorRF.setPower(mecanumAlgo(motorPower, 0, 0)[0]);
+        motorRB.setPower(mecanumAlgo(motorPower, 0, 0)[1]);
+        motorLB.setPower(mecanumAlgo(motorPower, 0, 0)[2]);
+        motorLF.setPower(mecanumAlgo(motorPower, 0, 0)[3]);
     }
-    public void forwardLeft(double motorPower, DcMotor[] motors)
+    public void forwardLeft(double motorPower)
     {
-        motors[0].setPower(setPower(-motorPower, -motorPower, 0)[0]);
-        motors[1].setPower(setPower(-motorPower, -motorPower, 0)[1]);
-        motors[2].setPower(setPower(-motorPower, -motorPower, 0)[2]);
-        motors[3].setPower(setPower(-motorPower, -motorPower, 0)[3]);
+        motorRF.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[0]);
+        motorRB.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[1]);
+        motorLB.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[2]);
+        motorLF.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[3]);
     }
-    public void forwardRight(double motorPower, DcMotor[] motors)
+    public void forwardRight(double motorPower)
     {
-        motors[0].setPower(setPower(motorPower, -motorPower, 0)[0]);
-        motors[1].setPower(setPower(motorPower, -motorPower, 0)[1]);
-        motors[2].setPower(setPower(motorPower, -motorPower, 0)[2]);
-        motors[3].setPower(setPower(motorPower, -motorPower, 0)[3]);
+        motorRF.setPower(mecanumAlgo(motorPower, -motorPower, 0)[0]);
+        motorRB.setPower(mecanumAlgo(motorPower, -motorPower, 0)[1]);
+        motorLB.setPower(mecanumAlgo(motorPower, -motorPower, 0)[2]);
+        motorLF.setPower(mecanumAlgo(motorPower, -motorPower, 0)[3]);
     }
-    public void backwardLeft(double motorPower, DcMotor[] motors)
+    public void backwardLeft(double motorPower)
     {
-        motors[0].setPower(setPower(-motorPower, motorPower, 0)[0]);
-        motors[1].setPower(setPower(-motorPower, motorPower, 0)[1]);
-        motors[2].setPower(setPower(-motorPower, motorPower, 0)[2]);
-        motors[3].setPower(setPower(-motorPower, motorPower, 0)[3]);
+       motorRF.setPower(mecanumAlgo(-motorPower, motorPower, 0)[0]);
+       motorRB.setPower(mecanumAlgo(-motorPower, motorPower, 0)[1]);
+       motorLB.setPower(mecanumAlgo(-motorPower, motorPower, 0)[2]);
+       motorLF.setPower(mecanumAlgo(-motorPower, motorPower, 0)[3]);
     }
-    public void backwardRight(double motorPower, DcMotor[] motors)
+    public void backwardRight(double motorPower)
     {
-        motors[0].setPower(setPower(motorPower, motorPower, 0)[0]);
-        motors[1].setPower(setPower(motorPower, motorPower, 0)[1]);
-        motors[2].setPower(setPower(motorPower, motorPower, 0)[2]);
-        motors[3].setPower(setPower(motorPower, motorPower, 0)[3]);
+       motorRF.setPower(mecanumAlgo(motorPower, motorPower, 0)[0]);
+       motorRB.setPower(mecanumAlgo(motorPower, motorPower, 0)[1]);
+       motorLB.setPower(mecanumAlgo(motorPower, motorPower, 0)[2]);
+       motorLF.setPower(mecanumAlgo(motorPower, motorPower, 0)[3]);
     }
-    public void pivotLeft(double motorPower, DcMotor[] motors)
+    public void pivotLeft(double motorPower)
     {
-        motors[0].setPower(setPower(0, 0, -motorPower)[0]);
-        motors[1].setPower(setPower(0, 0, -motorPower)[1]);
-        motors[2].setPower(setPower(0, 0, -motorPower)[2]);
-        motors[3].setPower(setPower(0, 0, -motorPower)[3]);
+        motorRF.setPower(mecanumAlgo(0, 0, -motorPower)[0]);
+        motorRB.setPower(mecanumAlgo(0, 0, -motorPower)[1]);
+        motorLB.setPower(mecanumAlgo(0, 0, -motorPower)[2]);
+        motorLF.setPower(mecanumAlgo(0, 0, -motorPower)[3]);
 
     }
-    public void pivotRight(double motorPower, DcMotor[] motors)
+    public void pivotRight(double motorPower)
     {
-        motors[0].setPower(setPower(0, 0, motorPower)[0]);
-        motors[1].setPower(setPower(0, 0, motorPower)[1]);
-        motors[2].setPower(setPower(0, 0, motorPower)[2]);
-        motors[3].setPower(setPower(0, 0, motorPower)[3]);
+        motorRF.setPower(mecanumAlgo(0, 0, motorPower)[0]);
+        motorRB.setPower(mecanumAlgo(0, 0, motorPower)[1]);
+        motorLB.setPower(mecanumAlgo(0, 0, motorPower)[2]);
+        motorLF.setPower(mecanumAlgo(0, 0, motorPower)[3]);
+    }
+
+    public void stopMotors()
+    {
+        //Stops all the motors
+        motorRF.setPower(mecanumAlgo(0, 0, 0)[0]);
+        motorRB.setPower(mecanumAlgo(0, 0, 0)[1]);
+        motorLB.setPower(mecanumAlgo(0, 0, 0)[2]);
+        motorLF.setPower(mecanumAlgo(0, 0, 0)[3]);
     }
 
     @Override

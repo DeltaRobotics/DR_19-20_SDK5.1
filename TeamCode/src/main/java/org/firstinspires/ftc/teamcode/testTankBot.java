@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.robot.components.Drive_MK2;
+import org.firstinspires.ftc.teamcode.robot.components.Drive;
 
 /**
  * Created by User on 4/19/2018.
@@ -22,7 +22,7 @@ public class testTankBot extends LinearOpMode
     DcMotor motorLB = null;
     DcMotor shooter = null;
 
-    Drive_MK2 drive = new Drive_MK2();
+    Drive drive = new Drive();
 
     public void runOpMode()
     {

@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.teamcode.robot.Robot;
 
 @TeleOp (name = "armHoldTest", group = "")
 public class armHoldTest extends LinearOpMode
 {
-    DcMotor motor;
+    Robot robot = new Robot(hardwareMap);
+
 
     int targetPosition;
 
@@ -21,17 +23,17 @@ public class armHoldTest extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        motor = hardwareMap.dcMotor.get("motor");
+        robot.init();
 
-        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        targetPosition = motor.getCurrentPosition();
+        targetPosition = robot.arm.getCurrentPosition();
 
-        motor.setTargetPosition(targetPosition);
+        robot.arm.setTargetPosition(targetPosition);
 
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
         waitForStart();
@@ -90,16 +92,27 @@ public class armHoldTest extends LinearOpMode
 
             if(gamepad1.a)
             {
-                motor.setTargetPosition(targetPosition);
+                robot.arm.setTargetPosition(targetPosition);
             }
 
-            motor.setPower(maxMotorPower);
+            if(gamepad1.a)
+            {
+                robot.grabber.raiseArm();
+            }
 
-            telemetry.addData("Current Target", motor.getTargetPosition());
+            if(gamepad1.b)
+            {
+                robot.grabber.lowerArm();
+            }
+
+            robot.arm.setPower(maxMotorPower);
+
+            telemetry.addData("Current Target", robot.arm.getTargetPosition());
             telemetry.addData("Next Target", targetPosition);
-            telemetry.addData("Current Position", motor.getCurrentPosition());
-            telemetry.addData("Motor Power", motor.getPower());
+            telemetry.addData("Current Position", robot.arm.getCurrentPosition());
+            telemetry.addData("Motor Power", robot.arm.getPower());
             telemetry.addData("Max Motor Power", maxMotorPower);
+            telemetry.addData("Grabber pos", robot.grabber.getServo().getPosition());
             telemetry.update();
         }
     }
