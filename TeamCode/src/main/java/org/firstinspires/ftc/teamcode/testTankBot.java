@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.robot.components.Drive;
+import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
 
 /**
  * Created by User on 4/19/2018.
@@ -22,7 +22,7 @@ public class testTankBot extends LinearOpMode
     DcMotor motorLB = null;
     DcMotor shooter = null;
 
-    Drive drive = new Drive();
+    FirstMeetMecanum firstMeetMecanum = new FirstMeetMecanum(hardwareMap);
 
     public void runOpMode()
     {
@@ -59,10 +59,10 @@ public class testTankBot extends LinearOpMode
 
             //sets motor power according to joystick input
             /*
-            motorRF.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-            motorRB.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-            motorLB.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-            motorLF.setPower(speed * drive.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+            motorRF.setPower(speed * firstMeetMecanum.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
+            motorRB.setPower(speed * firstMeetMecanum.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
+            motorLB.setPower(speed * firstMeetMecanum.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
+            motorLF.setPower(speed * firstMeetMecanum.setPower(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
 
             //Sends data back to driver station

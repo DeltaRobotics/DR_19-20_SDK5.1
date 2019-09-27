@@ -69,8 +69,8 @@ public class motorTest extends LinearOpMode
 
             motor.setPower(flipperPower);
 
-            telemetry.addData("Flipper Power", flipperPower);
-            telemetry.addData("Max Flipper Power", maxFlipperPower);
+            telemetry.addData("FirstMeetBlockMover Power", flipperPower);
+            telemetry.addData("Max FirstMeetBlockMover Power", maxFlipperPower);
             telemetry.update();
         }
     }

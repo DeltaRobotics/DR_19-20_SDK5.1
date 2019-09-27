@@ -1,62 +1,31 @@
 package org.firstinspires.ftc.teamcode.robot;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.robot.components.Drive;
-import org.firstinspires.ftc.teamcode.robot.components.ServoArm;
+import org.firstinspires.ftc.teamcode.robot.components.FirstMeetBlockMover;
+import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
 
 
 public class Robot
 {
-    HardwareMap hardwareMap;
 
-    // Drive motors
-    public DcMotor motorRF;
-    public DcMotor motorRB;
-    public DcMotor motorLF;
-    public DcMotor motorLB;
+    public FirstMeetMecanum drive;
+    public FirstMeetBlockMover blockMover;
 
-    public DcMotor arm;
+    /*
+        Component Class names will be very specific
+        The object names will be general and won't change
+    */
 
-    //Grabber servo
-    public Servo grabber_servo;
-
-    // Drive class
-    public Drive drive = new Drive(motorRF, motorRB, motorLF, motorLB);
-
-    // Grabber ServoArm class
-    public ServoArm grabber = new ServoArm(grabber_servo, 0.25, 0.0, 0.25);
-
+    // Constructor
     public Robot(HardwareMap hardwareMap)
     {
-        this.hardwareMap = hardwareMap;
+        // Drive class for first meet with mecanum wheels
+        drive = new FirstMeetMecanum(hardwareMap);
+
+        // Block mover class for first meet
+        blockMover = new FirstMeetBlockMover(hardwareMap);
     }
 
-    public void init()
-    {
-        motorRF = hardwareMap.dcMotor.get("motorRF");
-        motorRB = hardwareMap.dcMotor.get("motorRB");
-        motorLF = hardwareMap.dcMotor.get("motorLF");
-        motorLB = hardwareMap.dcMotor.get("motorLB");
 
-        //Setting motors to brake when stopped
-        motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        grabber_servo = hardwareMap.servo.get("grabber");
-
-        grabber.init();
-
-        arm = hardwareMap.dcMotor.get("arm");
-
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
 }

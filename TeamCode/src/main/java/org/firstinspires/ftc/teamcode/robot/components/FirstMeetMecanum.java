@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robot.components;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -14,18 +15,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Created by User on 10/7/2017.
  */
 
-//Enumeration of different directions (styles) the robot can drive. These are used as arguments in the drive methods below
+//Enumeration of different directions (styles) the robot can firstMeetMecanum. These are used as arguments in the firstMeetMecanum methods below
 enum driveStyle
 {
     FORWARD, BACKWARD, STRAFE_LEFT, STRAFE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_RIGHT, BACKWARD_LEFT, PIVOT_RIGHT, PIVOT_LEFT
 }
-public class Drive extends LinearOpMode
+public class FirstMeetMecanum extends LinearOpMode
 {
 
-    DcMotor motorRF;
-    DcMotor motorRB;
-    DcMotor motorLF;
-    DcMotor motorLB;
+
+    public DcMotor motorRF;
+    public DcMotor motorRB;
+    public DcMotor motorLF;
+    public DcMotor motorLB;
 
    /*Argument Breakdown:
      dirX - Represents left joystick X value
@@ -33,21 +35,29 @@ public class Drive extends LinearOpMode
      pivot - Represents right joystick X value
     */
 
-   public Drive(DcMotor motorRF, DcMotor motorRB, DcMotor motorLF, DcMotor motorLB)
+   public FirstMeetMecanum(HardwareMap hardwareMap)
    {
-       this.motorRF = motorRF;
-       this.motorRB = motorRB;
-       this.motorLF = motorLF;
-       this.motorLB = motorLB;
+
+       motorRF = hardwareMap.dcMotor.get("motorRF");
+       motorRB = hardwareMap.dcMotor.get("motorRB");
+       motorLF = hardwareMap.dcMotor.get("motorLF");
+       motorLB = hardwareMap.dcMotor.get("motorLB");
+
+       //Setting motors to brake when stopped
+       motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
    }
 
-   public double[] mecanumAlgo(double dirX, double dirY, double pivot)
+   public double[] teleOpDrive(double dirX, double dirY, double pivot)
     {
         //Array is used to store motors so they can be easily accessed in the method call based on the return value
         double[] motorPowers = new double[4];
         motorPowers[0] = -(dirY + dirX) - pivot;//robot.motorRF.setPower(speed*((-gamepad1.left_stick_y - gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
-        motorPowers[1] = -(dirX - dirY) + pivot;//robot.motorRB.setPower(speed*(-(-gamepad1.left_stick_x + gamepad1.left_stick_y) - (zScale * gamepad1.right_stick_x)));
-        motorPowers[2] = -(dirY + dirX) + pivot;//robot.motorLB.setPower(speed*((gamepad1.left_stick_y + gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
+        motorPowers[1] = (dirX - dirY) + pivot;//robot.motorRB.setPower(speed*(-(-gamepad1.left_stick_x + gamepad1.left_stick_y) - (zScale * gamepad1.right_stick_x)));
+        motorPowers[2] = (dirY + dirX) + pivot;//robot.motorLB.setPower(speed*((gamepad1.left_stick_y + gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
         motorPowers[3] = (-dirX + dirY) - pivot;//robot.motorLF.setPower(speed*((-gamepad1.left_stick_x + gamepad1.left_stick_y)) - (zScale * gamepad1.right_stick_x));
 
         //References
@@ -55,6 +65,9 @@ public class Drive extends LinearOpMode
             //motorPowers[1] = motorRB
             //motorPowers[2] = motorLB
             //motorPowers[3] = motorLF
+
+        // Left side is reversed -1 power = forward
+        // Right side 1 power = forward
 
         return motorPowers;
     }
@@ -66,8 +79,8 @@ public class Drive extends LinearOpMode
     Argument Breakdown:
     encoderDelta - Desired total change of the starting encoder value. How far the robot will go via encoder count readings
     driveStyle - Desired direction the robot will drived. Uses enumeration declared at the top of the class
-    motorPower - Desired motor power the drive motors will run at
-    motors - Array that contains the drive motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
+    motorPower - Desired motor power the firstMeetMecanum motors will run at
+    motors - Array that contains the firstMeetMecanum motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
      */
     public boolean encoderDrive(int encoderDelta, driveStyle drive, double motorPower)
     {
@@ -78,7 +91,7 @@ public class Drive extends LinearOpMode
         //Switch statement used to handle which driveStyle enumeration was selected
         switch(drive)
         {
-            //If desired drive direction was forward
+            //If desired firstMeetMecanum direction was forward
             case FORWARD:
             {
                 //Declares a sets a variable for the starting encoder value on a specific motor
@@ -396,83 +409,83 @@ public class Drive extends LinearOpMode
 
     public void forward(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(0, -motorPower, 0)[0]);
-        motorRB.setPower(mecanumAlgo(0, -motorPower, 0)[1]);
-        motorLB.setPower(mecanumAlgo(0, -motorPower, 0)[2]);
-        motorLF.setPower(mecanumAlgo(0, -motorPower, 0)[3]);
+        motorRF.setPower(teleOpDrive(0, -motorPower, 0)[0]);
+        motorRB.setPower(teleOpDrive(0, -motorPower, 0)[1]);
+        motorLB.setPower(teleOpDrive(0, -motorPower, 0)[2]);
+        motorLF.setPower(teleOpDrive(0, -motorPower, 0)[3]);
     }
     public void backward(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(0, motorPower, 0)[0]);
-        motorRB.setPower(mecanumAlgo(0, motorPower, 0)[1]);
-        motorLB.setPower(mecanumAlgo(0, motorPower, 0)[2]);
-        motorLF.setPower(mecanumAlgo(0, motorPower, 0)[3]);
+        motorRF.setPower(teleOpDrive(0, motorPower, 0)[0]);
+        motorRB.setPower(teleOpDrive(0, motorPower, 0)[1]);
+        motorLB.setPower(teleOpDrive(0, motorPower, 0)[2]);
+        motorLF.setPower(teleOpDrive(0, motorPower, 0)[3]);
     }
     public void strafeLeft(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(-motorPower, 0, 0)[0]);
-        motorRB.setPower(mecanumAlgo(-motorPower, 0, 0)[1]);
-        motorLB.setPower(mecanumAlgo(-motorPower, 0, 0)[2]);
-        motorLF.setPower(mecanumAlgo(-motorPower, 0, 0)[3]);
+        motorRF.setPower(teleOpDrive(-motorPower, 0, 0)[0]);
+        motorRB.setPower(teleOpDrive(-motorPower, 0, 0)[1]);
+        motorLB.setPower(teleOpDrive(-motorPower, 0, 0)[2]);
+        motorLF.setPower(teleOpDrive(-motorPower, 0, 0)[3]);
     }
     public void strafeRight(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(motorPower, 0, 0)[0]);
-        motorRB.setPower(mecanumAlgo(motorPower, 0, 0)[1]);
-        motorLB.setPower(mecanumAlgo(motorPower, 0, 0)[2]);
-        motorLF.setPower(mecanumAlgo(motorPower, 0, 0)[3]);
+        motorRF.setPower(teleOpDrive(motorPower, 0, 0)[0]);
+        motorRB.setPower(teleOpDrive(motorPower, 0, 0)[1]);
+        motorLB.setPower(teleOpDrive(motorPower, 0, 0)[2]);
+        motorLF.setPower(teleOpDrive(motorPower, 0, 0)[3]);
     }
     public void forwardLeft(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[0]);
-        motorRB.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[1]);
-        motorLB.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[2]);
-        motorLF.setPower(mecanumAlgo(-motorPower, -motorPower, 0)[3]);
+        motorRF.setPower(teleOpDrive(-motorPower, -motorPower, 0)[0]);
+        motorRB.setPower(teleOpDrive(-motorPower, -motorPower, 0)[1]);
+        motorLB.setPower(teleOpDrive(-motorPower, -motorPower, 0)[2]);
+        motorLF.setPower(teleOpDrive(-motorPower, -motorPower, 0)[3]);
     }
     public void forwardRight(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(motorPower, -motorPower, 0)[0]);
-        motorRB.setPower(mecanumAlgo(motorPower, -motorPower, 0)[1]);
-        motorLB.setPower(mecanumAlgo(motorPower, -motorPower, 0)[2]);
-        motorLF.setPower(mecanumAlgo(motorPower, -motorPower, 0)[3]);
+        motorRF.setPower(teleOpDrive(motorPower, -motorPower, 0)[0]);
+        motorRB.setPower(teleOpDrive(motorPower, -motorPower, 0)[1]);
+        motorLB.setPower(teleOpDrive(motorPower, -motorPower, 0)[2]);
+        motorLF.setPower(teleOpDrive(motorPower, -motorPower, 0)[3]);
     }
     public void backwardLeft(double motorPower)
     {
-       motorRF.setPower(mecanumAlgo(-motorPower, motorPower, 0)[0]);
-       motorRB.setPower(mecanumAlgo(-motorPower, motorPower, 0)[1]);
-       motorLB.setPower(mecanumAlgo(-motorPower, motorPower, 0)[2]);
-       motorLF.setPower(mecanumAlgo(-motorPower, motorPower, 0)[3]);
+       motorRF.setPower(teleOpDrive(-motorPower, motorPower, 0)[0]);
+       motorRB.setPower(teleOpDrive(-motorPower, motorPower, 0)[1]);
+       motorLB.setPower(teleOpDrive(-motorPower, motorPower, 0)[2]);
+       motorLF.setPower(teleOpDrive(-motorPower, motorPower, 0)[3]);
     }
     public void backwardRight(double motorPower)
     {
-       motorRF.setPower(mecanumAlgo(motorPower, motorPower, 0)[0]);
-       motorRB.setPower(mecanumAlgo(motorPower, motorPower, 0)[1]);
-       motorLB.setPower(mecanumAlgo(motorPower, motorPower, 0)[2]);
-       motorLF.setPower(mecanumAlgo(motorPower, motorPower, 0)[3]);
+       motorRF.setPower(teleOpDrive(motorPower, motorPower, 0)[0]);
+       motorRB.setPower(teleOpDrive(motorPower, motorPower, 0)[1]);
+       motorLB.setPower(teleOpDrive(motorPower, motorPower, 0)[2]);
+       motorLF.setPower(teleOpDrive(motorPower, motorPower, 0)[3]);
     }
     public void pivotLeft(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(0, 0, -motorPower)[0]);
-        motorRB.setPower(mecanumAlgo(0, 0, -motorPower)[1]);
-        motorLB.setPower(mecanumAlgo(0, 0, -motorPower)[2]);
-        motorLF.setPower(mecanumAlgo(0, 0, -motorPower)[3]);
+        motorRF.setPower(teleOpDrive(0, 0, -motorPower)[0]);
+        motorRB.setPower(teleOpDrive(0, 0, -motorPower)[1]);
+        motorLB.setPower(teleOpDrive(0, 0, -motorPower)[2]);
+        motorLF.setPower(teleOpDrive(0, 0, -motorPower)[3]);
 
     }
     public void pivotRight(double motorPower)
     {
-        motorRF.setPower(mecanumAlgo(0, 0, motorPower)[0]);
-        motorRB.setPower(mecanumAlgo(0, 0, motorPower)[1]);
-        motorLB.setPower(mecanumAlgo(0, 0, motorPower)[2]);
-        motorLF.setPower(mecanumAlgo(0, 0, motorPower)[3]);
+        motorRF.setPower(teleOpDrive(0, 0, motorPower)[0]);
+        motorRB.setPower(teleOpDrive(0, 0, motorPower)[1]);
+        motorLB.setPower(teleOpDrive(0, 0, motorPower)[2]);
+        motorLF.setPower(teleOpDrive(0, 0, motorPower)[3]);
     }
 
     public void stopMotors()
     {
         //Stops all the motors
-        motorRF.setPower(mecanumAlgo(0, 0, 0)[0]);
-        motorRB.setPower(mecanumAlgo(0, 0, 0)[1]);
-        motorLB.setPower(mecanumAlgo(0, 0, 0)[2]);
-        motorLF.setPower(mecanumAlgo(0, 0, 0)[3]);
+        motorRF.setPower(teleOpDrive(0, 0, 0)[0]);
+        motorRB.setPower(teleOpDrive(0, 0, 0)[1]);
+        motorLB.setPower(teleOpDrive(0, 0, 0)[2]);
+        motorLF.setPower(teleOpDrive(0, 0, 0)[3]);
     }
 
     @Override
