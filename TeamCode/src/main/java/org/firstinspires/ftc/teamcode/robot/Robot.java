@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+        import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.robot.components.FirstMeetBlockMover;
-import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
+        import org.firstinspires.ftc.teamcode.robot.components.FirstMeetBlockMover;
+        import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
 
 
 public class Robot
@@ -23,7 +23,7 @@ public class Robot
         drive = new FirstMeetMecanum(hardwareMap);
 
         // Block mover class for first meet
-        blockMover = new FirstMeetBlockMover(hardwareMap);
+        //blockMover = new FirstMeetBlockMover(hardwareMap);
     }
 
 

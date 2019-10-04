@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
 
@@ -20,7 +21,6 @@ public class DemoBot extends LinearOpMode
     {
         Robot robot = new Robot(hardwareMap);
 
-
         //Maps motor objects to name in robot configuration
        // shooter = hardwareMap.dcMotor.get("shooter");
 
@@ -28,6 +28,19 @@ public class DemoBot extends LinearOpMode
 
 
         //int target = 1680 + shooter.getCurrentPosition();
+
+        /*robot.blockMover.blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        robot.blockMover.blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.blockMover.blockArm.setTargetPosition(0);
+
+        robot.blockMover.blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.blockMover.blockArm.setPower(1.0);
+        */
+
+
 
         waitForStart();
         while (opModeIsActive())
@@ -45,12 +58,19 @@ public class DemoBot extends LinearOpMode
             robot.drive.motorLB.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
             robot.drive.motorLF.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
+            //robot.blockMover.armControl(gamepad2);
+
             //Sends data back to driver station
             telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
             telemetry.addData("motor LF power", robot.drive.motorLF.getPower());
             telemetry.addData("Motor RB power", robot.drive.motorRB.getPower());
             telemetry.addData("Motor LB power", robot.drive.motorLB.getPower());
             telemetry.addData("MotorLB Encoder", robot.drive.motorLB.getCurrentPosition());
+
+            //telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
+            //telemetry.addData("Arm Target Position", robot.blockMover.blockArm.getTargetPosition());
+            //telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());
+
           //  telemetry.addData("shooter", shooter.getCurrentPosition());
             telemetry.update();
 
