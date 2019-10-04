@@ -23,7 +23,7 @@ public class Robot
         drive = new FirstMeetMecanum(hardwareMap);
 
         // Block mover class for first meet
-        //blockMover = new FirstMeetBlockMover(hardwareMap);
+        blockMover = new FirstMeetBlockMover(hardwareMap);
     }
 
 
