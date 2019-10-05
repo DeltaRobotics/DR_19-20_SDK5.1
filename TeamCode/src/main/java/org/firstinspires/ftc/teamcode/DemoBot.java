@@ -29,19 +29,6 @@ public class DemoBot extends LinearOpMode
 
         //int target = 1680 + shooter.getCurrentPosition();
 
-        robot.blockMover.blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        robot.blockMover.blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.blockMover.blockArm.setTargetPosition(0);
-
-        robot.blockMover.blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.blockMover.blockArm.setPower(1.0);
-
-
-
-
         waitForStart();
         while (opModeIsActive())
         {
@@ -70,6 +57,8 @@ public class DemoBot extends LinearOpMode
             telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
             telemetry.addData("Arm Target Position", robot.blockMover.blockArm.getTargetPosition());
             telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());
+
+            telemetry.addData("Arm Power Variable", robot.blockMover.armPower);
 
           //  telemetry.addData("shooter", shooter.getCurrentPosition());
             telemetry.update();
