@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 /**
  * Created by User on 4/19/2018.
  */
-@TeleOp(name="DemoBot",group = "")
-public class DemoBot extends LinearOpMode
+@TeleOp(name="FirstMeetTeleOp",group = "")
+public class FirstMeetTeleOp extends LinearOpMode
 {
     double zScale = 1.0;
     double speed = 1.0;
