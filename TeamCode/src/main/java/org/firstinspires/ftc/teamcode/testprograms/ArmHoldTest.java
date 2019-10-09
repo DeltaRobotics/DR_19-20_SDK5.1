@@ -10,7 +10,7 @@ public class ArmHoldTest extends LinearOpMode
     //Robot robot = new Robot(hardwareMap);
 
     DcMotor arm;
-    DcMotor arm2;
+    //DcMotor arm2;
 
     int targetPosition;
 
@@ -38,7 +38,7 @@ public class ArmHoldTest extends LinearOpMode
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        arm2 = hardwareMap.dcMotor.get("arm2");
+        /*arm2 = hardwareMap.dcMotor.get("arm2");
 
         arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -46,7 +46,7 @@ public class ArmHoldTest extends LinearOpMode
 
         arm2.setTargetPosition(targetPosition);
 
-        arm2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm2.setMode(DcMotor.RunMode.RUN_TO_POSITION);/*/
 
 
 
@@ -122,18 +122,18 @@ public class ArmHoldTest extends LinearOpMode
             arm.setTargetPosition(targetPosition);
             arm.setPower(maxMotorPower);
 
-            arm2.setTargetPosition(targetPosition);
-            arm2.setPower(maxMotorPower);
+            //arm2.setTargetPosition(targetPosition);
+            //arm2.setPower(maxMotorPower);
 
 
             telemetry.addData("Current Target Arm", arm.getTargetPosition());
-            telemetry.addData("Current Target Arm2", arm2.getTargetPosition());
+            //telemetry.addData("Current Target Arm2", arm2.getTargetPosition());
             telemetry.addData("Next Target Position", targetPosition);
             telemetry.addData("Next Target", nextTargetPos);
             telemetry.addData("Current Position Arm", arm.getCurrentPosition());
-            telemetry.addData("Current Position Arm2", arm2.getCurrentPosition());
+            //telemetry.addData("Current Position Arm2", arm2.getCurrentPosition());
             telemetry.addData("Motor Power Arm", arm.getPower());
-            telemetry.addData("Motor Power Arm2", arm2.getPower());
+            //telemetry.addData("Motor Power Arm2", arm2.getPower());
             telemetry.addData("Max Motor Power", maxMotorPower);
             //telemetry.addData("FirstMeetBlockMover pos", robot.blockMover.grabber.getServo().getPosition());
             telemetry.update();
