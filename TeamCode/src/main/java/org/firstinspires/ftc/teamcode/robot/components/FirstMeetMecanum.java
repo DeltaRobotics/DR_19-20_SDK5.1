@@ -20,8 +20,16 @@ enum driveStyle
 {
     FORWARD, BACKWARD, STRAFE_LEFT, STRAFE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_RIGHT, BACKWARD_LEFT, PIVOT_RIGHT, PIVOT_LEFT
 }
+
 public class FirstMeetMecanum extends LinearOpMode
 {
+
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = 18.849;
+
+    public static final int COUNTS_PER_ROTATION = 500;
+
+    public static final double INCHES_TO_COUNTS = COUNTS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
+
 
 
     public DcMotor motorRF;
@@ -82,9 +90,11 @@ public class FirstMeetMecanum extends LinearOpMode
     motorPower - Desired motor power the firstMeetMecanum motors will run at
     motors - Array that contains the firstMeetMecanum motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
      */
-    public boolean encoderDrive(int encoderDelta, driveStyle drive, double motorPower)
+    public boolean encoderDrive(double distanceInches, driveStyle drive, double motorPower)
     {
-        //ElapsedTime runtime = new ElapsedTime();
+
+
+        double encoderDelta = distanceInches * INCHES_TO_COUNTS;
 
         //Comments in FORWARD also apply for all the other cases in this method
 

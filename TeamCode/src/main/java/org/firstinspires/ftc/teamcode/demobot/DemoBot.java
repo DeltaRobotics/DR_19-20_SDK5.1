@@ -18,7 +18,7 @@ public class DemoBot extends LinearOpMode
     DcMotor motorLF = null;
     DcMotor motorRB = null;
     DcMotor motorLB = null;
-    //DcMotor shooter = null;
+    DcMotor shooter = null;
 
     DemoBotDriveMecanum drive = new DemoBotDriveMecanum();
 
@@ -29,17 +29,17 @@ public class DemoBot extends LinearOpMode
         motorRB = hardwareMap.dcMotor.get("motorRB");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorLB = hardwareMap.dcMotor.get("motorLB");
-       // shooter = hardwareMap.dcMotor.get("shooter");
+        shooter = hardwareMap.dcMotor.get("shooter");
 
         //Setting motors to brake when stopped
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        //int target = 1680 + shooter.getCurrentPosition();
+        int target = 1680 + shooter.getCurrentPosition();
 
         waitForStart();
         while (opModeIsActive())
@@ -63,10 +63,10 @@ public class DemoBot extends LinearOpMode
             telemetry.addData("Motor RB power", motorRB.getPower());
             telemetry.addData("Motor LB power", motorLB.getPower());
             telemetry.addData("MotorLB Encoder", motorLB.getCurrentPosition());
-          //  telemetry.addData("shooter", shooter.getCurrentPosition());
+            telemetry.addData("shooter", shooter.getCurrentPosition());
             telemetry.update();
 
-/*
+
             if(gamepad1.dpad_left)
             {
                 shooter.setPower(0.75);
@@ -78,7 +78,7 @@ public class DemoBot extends LinearOpMode
                 target += 1680;
             }
 
- */
+
     }
 
     }

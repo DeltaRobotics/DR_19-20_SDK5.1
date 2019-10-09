@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.testprograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,6 +11,7 @@ public class DcMotorTest extends LinearOpMode
     {
 
         DcMotor motor;
+        DcMotor motor2;
 
         boolean dPadUpState = false;
         boolean dPadDownState = false;
@@ -24,6 +25,15 @@ public class DcMotorTest extends LinearOpMode
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        motor2 = hardwareMap.dcMotor.get("motor2");
+
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
 
@@ -73,10 +83,13 @@ public class DcMotorTest extends LinearOpMode
             }*/
 
             motor.setPower(gamepad1.left_stick_y * maxMotorPower);
+            motor2.setPower(gamepad1.left_stick_y * maxMotorPower);
 
             telemetry.addData("Max Motor Power", maxMotorPower);
             telemetry.addData("Motor Power", motor.getPower());
             telemetry.addData("Motor Position", motor.getCurrentPosition());
+            telemetry.addData("Motor2 Power", motor2.getPower());
+            telemetry.addData("Motor2 Position", motor2.getCurrentPosition());
             telemetry.update();
 
         }

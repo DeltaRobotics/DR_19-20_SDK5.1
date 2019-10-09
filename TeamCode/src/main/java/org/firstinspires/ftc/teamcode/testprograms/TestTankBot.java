@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.testprograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
 /**
  * Created by User on 4/19/2018.
  */
-@TeleOp(name="testTankBot",group = "")
-public class testTankBot extends LinearOpMode
+@TeleOp(name="TestTankBot",group = "")
+public class TestTankBot extends LinearOpMode
 {
     double zScale = 1.0;
     double speed = 1.0;
