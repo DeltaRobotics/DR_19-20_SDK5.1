@@ -16,9 +16,10 @@ public class FirstMeetBlockMover
 
     public double armPower = 0;
 
-    private static final double DOWN_POWER = 0.2;
-    private static final double UP_POWER = 0.8;
-    private static final double HOLD_POWER = 1.0;
+    private static final double DOWN_POWER = 0.5;
+    private static final double UP_POWER = 0.5;
+    private static final double HOLD_POWER = 0.5;
+    private static final int POSITION_DELTA = 2;
 
     // Constructor/Init
     public FirstMeetBlockMover(HardwareMap hardwareMap)
@@ -34,7 +35,7 @@ public class FirstMeetBlockMover
 
         blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        blockArm.setTargetPosition(0);
+        blockArm.setTargetPosition(blockArm.getCurrentPosition());
 
         blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -48,17 +49,16 @@ public class FirstMeetBlockMover
 
         if(gamepad.left_stick_y == 0)
         {
-            blockArm.setTargetPosition(blockArm.getCurrentPosition());
             armPower = HOLD_POWER;
         }
         else if(gamepad.left_stick_y < 0)
         {
-            blockArm.setTargetPosition(blockArm.getCurrentPosition() - 20);
+            blockArm.setTargetPosition(blockArm.getTargetPosition() - POSITION_DELTA);
             armPower = UP_POWER;
         }
         else if(gamepad.left_stick_y > 0)
         {
-            blockArm.setTargetPosition(blockArm.getCurrentPosition() + 20);
+            blockArm.setTargetPosition(blockArm.getTargetPosition() + POSITION_DELTA);
             armPower = DOWN_POWER;
         }
 

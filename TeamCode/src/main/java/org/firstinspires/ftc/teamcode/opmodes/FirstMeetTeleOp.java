@@ -76,7 +76,6 @@ public class FirstMeetTeleOp extends LinearOpMode
                 shooter.setPower(0);
                 target += 1680;
             }
-
  */
     }
 
