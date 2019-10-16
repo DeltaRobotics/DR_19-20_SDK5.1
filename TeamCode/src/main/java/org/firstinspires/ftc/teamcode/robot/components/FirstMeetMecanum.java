@@ -15,11 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Created by User on 10/7/2017.
  */
 
-//Enumeration of different directions (styles) the robot can firstMeetMecanum. These are used as arguments in the firstMeetMecanum methods below
-enum driveStyle
-{
-    FORWARD, BACKWARD, STRAFE_LEFT, STRAFE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_RIGHT, BACKWARD_LEFT, PIVOT_RIGHT, PIVOT_LEFT
-}
+
 
 public class FirstMeetMecanum extends LinearOpMode
 {
@@ -90,7 +86,7 @@ public class FirstMeetMecanum extends LinearOpMode
     motorPower - Desired motor power the firstMeetMecanum motors will run at
     motors - Array that contains the firstMeetMecanum motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
      */
-    public boolean encoderDrive(double distanceInches, driveStyle drive, double motorPower)
+    public boolean encoderDriveInches(double distanceInches, driveStyle drive, double motorPower)
     {
 
 
@@ -272,6 +268,187 @@ public class FirstMeetMecanum extends LinearOpMode
        //Return value to see if the method was successfully executed
        return true;
     }
+
+    public boolean encoderDrive(double encoderDelta, driveStyle drive, double motorPower)
+    {
+
+        //Comments in FORWARD also apply for all the other cases in this method
+
+        //Switch statement used to handle which driveStyle enumeration was selected
+        switch(drive)
+        {
+            //If desired firstMeetMecanum direction was forward
+            case FORWARD:
+            {
+                //Declares a sets a variable for the starting encoder value on a specific motor
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                //Calculates desired encoder value by adding/subtracting the reading taken above by the desired encoder delta
+                double target = (encoderReadingLB + encoderDelta);
+
+                //Method declaration that will set the correct motor powers to move the robot the desired direction (based on which case you are in) with desired motor power
+                forward(motorPower);
+
+                /*
+                Loop that haults the code from progressing till the desired encoder count is met.
+                This desired encoder value could either be positive or negative, so the appropriate logic is applied.
+                */
+                while (motorRB.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+
+
+                break;
+
+
+            }
+
+            case BACKWARD:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderReadingLB - encoderDelta);
+                backward(motorPower);
+
+                while (motorRB.getCurrentPosition() >= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case STRAFE_LEFT:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + encoderDelta);
+                strafeLeft(motorPower);
+
+                while (motorRB.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case STRAFE_RIGHT:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + encoderDelta);
+                strafeRight(motorPower);
+
+                while (motorRB.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case FORWARD_LEFT:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderReadingLB - encoderDelta);
+                forwardLeft(motorPower);
+                while (motorRB.getCurrentPosition() >= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case FORWARD_RIGHT:
+            {
+                double encoderReadingRB = motorRF.getCurrentPosition();
+                double target = (encoderReadingRB + encoderDelta);
+                forwardRight(motorPower);
+
+                while (motorRF.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case BACKWARD_LEFT:
+            {
+                double encoderReadingRB = motorRF.getCurrentPosition();
+                double target = (encoderDelta - encoderReadingRB);
+                backwardLeft(motorPower);
+
+                while (motorRF.getCurrentPosition() >= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case BACKWARD_RIGHT:
+            {
+                double encoderReadingLB =motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + encoderDelta);
+                backwardRight(motorPower);
+
+                while (motorRB.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case PIVOT_LEFT:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + encoderDelta);
+                pivotLeft(motorPower);
+
+                while (motorRB.getCurrentPosition() <= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+            case PIVOT_RIGHT:
+            {
+                double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (encoderDelta - encoderReadingLB);
+                pivotRight(motorPower);
+
+                while (motorRB.getCurrentPosition() >= target)
+                {
+
+                }
+
+
+                break;
+            }
+
+
+        }
+
+        //Stops all the motors
+        stopMotors();
+
+        //Return value to see if the method was successfully executed
+        return true;
+    }
+
 
     public void timeDrive(long time, double motorPower, driveStyle drive)
     {
