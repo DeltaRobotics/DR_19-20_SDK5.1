@@ -20,9 +20,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class FirstMeetMecanum extends LinearOpMode
 {
 
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = 18.849;
+    public static final double WHEEL_CIRCUMFERENCE_INCHES = 9.276;
 
-    public static final int COUNTS_PER_ROTATION = 500;
+    public static final int COUNTS_PER_ROTATION = 560;
 
     public static final double INCHES_TO_COUNTS = COUNTS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
 
