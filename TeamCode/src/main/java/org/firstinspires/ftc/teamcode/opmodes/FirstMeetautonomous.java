@@ -50,7 +50,7 @@ public class FirstMeetautonomous extends LinearOpMode
 
         robot.drive.encoderDriveInches(80,driveStyle.FORWARD, 0.4);//go back to foundation
 
-        sleep(sleepTime);//wait for next action
+        sleep(sleepTime);//wait for  xt action
 
         //Put arm movement to place Skystone on foundation here -->
 
