@@ -19,7 +19,7 @@ public class FirstMeetBlockMover
     private static final double DOWN_POWER = 0.5;
     private static final double UP_POWER = 0.5;
     private static final double HOLD_POWER = 0.5;
-    private static final int POSITION_DELTA = 2;
+    private static final int POSITION_DELTA = 20;
 
     // Constructor/Init
     public FirstMeetBlockMover(HardwareMap hardwareMap)
