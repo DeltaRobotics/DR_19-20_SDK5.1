@@ -22,6 +22,8 @@ public class FirstMeetTeleOp extends LinearOpMode
     {
         Robot robot = new Robot(hardwareMap);
 
+        robot.blockMover.initGrabber();
+
         //Maps motor objects to name in robot configuration
        // shooter = hardwareMap.dcMotor.get("shooter");
 
@@ -48,6 +50,16 @@ public class FirstMeetTeleOp extends LinearOpMode
 
             robot.blockMover.armControl(gamepad2);
 
+            if(gamepad2.a)
+            {
+                robot.blockMover.openGrabber();
+            }
+
+            if(gamepad2.b)
+            {
+                robot.blockMover.closeGrabber();
+            }
+
             //Sends data back to driver station
             telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
             telemetry.addData("motor LF power", robot.drive.motorLF.getPower());
@@ -60,6 +72,8 @@ public class FirstMeetTeleOp extends LinearOpMode
             telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());
 
             telemetry.addData("Arm Power Variable", robot.blockMover.armPower);
+
+            telemetry.addData("Grabber Position", robot.blockMover.grabber_servo.getPosition());
 
 
           //  telemetry.addData("shooter", shooter.getCurrentPosition());

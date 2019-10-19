@@ -37,48 +37,39 @@ public class CameraUtil
 
     public Bitmap takePicture()
     {
-        Bitmap rgbImage = null;
-
-        if(camera.imageReady())
-        {
-
-            rgbImage = LinearOpModeCamera.convertYuvImageToRgb(camera.yuvImage, camera.width, camera.height, camera.ds);
-
-        }
-
-        return rgbImage;
+        return LinearOpModeCamera.convertYuvImageToRgb(camera.yuvImage, camera.width, camera.height, camera.ds);
     }
 
-    public Bitmap drawBox(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage)
+    public CameraBox drawBox(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage)
     {
         for (int x = xMin; x <= xMax; x++) {
             for (int y = yMin; y <= yMax; y++) {
                 if (x == xMax && y <= yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(255, 0, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
                 }
                 if (x <= xMax && y == yMin) {
-                    rgbImage.setPixel(x, y, Color.rgb(255, 0, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
                 }
                 if (x == xMin && y <= yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(255, 0, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
                 }
                 if (x <= xMax && y == yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(255, 0, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
 
                 }
             }
         }
 
-        return rgbImage;
-    }
+        return new CameraBox(xMin, xMax, yMin, yMax, rgbImage, new RGBAverage(0, 0, 0));
+}
 
-    public RGBAverage boxAnalysis(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage)
+    public CameraBox getBoxAverage(CameraBox box)
     {
-        for (int x = xMin; x < xMax; x++)
+        for (int x = box.xMin; x < box.xMax; x++)
         {
-            for (int y = yMin; y < yMax; y++)
+            for (int y = box.yMin; y < box.yMax; y++)
             {
-                int pixel = rgbImage.getPixel(x, y);
+                int pixel = box.image.getPixel(x, y);
                 redAverage += camera.red(pixel);
                 blueAverage += camera.blue(pixel);
                 greenAverage += camera.green(pixel);
@@ -89,7 +80,8 @@ public class CameraUtil
         blueAverage = camera.normalizePixels(blueAverage);
         greenAverage = camera.normalizePixels(greenAverage);
 
-        return new RGBAverage(redAverage, greenAverage, blueAverage);
+        return new CameraBox(box.xMin, box.xMax, box.yMin, box.yMax, box.image, new RGBAverage(redAverage, greenAverage, blueAverage));
+
     }
 
     public void setCameraDownsampling(int downsampling)

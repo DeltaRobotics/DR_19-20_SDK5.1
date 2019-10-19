@@ -21,6 +21,10 @@ public class FirstMeetBlockMover
     private static final double HOLD_POWER = 0.5;
     private static final int POSITION_DELTA = 20;
 
+    public static final double GRABBER_OPEN = 0.45;
+    public static final double GRABBER_INIT = 0.45;
+    public static final double GRABBER_CLOSE = 0.23;
+
     // Constructor/Init
     public FirstMeetBlockMover(HardwareMap hardwareMap)
     {
@@ -64,6 +68,21 @@ public class FirstMeetBlockMover
 
         blockArm.setPower(armPower);
 
+    }
+
+    public void openGrabber()
+    {
+        grabber_servo.setPosition(GRABBER_OPEN);
+    }
+
+    public void closeGrabber()
+    {
+        grabber_servo.setPosition(GRABBER_CLOSE);
+    }
+
+    public void initGrabber()
+    {
+        grabber_servo.setPosition(GRABBER_INIT);
     }
 
 
