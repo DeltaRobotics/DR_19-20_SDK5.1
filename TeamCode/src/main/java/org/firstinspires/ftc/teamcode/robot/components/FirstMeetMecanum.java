@@ -322,11 +322,11 @@ public class FirstMeetMecanum extends LinearOpMode
 
             case STRAFE_LEFT:
             {
-                double encoderReadingLB = motorRB.getCurrentPosition();
-                double target = (encoderReadingLB + encoderDelta);
+                //double encoderReadingLB = motorRB.getCurrentPosition();
+                double target = (motorRB.getCurrentPosition() - encoderDelta);
                 strafeLeft(motorPower);
 
-                while (motorRB.getCurrentPosition() <= target)
+                while (motorRB.getCurrentPosition() >= target)
                 {
 
                 }
