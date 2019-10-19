@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class FirstMeetBlockMover
 {
 
-    private Servo grabber_servo;
+    public Servo grabber_servo;
 
     public DcMotor blockArm;
 
@@ -27,7 +27,7 @@ public class FirstMeetBlockMover
         grabber_servo = hardwareMap.servo.get("grabber");
 
         // FirstMeetBlockMover ServoArm class
-        grabber = new ServoArm(grabber_servo, 0.25, 0.0, 0.25);
+        grabber = new ServoArm(grabber_servo, 0.45, 0.45, 0.23);//values are init, open and close
 
         blockArm = hardwareMap.dcMotor.get("blockArm");
 
