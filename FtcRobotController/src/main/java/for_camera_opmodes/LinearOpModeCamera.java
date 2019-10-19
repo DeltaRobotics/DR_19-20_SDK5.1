@@ -37,7 +37,7 @@ public class LinearOpModeCamera extends LinearOpMode
 
     private int looped = 0;
     private String data;
-    private int ds = 1; // downsampling parameter
+    public int ds = 1; // downsampling parameter
 
     @Override
     // should be overwritten by extension class

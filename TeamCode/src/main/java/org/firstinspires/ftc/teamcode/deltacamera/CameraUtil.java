@@ -1,21 +1,24 @@
 package org.firstinspires.ftc.teamcode.deltacamera;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.YuvImage;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
 public class CameraUtil
 {
 
-    public int desiredRedValue = 0;
-    public int desiredGreenValue = 0;
-    public int desiredBlueValue = 0;
-
     public int redAverage = -76800;
     public int blueAverage = -76800;
     public int greenAverage = -76800;
 
-    private LinearOpModeCamera camera = new LinearOpModeCamera();
+    public LinearOpModeCamera camera;
+
+    public CameraUtil(LinearOpModeCamera camera)
+    {
+        this.camera = camera;
+    }
+
 
     public void startCamera()
     {
@@ -32,11 +35,18 @@ public class CameraUtil
         camera.SaveImage(rgbImage);
     }
 
-    public void setColors(int red, int green, int blue)
+    public Bitmap takePicture()
     {
-       desiredRedValue = red;
-       desiredGreenValue = green;
-       desiredBlueValue = blue;
+        Bitmap rgbImage = null;
+
+        if(camera.imageReady())
+        {
+
+            rgbImage = LinearOpModeCamera.convertYuvImageToRgb(camera.yuvImage, camera.width, camera.height, camera.ds);
+
+        }
+
+        return rgbImage;
     }
 
     public Bitmap drawBox(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage)
@@ -86,18 +96,7 @@ public class CameraUtil
     {
         camera.setCameraDownsampling(downsampling);
     }
+
 }
 
-class RGBAverage
-{
-    public int red;
-    public int green;
-    public int blue;
 
-    public RGBAverage(int red, int green, int blue)
-    {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-    }
-}
