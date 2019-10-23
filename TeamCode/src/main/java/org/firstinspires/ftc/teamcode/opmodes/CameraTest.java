@@ -27,15 +27,14 @@ public class CameraTest extends LinearOpModeCamera
 
         cameraUtil.startCamera();
 
-
         waitForStart();
-
 
         Bitmap image = cameraUtil.takePicture();
 
-        CameraBox box1 = cameraUtil.drawBox(100, 30, 200, 30, image);
 
-        CameraBox box2 = cameraUtil.drawBox(500, 300, 500, 10, image);
+        CameraBox box1 = cameraUtil.drawBox(645, 311, 1037, 869, image);
+
+        CameraBox box2 = cameraUtil.drawBox(913, 645, 1037, 869, image);
 
         cameraUtil.saveImage(image);
 
