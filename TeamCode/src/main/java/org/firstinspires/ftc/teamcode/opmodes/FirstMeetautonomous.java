@@ -50,7 +50,7 @@ public class FirstMeetautonomous extends LinearOpMode
 
         sleep(sleepTime);//wait for next action
 
-        robot.blockMover.blockArm.setTargetPosition(3800);
+        robot.blockMover.blockArm.setTargetPosition(200);
 
         robot.drive.encoderDrive(400,driveStyle.STRAFE_LEFT,0.5);
 

@@ -50,6 +50,17 @@ public class FirstMeetTeleOp extends LinearOpMode
 
             robot.blockMover.armControl(gamepad2);
 
+
+            if(gamepad1.a)
+            {
+                speed = 1.0;
+            }
+
+            if(gamepad1.b)
+            {
+                speed = 0.5;
+            }
+
             if(gamepad2.a)
             {
                 robot.blockMover.openGrabber();
@@ -59,6 +70,8 @@ public class FirstMeetTeleOp extends LinearOpMode
             {
                 robot.blockMover.closeGrabber();
             }
+
+
 
             //Sends data back to driver station
             telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
@@ -74,6 +87,8 @@ public class FirstMeetTeleOp extends LinearOpMode
             telemetry.addData("Arm Power Variable", robot.blockMover.armPower);
 
             telemetry.addData("Grabber Position", robot.blockMover.grabber_servo.getPosition());
+
+            telemetry.addData("speed", speed);
 
 
           //  telemetry.addData("shooter", shooter.getCurrentPosition());
