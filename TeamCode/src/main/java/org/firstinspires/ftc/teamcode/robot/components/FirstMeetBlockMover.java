@@ -12,28 +12,23 @@ public class FirstMeetBlockMover
 
     public DcMotor blockArm;
 
-    public ServoArm grabber;
-
     public double armPower = 0;
 
     private static final double DOWN_POWER = 1.0;
     private static final double UP_POWER = 1.0;
     private static final double HOLD_POWER = 1.0;
     private static final int POSITION_DELTA = 20;
-    private static final int PLACE_POSITION = 3800;
-    private static final int TRAVEL_POSITION = 3500;
+    private static final int PLACE_POSITION = 3500;
+    private static final int TRAVEL_POSITION = 3000;
 
     public static final double GRABBER_OPEN = 0.55;
-    public static final double GRABBER_INIT = 0.55;
-    public static final double GRABBER_CLOSE = 0.23;
+    public static final double GRABBER_INIT = 0.21;
+    public static final double GRABBER_CLOSE = 0.21;
 
     // Constructor/Init
     public FirstMeetBlockMover(HardwareMap hardwareMap)
     {
         grabber_servo = hardwareMap.servo.get("grabber");
-
-        // FirstMeetBlockMover ServoArm class
-        grabber = new ServoArm(grabber_servo, 0.45, 0.45, 0.23);//values are init, open and close
 
         blockArm = hardwareMap.dcMotor.get("blockArm");
 

@@ -29,11 +29,13 @@ public class AutonomousFarRed extends LinearOpMode
 
         robot.blockMover.blockArm.setPower(1.0);
 
-        robot.blockMover.grabber_servo.setPosition(0.45);
+        robot.blockMover.grabber_servo.setPosition(robot.blockMover.GRABBER_INIT);
+
+        robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
 
-        robot.drive.encoderDrive(1900,driveStyle.STRAFE_RIGHT,0.5);
+        robot.drive.encoderDrive(1700,driveStyle.STRAFE_RIGHT,0.5);
 
         sleep(sleepTime);
 

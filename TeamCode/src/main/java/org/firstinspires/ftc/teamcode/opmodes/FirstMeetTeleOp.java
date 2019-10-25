@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 public class FirstMeetTeleOp extends LinearOpMode
 {
     double zScale = 1.0;
-    double speed = 1.0;
+    double speed = 0.5;
 
     //MyDcMotor shooter = null;
 
@@ -31,6 +31,8 @@ public class FirstMeetTeleOp extends LinearOpMode
 
 
         //int target = 1680 + shooter.getCurrentPosition();
+
+        robot.blockMover.grabber_servo.setPosition(robot.blockMover.GRABBER_INIT);
 
         waitForStart();
         while (opModeIsActive())
@@ -70,6 +72,18 @@ public class FirstMeetTeleOp extends LinearOpMode
             {
                 robot.blockMover.closeGrabber();
             }
+
+            /*if(gamepad1.left_bumper)
+            {
+                robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            }
+
+            if(gamepad1.right_bumper)
+            {
+                robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            }
+            */
+
 
 
 

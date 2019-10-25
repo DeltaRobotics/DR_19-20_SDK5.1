@@ -47,12 +47,16 @@ public class FirstMeetMecanum extends LinearOpMode
        motorLF = hardwareMap.dcMotor.get("motorLF");
        motorLB = hardwareMap.dcMotor.get("motorLB");
 
-       //Setting motors to brake when stopped
-       motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-       motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-       motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-       motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+       setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+   }
+
+   public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior behavior)
+   {
+       motorRF.setZeroPowerBehavior(behavior);
+       motorLF.setZeroPowerBehavior(behavior);
+       motorLB.setZeroPowerBehavior(behavior);
+       motorRB.setZeroPowerBehavior(behavior);
    }
 
    public double[] teleOpDrive(double dirX, double dirY, double pivot)

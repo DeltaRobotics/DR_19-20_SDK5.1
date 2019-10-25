@@ -29,15 +29,17 @@ public class AutonomousCloseBlue extends LinearOpMode
 
         robot.blockMover.blockArm.setPower(1.0);
 
-        robot.blockMover.grabber_servo.setPosition(0.45);
+        robot.blockMover.grabber_servo.setPosition(robot.blockMover.GRABBER_INIT);
+
+        robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
 
-        robot.drive.encoderDrive(750, driveStyle.BACKWARD,0.4);
+        robot.drive.encoderDrive(750, driveStyle.FORWARD,0.4);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1800,driveStyle.STRAFE_LEFT,0.5);
+        robot.drive.encoderDrive(1500,driveStyle.STRAFE_RIGHT,0.5);
 
 
     }
