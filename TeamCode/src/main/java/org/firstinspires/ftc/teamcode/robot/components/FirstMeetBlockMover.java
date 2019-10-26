@@ -21,9 +21,9 @@ public class FirstMeetBlockMover
     private static final int PLACE_POSITION = 3500;
     private static final int TRAVEL_POSITION = 3000;
 
-    public static final double GRABBER_OPEN = 0.55;
-    public static final double GRABBER_INIT = 0.21;
-    public static final double GRABBER_CLOSE = 0.21;
+    public static final double GRABBER_OPEN = 0.35;
+    public static final double GRABBER_INIT = 0.65;
+    public static final double GRABBER_CLOSE = 0.65;
 
     // Constructor/Init
     public FirstMeetBlockMover(HardwareMap hardwareMap)
