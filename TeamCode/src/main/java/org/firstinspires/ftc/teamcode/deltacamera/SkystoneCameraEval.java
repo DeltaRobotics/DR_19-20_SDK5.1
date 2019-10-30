@@ -2,19 +2,17 @@ package org.firstinspires.ftc.teamcode.deltacamera;
 
 public class SkystoneCameraEval
 {
-    public static RGBAverage SKYSTONE_AVERAGE = new RGBAverage(0, 0, 0);
+    public static RGBAverage SKYSTONE_AVERAGE = new RGBAverage(30, 30, 30);
 
-    public SkystonePositions skystoneAnalysis(RGBAverage average, int tolerance, SkystonePositions skystonePosition)
+    public boolean skystoneAnalysis(RGBAverage average)
     {
-        if((average.red >= SKYSTONE_AVERAGE.red + tolerance || average.red <= SKYSTONE_AVERAGE.red - tolerance) &&
-                (average.green >= SKYSTONE_AVERAGE.green + tolerance || average.green <= SKYSTONE_AVERAGE.green - tolerance) &&
-                (average.blue >= SKYSTONE_AVERAGE.blue + tolerance || average.blue <= SKYSTONE_AVERAGE.blue - tolerance))
+        if((average.red - average.blue) < SKYSTONE_AVERAGE.red)
         {
-            return skystonePosition;
+            return true;
         }
         else
         {
-            return SkystonePositions.NOT_FOUND;
+            return false;
         }
     }
 }

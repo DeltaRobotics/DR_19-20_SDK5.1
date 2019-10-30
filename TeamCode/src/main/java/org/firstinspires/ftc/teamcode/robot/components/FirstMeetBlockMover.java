@@ -22,7 +22,7 @@ public class FirstMeetBlockMover
     private static final int TRAVEL_POSITION = 3000;
 
     public static final double GRABBER_OPEN = 0.35;
-    public static final double GRABBER_INIT = 0.65;
+    public static final double GRABBER_INIT = 00.35;
     public static final double GRABBER_CLOSE = 0.65;
 
     // Constructor/Init

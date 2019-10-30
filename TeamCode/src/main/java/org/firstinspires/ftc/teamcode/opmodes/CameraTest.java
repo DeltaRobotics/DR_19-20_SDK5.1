@@ -32,9 +32,9 @@ public class CameraTest extends LinearOpModeCamera
         Bitmap image = cameraUtil.takePicture();
 
 
-        CameraBox box1 = cameraUtil.drawBox(645, 311, 1037, 869, image);
+        CameraBox box1 = cameraUtil.drawBox(595, 261, 897, 729, image);
 
-        CameraBox box2 = cameraUtil.drawBox(913, 645, 1037, 869, image);
+        CameraBox box2 = cameraUtil.drawBox(863, 595, 897, 729, image);
 
         cameraUtil.saveImage(image);
 
@@ -44,8 +44,18 @@ public class CameraTest extends LinearOpModeCamera
 
         cameraUtil.stopCamera();
 
-        SkystonePositions box1Eval = skystoneCameraEval.skystoneAnalysis(box1.average, 10, SkystonePositions.LEFT);
-        SkystonePositions box2Eval = skystoneCameraEval.skystoneAnalysis(box2.average, 10, SkystonePositions.CENTER);
+        if(skystoneCameraEval.skystoneAnalysis(box1.average))
+        {
+            telemetry.addData("Position", SkystonePositions.LEFT);
+        }
+        else if(skystoneCameraEval.skystoneAnalysis(box2.average))
+        {
+            telemetry.addData("Position", SkystonePositions.CENTER);
+        }
+        else
+        {
+            telemetry.addData("Position", SkystonePositions.RIGHT);
+        }
 
         telemetry.addData("box1 red", box1.average.red);
         telemetry.addData("box1 green", box1.average.green);
@@ -55,12 +65,9 @@ public class CameraTest extends LinearOpModeCamera
         telemetry.addData("box2 green", box2.average.green);
         telemetry.addData("box2 blue", box2.average.blue);
 
-        telemetry.addData("box1 Eval", box1Eval);
-        telemetry.addData("box2 Eval", box2Eval);
-
 
         telemetry.update();
-        sleep(5000);
+        sleep(15000);
         }
 
     }
