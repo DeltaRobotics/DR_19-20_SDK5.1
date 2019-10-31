@@ -42,6 +42,8 @@ public class FirstMeetBlockMover
 
         blockArm.setPower(1.0);
 
+        grabber_servo.setPosition(GRABBER_INIT);
+
     }
 
 

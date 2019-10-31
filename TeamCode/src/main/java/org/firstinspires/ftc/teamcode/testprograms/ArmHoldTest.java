@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.testprograms;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp (name = "ArmHoldTest", group = "")
+@Disabled
 public class ArmHoldTest extends LinearOpMode
 {
     //Robot robot = new Robot(hardwareMap);
