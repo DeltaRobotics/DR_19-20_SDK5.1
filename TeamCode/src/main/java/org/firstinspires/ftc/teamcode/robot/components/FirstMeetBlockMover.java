@@ -19,7 +19,8 @@ public class FirstMeetBlockMover
     private static final double HOLD_POWER = 1.0;
     private static final int POSITION_DELTA = 20;
     private static final int PLACE_POSITION = 3500;
-    private static final int TRAVEL_POSITION = 3000;
+    //private static final int TRAVEL_POSITION = 3000;
+    private static final int HOME_POSITION = 500;
 
     public static final double GRABBER_OPEN = 0.35;
     public static final double GRABBER_INIT = 00.35;
@@ -65,14 +66,21 @@ public class FirstMeetBlockMover
             armPower = DOWN_POWER;
         }
 
-        if(gamepad.y)
+        if(gamepad.right_trigger > 0.5)
         {
             blockArm.setTargetPosition(PLACE_POSITION);
         }
 
-        if(gamepad.x)
+        /*if(gamepad.x)
         {
             blockArm.setTargetPosition(TRAVEL_POSITION);
+        }
+
+         */
+
+        if(gamepad.left_trigger > 0.5)
+        {
+            blockArm.setTargetPosition(HOME_POSITION);
         }
 
         blockArm.setPower(armPower);
