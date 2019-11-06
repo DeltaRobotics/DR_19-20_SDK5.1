@@ -40,21 +40,21 @@ public class CameraUtil
         return LinearOpModeCamera.convertYuvImageToRgb(camera.yuvImage, camera.width, camera.height, camera.ds);
     }
 
-    public CameraBox drawBox(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage)
+    public CameraBox drawBox(int xMax, int xMin, int yMax, int yMin, Bitmap rgbImage, RGBAverage color)
     {
         for (int x = xMin; x <= xMax; x++) {
             for (int y = yMin; y <= yMax; y++) {
                 if (x == xMax && y <= yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(color.red, color.green, color.blue));
                 }
                 if (x <= xMax && y == yMin) {
-                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(color.red, color.green, color.blue));
                 }
                 if (x == xMin && y <= yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(color.red, color.green, color.blue));
                 }
                 if (x <= xMax && y == yMax) {
-                    rgbImage.setPixel(x, y, Color.rgb(0, 255, 0));
+                    rgbImage.setPixel(x, y, Color.rgb(color.red, color.green, color.blue));
 
                 }
             }

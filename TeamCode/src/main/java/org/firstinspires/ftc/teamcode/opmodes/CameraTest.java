@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.deltacamera.CameraBox;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraUtil;
+import org.firstinspires.ftc.teamcode.deltacamera.RGBAverage;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystoneCameraEval;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 
@@ -33,9 +34,9 @@ public class CameraTest extends LinearOpModeCamera
         Bitmap image = cameraUtil.takePicture();
 
 
-        CameraBox box1 = cameraUtil.drawBox(595, 261, 897, 729, image);
+        CameraBox box1 = cameraUtil.drawBox(543, 296, 911, 784, image, new RGBAverage(255, 0, 0)); // Left skystone
 
-        CameraBox box2 = cameraUtil.drawBox(863, 595, 897, 729, image);
+        CameraBox box2 = cameraUtil.drawBox(815, 593, 919, 784, image, new RGBAverage(0, 0, 255)); // Center skystone
 
         cameraUtil.saveImage(image);
 
