@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
-@TeleOp(name = "CameraTest", group = "")
-public class CameraTest extends LinearOpModeCamera
+@TeleOp(name = "CameraTestRed", group = "")
+public class CameraTestRed extends LinearOpModeCamera
 {
 
 
@@ -24,6 +24,8 @@ public class CameraTest extends LinearOpModeCamera
         CameraUtil cameraUtil = new CameraUtil(this);
 
         SkystoneCameraEval skystoneCameraEval = new SkystoneCameraEval();
+
+        SkystonePositions position = SkystonePositions.NOT_FOUND;
 
         cameraUtil.setCameraDownsampling(1);
 
@@ -46,30 +48,15 @@ public class CameraTest extends LinearOpModeCamera
 
         cameraUtil.stopCamera();
 
-        if(skystoneCameraEval.skystoneAnalysis(box1.average))
-        {
-            telemetry.addData("Position", SkystonePositions.LEFT);
-        }
-        else if(skystoneCameraEval.skystoneAnalysis(box2.average))
-        {
-            telemetry.addData("Position", SkystonePositions.CENTER);
-        }
-        else
-        {
-            telemetry.addData("Position", SkystonePositions.RIGHT);
-        }
+        // First arg needs to be the left skystone box
+        // Second arg needs to center skystone box
+        position = skystoneCameraEval.getSkystonePosition(box1, box2);
 
-        telemetry.addData("box1 red", box1.average.red);
-        telemetry.addData("box1 green", box1.average.green);
-        telemetry.addData("box1 blue", box1.average.blue);
 
-        telemetry.addData("box2 red", box2.average.red);
-        telemetry.addData("box2 green", box2.average.green);
-        telemetry.addData("box2 blue", box2.average.blue);
-
+        telemetry.addData("Position", position);
 
         telemetry.update();
-        sleep(15000);
+        sleep(5000);
         }
 
     }
