@@ -7,10 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
+import org.firstinspires.ftc.teamcode.robot.components.FirstMeetBlockMover;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
-@Disabled
-public class FirstMeetautonomous extends LinearOpMode
+@Autonomous(name = "FirstMeetAutonomous", group = "")
+public class FirstMeetAutonomous extends LinearOpMode
 {
 
     public void runOpMode()
@@ -18,20 +19,6 @@ public class FirstMeetautonomous extends LinearOpMode
         int sleepTime = 500;
 
         Robot robot = new Robot(hardwareMap);
-
-        robot.blockMover.blockArm = hardwareMap.dcMotor.get("blockArm");
-
-        robot.blockMover.blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        robot.blockMover.blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.blockMover.blockArm.setTargetPosition(robot.blockMover.blockArm.getCurrentPosition());
-
-        robot.blockMover.blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.blockMover.blockArm.setPower(1.0);
-
-        robot.blockMover.grabber_servo.setPosition(0.45);
 
         waitForStart();
 
@@ -41,25 +28,31 @@ public class FirstMeetautonomous extends LinearOpMode
 
         sleep(sleepTime);//wait for next action
 
-        robot.blockMover.blockArm.setTargetPosition(4000);
+        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.PLACE_POSITION);
 
         sleep(5000);
 
         robot.drive.encoderDrive(250, driveStyle.STRAFE_RIGHT,0.3);//
 
-        robot.blockMover.grabber_servo.setPosition(0.23);
+        robot.blockMover.closeGrabber();
 
         sleep(sleepTime);//wait for next action
 
-        robot.blockMover.blockArm.setTargetPosition(200);
+        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.PLACE_POSITION + 200);
+
+        sleep(1000);
+
+        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.PLACE_POSITION);
+
+        sleep(1000);
 
         robot.drive.encoderDrive(400,driveStyle.STRAFE_LEFT,0.5);
 
         sleep(sleepTime);//wait for next action
 
-        robot.drive.encoderDriveInches(10,driveStyle.BACKWARD, 0.4);//Drive to foundation
+        /*robot.drive.encoderDriveInches(10,driveStyle.BACKWARD, 0.4);//Drive to foundation
 
-        sleep(10000);//wait for next action
+        sleep(10000);//wait for next action*/
 //
 //        //Arm Movement to place Skystone on foundation here -->
 //
