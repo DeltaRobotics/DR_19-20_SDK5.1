@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot.components;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -33,6 +34,9 @@ public class FirstMeetMecanum extends LinearOpMode
     public DcMotor motorLF;
     public DcMotor motorLB;
 
+    public BNO055IMU imu;
+    public Orientation angles;
+
    /*Argument Breakdown:
      dirX - Represents left joystick X value
      dirY - Represents left joystick Y value
@@ -48,6 +52,18 @@ public class FirstMeetMecanum extends LinearOpMode
        motorLB = hardwareMap.dcMotor.get("motorLB");
 
        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+       // IMU Init
+       BNO055IMU.Parameters parametersIMU = new BNO055IMU.Parameters(); //Declares parameters object forIMU
+       parametersIMU.angleUnit = BNO055IMU.AngleUnit.DEGREES; //Sets the unit in which we measure orientation in degrees
+       parametersIMU.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC; //Sets acceleration unit in meters per second ??
+       parametersIMU.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode, sets what file the IMU ueses
+       parametersIMU.loggingEnabled = true; //Sets wether logging in enable
+       parametersIMU.loggingTag = "IMU"; //Sets logging tag
+       parametersIMU.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator(); //Sets acceleration integration algorithm
+       parametersIMU.temperatureUnit = BNO055IMU.TempUnit.CELSIUS; //Sets units for temperature readings
+       imu = hardwareMap.get(BNO055IMU.class, "imu"); //Inits IMU
+       imu.initialize(parametersIMU); //Init IMU parameters (set above)
 
    }
 

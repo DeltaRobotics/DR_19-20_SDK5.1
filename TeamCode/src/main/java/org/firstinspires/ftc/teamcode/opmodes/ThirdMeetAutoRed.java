@@ -20,9 +20,11 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 {
     public void runOpMode()
     {
+
         int sleepTime = 250;
 
         Robot robot = new Robot(hardwareMap);
+
 
         CameraUtil cameraUtil = new CameraUtil(this);
 
@@ -69,6 +71,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         {
             case LEFT:
             {
+                robot.drive.encoderDrive(550,driveStyle.BACKWARD,0.4);
                 break;
             }
 
@@ -85,7 +88,10 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
             }
         }
 
-        robot.blockMover.blockArm.setTargetPosition(4100);
+
+        robot.blockMover.blockArm.setPower(1.0);
+
+        robot.blockMover.blockArm.setTargetPosition(4200);
 
         while(robot.blockMover.blockArm.getCurrentPosition() < robot.blockMover.blockArm.getTargetPosition() - 100)
         {
@@ -97,7 +103,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.4);
+        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.4);
 
         sleep(sleepTime);
 
@@ -105,16 +111,95 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(1000);
 
-        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.PLACE_POSITION);
+
+        robot.blockMover.blockArm.setPower(0.40);
+
+        robot.blockMover.blockArm.setTargetPosition(3550);
 
         while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() + 100)
         {
-            telemetry.addData("Arm Status:", "Moving to grab block");
+            telemetry.addData("Arm Status:", "Moving block up");
             telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
             telemetry.update();
         }
 
-        sleep(5000);
+        sleep(1000);
+
+        robot.drive.OrientationDrive(85, 0.25, robot.drive.imu);
+
+        robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
+
+        robot.blockMover.blockArm.setPower(0.65);
+
+        robot.blockMover.blockArm.setTargetPosition(3700);
+
+        while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() - 50)
+        {
+            telemetry.addData("Arm Status:", "Moving arm down");
+            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
+            telemetry.update();
+        }
+
+        sleep(sleepTime);
+
+        switch(position)
+        {
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+
+            case LEFT:
+            {
+                robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+        }
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(0, 0.25, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(2000);
+
+        robot.blockMover.blockArm.setPower(1.0);
+
+        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.HOME_POSITION);
+
+        while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() + 100)
+        {
+            telemetry.addData("Arm Status:", "Moving arm down");
+            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
+            telemetry.update();
+        }
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.8);
+
+        sleep(sleepTime);
+
+
+        robot.drive.encoderDrive(2200, driveStyle.FORWARD, 0.6);
+
+        sleep(sleepTime);
+
+
 
     }
 }
