@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class FirstMeetBlockMover
 {
 
@@ -85,6 +87,38 @@ public class FirstMeetBlockMover
 
         blockArm.setPower(armPower);
 
+    }
+
+    public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
+    {
+        int delta = blockArm.getTargetPosition() - target;
+
+        blockArm.setPower(power);
+
+        blockArm.setTargetPosition(target);
+
+        if(delta < 0)
+        {
+            while(blockArm.getCurrentPosition() < blockArm.getTargetPosition() - tolerance)
+            {
+                telemetry.addData("Arm Movement", message);
+                telemetry.addData("Current Position", blockArm.getCurrentPosition());
+                telemetry.addData("Target Position", blockArm.getTargetPosition());
+                telemetry.addData("Tolerance", tolerance);
+                telemetry.update();
+            }
+        }
+        else if(delta > 0)
+        {
+            while(blockArm.getCurrentPosition() > blockArm.getTargetPosition() + tolerance)
+            {
+                telemetry.addData("Arm Movement", message);
+                telemetry.addData("Current Position", blockArm.getCurrentPosition());
+                telemetry.addData("Target Position", blockArm.getTargetPosition());
+                telemetry.addData("Tolerance", tolerance);
+                telemetry.update();
+            }
+        }
     }
 
     public void openGrabber()

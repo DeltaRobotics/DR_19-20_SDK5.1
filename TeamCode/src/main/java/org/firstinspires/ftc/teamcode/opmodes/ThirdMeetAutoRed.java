@@ -21,7 +21,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
     public void runOpMode()
     {
 
-        int sleepTime = 250;
+        int sleepTime = 100;
 
         Robot robot = new Robot(hardwareMap);
 
@@ -89,17 +89,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         }
 
 
-        robot.blockMover.blockArm.setPower(1.0);
-
-        robot.blockMover.blockArm.setTargetPosition(4200);
-
-        while(robot.blockMover.blockArm.getCurrentPosition() < robot.blockMover.blockArm.getTargetPosition() - 100)
-        {
-            telemetry.addData("Arm Status:", "Moving to grab block");
-            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
-            telemetry.update();
-        }
-
+        robot.blockMover.moveArm(4200, 1.0, 100, "Moving to grab skystone", telemetry);
 
         sleep(sleepTime);
 
@@ -111,17 +101,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(1000);
 
-
-        robot.blockMover.blockArm.setPower(0.40);
-
-        robot.blockMover.blockArm.setTargetPosition(3550);
-
-        while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() + 100)
-        {
-            telemetry.addData("Arm Status:", "Moving block up");
-            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
-            telemetry.update();
-        }
+        robot.blockMover.moveArm(3550, 0.4, 100, "Moving skystone up", telemetry);
 
         sleep(1000);
 
@@ -129,16 +109,8 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
 
-        robot.blockMover.blockArm.setPower(0.65);
+        robot.blockMover.moveArm(3700, 0.65, 50, "Lowering arm slightly", telemetry);
 
-        robot.blockMover.blockArm.setTargetPosition(3700);
-
-        while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() - 50)
-        {
-            telemetry.addData("Arm Status:", "Moving arm down");
-            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
-            telemetry.update();
-        }
 
         sleep(sleepTime);
 
@@ -175,19 +147,114 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         robot.blockMover.openGrabber();
 
-        sleep(2000);
+        sleep(sleepTime);
 
-        robot.blockMover.blockArm.setPower(1.0);
+        robot.drive.encoderDrive(500, driveStyle.FORWARD, 0.8);
 
-        robot.blockMover.blockArm.setTargetPosition(FirstMeetBlockMover.HOME_POSITION);
+        sleep(sleepTime);
 
-        while(robot.blockMover.blockArm.getCurrentPosition() > robot.blockMover.blockArm.getTargetPosition() + 100)
+        robot.drive.OrientationDrive(-90, 0.25, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(300, driveStyle.BACKWARD, 0.8);
+
+        sleep(sleepTime);
+
+        switch (position)
         {
-            telemetry.addData("Arm Status:", "Moving arm down");
-            telemetry.addData("Current Position", robot.blockMover.blockArm.getCurrentPosition());
-            telemetry.update();
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+            case CENTER:
+            {
+                robot.drive.encoderDrive(3750, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+            case LEFT:
+            {
+                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
         }
 
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(0, 0.25,robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(4200, 1.0, 100, "Moving to grab skystone", telemetry);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.4);
+
+        sleep(sleepTime);
+
+        robot.blockMover.closeGrabber();
+
+        sleep(1000);
+
+        robot.blockMover.moveArm(3550, 0.4, 100, "Moving skystone up", telemetry);
+
+        sleep(1000);
+
+        robot.drive.OrientationDrive(85, 0.25, robot.drive.imu);
+
+        robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
+
+        robot.blockMover.moveArm(3700, 0.65, 50, "Lowering arm slightly", telemetry);
+
+
+        sleep(sleepTime);
+
+        switch(position)
+        {
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+
+            case LEFT:
+            {
+                robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+        }
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(0, 0.25, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(90, 0.25, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(500, driveStyle.BACKWARD, 0.8);
+
+        sleep(sleepTime);
+
+        /*
         sleep(sleepTime);
 
         robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.8);
@@ -198,7 +265,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         robot.drive.encoderDrive(2200, driveStyle.FORWARD, 0.6);
 
         sleep(sleepTime);
-
+        */
 
 
     }
