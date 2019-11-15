@@ -21,7 +21,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
     public void runOpMode()
     {
 
-        int sleepTime = 100;
+        int sleepTime = 250;
 
         Robot robot = new Robot(hardwareMap);
 
@@ -63,10 +63,12 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         telemetry.update();
         sleep(1000);
 
+        // Strafes away from wall
         robot.drive.encoderDrive(900, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
+        // Positions robot parallel with the skystone
         switch(position)
         {
             case LEFT:
@@ -88,32 +90,39 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
             }
         }
 
-
+        // Moves arm down to grab skystone
         robot.blockMover.moveArm(4200, 1.0, 100, "Moving to grab skystone", telemetry);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.4);
+        // Drives arm into skystone
+        robot.drive.encoderDrive(175, driveStyle.STRAFE_RIGHT, 0.4);
 
         sleep(sleepTime);
 
+        // Grabs skystone
         robot.blockMover.closeGrabber();
 
         sleep(1000);
 
+        // Moves arm up
         robot.blockMover.moveArm(3550, 0.4, 100, "Moving skystone up", telemetry);
 
         sleep(1000);
 
+        // Rotates perpendicular with skybridge
         robot.drive.OrientationDrive(85, 0.25, robot.drive.imu);
 
-        robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
+        // Moves away from quarry (skystone group)
+        robot.drive.encoderDrive(100, driveStyle.FORWARD, 0.4);
 
+        // Lowers arm so it fits under skybridge
         robot.blockMover.moveArm(3700, 0.65, 50, "Lowering arm slightly", telemetry);
 
 
         sleep(sleepTime);
 
+        // Strafes to foundation
         switch(position)
         {
             case RIGHT:
@@ -137,30 +146,38 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+        // Rotates robot parallel with foundation
         robot.drive.OrientationDrive(0, 0.25, robot.drive.imu);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
 
-        sleep(sleepTime);
+        // Strafes into/close to the foundation
+        //robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
 
+        //sleep(sleepTime);
+
+        // Drops skystone
         robot.blockMover.openGrabber();
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(500, driveStyle.FORWARD, 0.8);
+        // Moves away from foundation
+        robot.drive.encoderDrive(1000, driveStyle.FORWARD, 0.8);
 
         sleep(sleepTime);
 
+        // Rotates perpendicular to skybridge
         robot.drive.OrientationDrive(-90, 0.25, robot.drive.imu);
 
         sleep(sleepTime);
 
+        // Moves away from foundation
         robot.drive.encoderDrive(300, driveStyle.BACKWARD, 0.8);
 
         sleep(sleepTime);
 
+        // Strafes back to quarry
         switch (position)
         {
             case RIGHT:
@@ -170,7 +187,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
             }
             case CENTER:
             {
-                robot.drive.encoderDrive(3750, driveStyle.STRAFE_LEFT,0.8);
+                robot.drive.encoderDrive(3500, driveStyle.STRAFE_LEFT,0.8);
                 break;
             }
             case LEFT:
@@ -182,35 +199,44 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+        // Rotates parallel to quarry
         robot.drive.OrientationDrive(0, 0.25,robot.drive.imu);
 
         sleep(sleepTime);
 
+        // Moves arm down to grab stone
         robot.blockMover.moveArm(4200, 1.0, 100, "Moving to grab skystone", telemetry);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.4);
+        // Strafes into stone
+        robot.drive.encoderDrive(175, driveStyle.STRAFE_RIGHT, 0.4);
 
         sleep(sleepTime);
 
+        // Picks up stone
         robot.blockMover.closeGrabber();
 
         sleep(1000);
 
+        // Raises arm
         robot.blockMover.moveArm(3550, 0.4, 100, "Moving skystone up", telemetry);
 
         sleep(1000);
 
+        // Rotates robot perpendicular to skybridge
         robot.drive.OrientationDrive(85, 0.25, robot.drive.imu);
 
+        // Moves away from quarry
         robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
 
+        // Lowers the arm so it doesn't hit the skybridge
         robot.blockMover.moveArm(3700, 0.65, 50, "Lowering arm slightly", telemetry);
 
 
         sleep(sleepTime);
 
+        // Strafes to foundation
         switch(position)
         {
             case RIGHT:
@@ -221,7 +247,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
             case CENTER:
             {
-                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                robot.drive.encoderDrive(5250, driveStyle.STRAFE_LEFT,0.8);
                 break;
             }
 
@@ -234,23 +260,29 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+
+        // Rotates robot parallel to foundation
         robot.drive.OrientationDrive(0, 0.25, robot.drive.imu);
 
         sleep(sleepTime);
 
+        // Strafes into/close to foundation
         robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
 
         sleep(sleepTime);
 
+        // Drops stone
         robot.blockMover.openGrabber();
 
         sleep(sleepTime);
 
+        // Rotates robot perpendicular to
         robot.drive.OrientationDrive(90, 0.25, robot.drive.imu);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(500, driveStyle.BACKWARD, 0.8);
+        // Moves robot away from foundation
+        robot.drive.encoderDrive(500, driveStyle.FORWARD, 0.8);
 
         sleep(sleepTime);
 
