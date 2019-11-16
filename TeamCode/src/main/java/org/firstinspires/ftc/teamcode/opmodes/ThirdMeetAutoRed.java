@@ -73,7 +73,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         {
             case LEFT:
             {
-                robot.drive.encoderDrive(550,driveStyle.BACKWARD,0.4);
+                robot.drive.encoderDrive(575,driveStyle.BACKWARD,0.4);
                 break;
             }
 
@@ -85,7 +85,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
             case RIGHT:
             {
-                robot.drive.encoderDrive(550,driveStyle.BACKWARD,0.4);
+                robot.drive.encoderDrive(575,driveStyle.BACKWARD,0.4);
                 break;
             }
         }
@@ -162,43 +162,35 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+        robot.blockMover.moveArm(3650, 1.0, 100, "wiggling", telemetry);
+
+        sleep(sleepTime);
+
         // Moves away from foundation
-        robot.drive.encoderDrive(1000, driveStyle.FORWARD, 0.8);
+        robot.drive.encoderDrive(1250, driveStyle.FORWARD, 0.8);
 
         sleep(sleepTime);
 
         // Rotates perpendicular to skybridge
-        robot.drive.OrientationDrive(-90, 0.25, robot.drive.imu);
+        robot.drive.OrientationDrive(-85, 0.25, robot.drive.imu);
 
         sleep(sleepTime);
 
         // Moves away from foundation
-        robot.drive.encoderDrive(300, driveStyle.BACKWARD, 0.8);
+        robot.drive.encoderDrive(150, driveStyle.BACKWARD, 0.8);
 
         sleep(sleepTime);
 
-        // Strafes back to quarry
-        switch (position)
-        {
-            case RIGHT:
-            {
-                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
-                break;
-            }
-            case CENTER:
-            {
-                robot.drive.encoderDrive(3500, driveStyle.STRAFE_LEFT,0.8);
-                break;
-            }
-            case LEFT:
-            {
-                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
-                break;
-            }
-        }
+        robot.blockMover.moveArm(0, 1.0, 100, "Arm going to home position", telemetry);
 
         sleep(sleepTime);
 
+        // Strafes back to park
+        robot.drive.encoderDrive(1500, driveStyle.STRAFE_LEFT,0.8);
+
+        sleep(sleepTime);
+
+        /*
         // Rotates parallel to quarry
         robot.drive.OrientationDrive(0, 0.25,robot.drive.imu);
 
@@ -286,7 +278,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        /*
+
         sleep(sleepTime);
 
         robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.8);
