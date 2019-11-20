@@ -73,6 +73,22 @@ public class FirstMeetTeleOp extends LinearOpMode
                 robot.blockMover.closeGrabber();
             }
 
+            if(gamepad1.a)
+            {
+                robot.blockMover.intake_In();
+            }
+
+            if(gamepad1.y)
+            {
+                robot.blockMover.intake_Out();
+            }
+
+            if(gamepad1.b)
+            {
+                robot.blockMover.intake_Stop();
+            }
+
+
             /*if(gamepad1.left_bumper)
             {
                 robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

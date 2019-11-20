@@ -14,6 +14,11 @@ public class FirstMeetBlockMover
 
     public DcMotor blockArm;
 
+    public Servo intake_left;
+
+    public Servo intake_right;
+
+
     public double armPower = 0;
 
     private static final double DOWN_POWER = 1.0;
@@ -33,6 +38,10 @@ public class FirstMeetBlockMover
     {
         grabber_servo = hardwareMap.servo.get("grabber");
 
+        intake_left = hardwareMap.servo.get("intakeL");
+
+        intake_right = hardwareMap.servo.get("intakeR");
+
         blockArm = hardwareMap.dcMotor.get("blockArm");
 
         blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,6 +55,10 @@ public class FirstMeetBlockMover
         blockArm.setPower(1.0);
 
         grabber_servo.setPosition(GRABBER_INIT);
+
+        intake_left.setPosition(.5);
+
+        intake_right.setPosition(.5);
 
     }
 
@@ -134,6 +147,24 @@ public class FirstMeetBlockMover
     public void initGrabber()
     {
         grabber_servo.setPosition(GRABBER_INIT);
+    }
+
+    public void intake_In()
+    {
+        intake_left.setPosition(.9);
+        intake_right.setPosition(.04);
+    }
+
+    public void intake_Out()
+    {
+        intake_left.setPosition(.04);
+        intake_right.setPosition(.9);
+    }
+
+    public void intake_Stop()
+    {
+        intake_left.setPosition(.5);
+        intake_right.setPosition(.5);
     }
 
 
