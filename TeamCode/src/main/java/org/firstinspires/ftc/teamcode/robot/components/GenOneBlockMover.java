@@ -7,17 +7,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class FirstMeetBlockMover
+public class GenOneBlockMover
 {
 
     public Servo grabber_servo;
 
     public DcMotor blockArm;
-
-    public Servo intake_left;
-
-    public Servo intake_right;
-
 
     public double armPower = 0;
 
@@ -34,13 +29,9 @@ public class FirstMeetBlockMover
     public static final double GRABBER_CLOSE = 0.8;
 
     // Constructor/Init
-    public FirstMeetBlockMover(HardwareMap hardwareMap)
+    public GenOneBlockMover(HardwareMap hardwareMap)
     {
         grabber_servo = hardwareMap.servo.get("grabber");
-
-        intake_left = hardwareMap.servo.get("intakeL");
-
-        intake_right = hardwareMap.servo.get("intakeR");
 
         blockArm = hardwareMap.dcMotor.get("blockArm");
 
@@ -55,10 +46,6 @@ public class FirstMeetBlockMover
         blockArm.setPower(1.0);
 
         grabber_servo.setPosition(GRABBER_INIT);
-
-        intake_left.setPosition(.5);
-
-        intake_right.setPosition(.5);
 
     }
 
@@ -148,25 +135,5 @@ public class FirstMeetBlockMover
     {
         grabber_servo.setPosition(GRABBER_INIT);
     }
-
-    public void intake_In()
-    {
-        intake_left.setPosition(.9);
-        intake_right.setPosition(.04);
-    }
-
-    public void intake_Out()
-    {
-        intake_left.setPosition(.04);
-        intake_right.setPosition(.9);
-    }
-
-    public void intake_Stop()
-    {
-        intake_left.setPosition(.5);
-        intake_right.setPosition(.5);
-    }
-
-
 
 }

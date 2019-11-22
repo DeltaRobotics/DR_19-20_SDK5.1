@@ -2,25 +2,23 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.robot.Robot;
-import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
+import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
+import org.firstinspires.ftc.teamcode.robot.components.GenOneBlockMover;
 
 /**
  * Created by User on 4/19/2018.
  */
-@TeleOp(name="FirstMeetTeleOp",group = "")
-public class FirstMeetTeleOp extends LinearOpMode
+@TeleOp(name="GenOneTeleOp", group = "")
+public class GenOneTeleOp extends LinearOpMode
 {
-    double zScale = 1.0;
-    double speed = 0.5;
+    private double speed = 0.5;
 
     //MyDcMotor shooter = null;
 
     public void runOpMode()
     {
-        Robot robot = new Robot(hardwareMap);
+        GenOneRobot robot = new GenOneRobot(hardwareMap);
 
         robot.blockMover.initGrabber();
 
@@ -32,7 +30,7 @@ public class FirstMeetTeleOp extends LinearOpMode
 
         //int target = 1680 + shooter.getCurrentPosition();
 
-        robot.blockMover.grabber_servo.setPosition(robot.blockMover.GRABBER_INIT);
+        robot.blockMover.grabber_servo.setPosition(GenOneBlockMover.GRABBER_INIT);
 
         waitForStart();
         while (opModeIsActive())
@@ -73,36 +71,6 @@ public class FirstMeetTeleOp extends LinearOpMode
                 robot.blockMover.closeGrabber();
             }
 
-            if(gamepad1.a)
-            {
-                robot.blockMover.intake_In();
-            }
-
-            if(gamepad1.y)
-            {
-                robot.blockMover.intake_Out();
-            }
-
-            if(gamepad1.b)
-            {
-                robot.blockMover.intake_Stop();
-            }
-
-
-            /*if(gamepad1.left_bumper)
-            {
-                robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            }
-
-            if(gamepad1.right_bumper)
-            {
-                robot.drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            }
-            */
-
-
-
-
             //Sends data back to driver station
             telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
             telemetry.addData("motor LF power", robot.drive.motorLF.getPower());
@@ -120,22 +88,6 @@ public class FirstMeetTeleOp extends LinearOpMode
 
             telemetry.addData("speed", speed);
 
-
-          //  telemetry.addData("shooter", shooter.getCurrentPosition());
-            telemetry.update();
-
-/*
-            if(gamepad1.dpad_left)
-            {
-                shooter.setPower(0.75);
-                while(shooter.getCurrentPosition() < target)
-                {
-                    sleep(10);
-                }
-                shooter.setPower(0);
-                target += 1680;
-            }
- */
     }
 
     }

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.robot.components.FirstMeetMecanum;
+import org.firstinspires.ftc.teamcode.robot.components.MecanumDriveTrain;
 
 /**
  * Created by User on 4/19/2018.
@@ -22,7 +22,7 @@ public class TestTankBot extends LinearOpMode
     DcMotor motorLB = null;
     DcMotor shooter = null;
 
-    FirstMeetMecanum firstMeetMecanum = new FirstMeetMecanum(hardwareMap);
+    MecanumDriveTrain firstMeetMecanum = new MecanumDriveTrain(hardwareMap);
 
     public void runOpMode()
     {

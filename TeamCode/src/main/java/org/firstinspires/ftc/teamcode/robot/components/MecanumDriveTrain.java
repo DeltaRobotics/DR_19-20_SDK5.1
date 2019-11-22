@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
 
-public class FirstMeetMecanum extends LinearOpMode
+public class MecanumDriveTrain extends LinearOpMode
 {
 
     public static final double WHEEL_CIRCUMFERENCE_INCHES = 9.276;
@@ -43,7 +43,7 @@ public class FirstMeetMecanum extends LinearOpMode
      pivot - Represents right joystick X value
     */
 
-   public FirstMeetMecanum(HardwareMap hardwareMap)
+   public MecanumDriveTrain(HardwareMap hardwareMap)
    {
 
        motorRF = hardwareMap.dcMotor.get("motorRF");

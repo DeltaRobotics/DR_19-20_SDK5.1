@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robot.Robot;
+import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 @Autonomous(name = "RedFarWall", group = "Auto")
@@ -14,7 +14,7 @@ public class RedFarWall extends LinearOpMode
     {
         int sleepTime = 500;
 
-        Robot robot = new Robot(hardwareMap);
+        GenOneRobot robot = new GenOneRobot(hardwareMap);
 
         waitForStart();
 
