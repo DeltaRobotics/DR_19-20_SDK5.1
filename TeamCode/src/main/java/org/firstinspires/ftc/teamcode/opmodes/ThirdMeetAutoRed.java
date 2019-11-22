@@ -70,6 +70,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         // Positions robot parallel with the skystone
         switch(position)
         {
+            case RIGHT:
             case LEFT:
             {
                 robot.drive.encoderDrive(575,driveStyle.BACKWARD,0.4);
@@ -79,12 +80,6 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
             case CENTER:
             {
                 robot.drive.encoderDrive(175,driveStyle.BACKWARD,0.4);
-                break;
-            }
-
-            case RIGHT:
-            {
-                robot.drive.encoderDrive(575,driveStyle.BACKWARD,0.4);
                 break;
             }
         }
@@ -109,6 +104,13 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(1000);
 
+        if(position == SkystonePositions.CENTER)
+        {
+            robot.drive.encoderDrive(250,driveStyle.BACKWARD, 0.4);// on case right moves 250 to avoid entering the Depot
+        }
+
+        sleep(sleepTime);
+
         // Rotates perpendicular with skybridge
         robot.drive.OrientationDrive(85, 0.25, robot.drive.imu);
 
@@ -124,6 +126,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         // Strafes to foundation
         switch(position)
         {
+            case LEFT:
             case RIGHT:
             {
                 robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
@@ -132,15 +135,11 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
             case CENTER:
             {
-                robot.drive.encoderDrive(5500, driveStyle.STRAFE_LEFT,0.8);
+                robot.drive.encoderDrive(5000, driveStyle.STRAFE_LEFT,0.8);
                 break;
             }
 
-            case LEFT:
-            {
-                robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
-                break;
-            }
+
         }
 
         sleep(sleepTime);
@@ -161,12 +160,13 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.blockMover.moveArm(3650, 1.0, 100, "wiggling", telemetry);
+        robot.blockMover.moveArm(3300, 1.0, 20, "wiggling", telemetry);
 
-        sleep(sleepTime);
+
+        robot.blockMover.moveArm(3500, 1.0, 20, "wiggling", telemetry);
 
         // Moves away from foundation
-        robot.drive.encoderDrive(1250, driveStyle.FORWARD, 0.8);
+        robot.drive.encoderDrive(1250, driveStyle.FORWARD, 0.4);
 
         sleep(sleepTime);
 
@@ -176,7 +176,7 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         sleep(sleepTime);
 
         // Moves away from foundation
-        robot.drive.encoderDrive(150, driveStyle.BACKWARD, 0.8);
+        robot.drive.encoderDrive(150, driveStyle.BACKWARD, 0.4);
 
         sleep(sleepTime);
 

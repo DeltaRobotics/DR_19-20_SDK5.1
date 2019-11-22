@@ -22,25 +22,12 @@ public class GenOneTeleOp extends LinearOpMode
 
         robot.blockMover.initGrabber();
 
-        //Maps motor objects to name in robot configuration
-       // shooter = hardwareMap.dcMotor.get("shooter");
-
-        //shooter.setZeroPowerBehavior(MyDcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        //int target = 1680 + shooter.getCurrentPosition();
 
         robot.blockMover.grabber_servo.setPosition(GenOneBlockMover.GRABBER_INIT);
 
         waitForStart();
         while (opModeIsActive())
         {
-            /*
-            robot.motorRF.setPower(-gamepad1.right_stick_y);
-            robot.motorRB.setPower(-gamepad1.right_stick_y);
-            robot.motorLF.setPower(gamepad1.left_stick_y);
-            robot.motorLB.setPower(gamepad1.left_stick_y);
-            */
 
             //sets motor power according to joystick input
             robot.drive.motorRF.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
