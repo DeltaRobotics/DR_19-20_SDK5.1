@@ -70,10 +70,15 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         // Positions robot parallel with the skystone
         switch(position)
         {
-            case RIGHT:
             case LEFT:
             {
                 robot.drive.encoderDrive(575,driveStyle.FORWARD,0.4);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(200, driveStyle.BACKWARD, 0.4);
                 break;
             }
 
@@ -100,7 +105,7 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         sleep(1000);
 
         // Moves arm up
-        robot.blockMover.moveArm(3550, 0.4, 100, "Moving skystone up", telemetry);
+        robot.blockMover.moveArm(3450, 0.4, 100, "Moving skystone up", telemetry);
 
         sleep(1000);
 
@@ -127,9 +132,13 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         switch(position)
         {
             case LEFT:
-            case RIGHT:
             {
                 robot.drive.encoderDrive(4800, driveStyle.STRAFE_LEFT,0.8);
+                break;
+            }
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(6000, driveStyle.STRAFE_LEFT, 0.8);
                 break;
             }
 
@@ -151,9 +160,9 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
 
 
         // Strafes into/close to the foundation
-        //robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.8);
+        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.8);
 
-        //sleep(sleepTime);
+        sleep(sleepTime);
 
         // Drops skystone
         robot.blockMover.openGrabber();
@@ -175,8 +184,9 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+
         // Moves away from foundation
-        robot.drive.encoderDrive(150, driveStyle.FORWARD, 0.4);
+        robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
 
         sleep(sleepTime);
 
