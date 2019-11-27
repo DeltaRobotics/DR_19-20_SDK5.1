@@ -20,36 +20,48 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
     public void runOpMode()
     {
 
+        // Standard amount of time to sleep by (in ms)
         int sleepTime = 250;
 
+        // Robot object
         GenOneRobot robot = new GenOneRobot(hardwareMap);
 
-
+        // CameraUtil ojbect
         CameraUtil cameraUtil = new CameraUtil(this);
 
+        // SkystoneCameraEval ojbect
         SkystoneCameraEval skystoneCameraEval = new SkystoneCameraEval();
 
+        // Local SkystonPositions enum object
         SkystonePositions position = SkystonePositions.NOT_FOUND;
 
+        // Sets camera downsampling to 1 - this makes it very pixelated
         cameraUtil.setCameraDownsampling(1);
 
+        // Starts camera
         cameraUtil.startCamera();
 
+        // Waits till the user presses start on the Driver Station
         waitForStart();
 
+        // Robot Controller phone takes a picture and stores it in a BitMap ojbect
         Bitmap image = cameraUtil.takePicture();
 
-
+        // Creates a new camera box object - This one is for the Left skystone
         CameraBox box1 = cameraUtil.drawBox(313, 65, 915, 792, image, new RGBAverage(255, 0, 0)); // Left skystone
 
+        // Creates a new camera box object - This one is for the Center skystone
         CameraBox box2 = cameraUtil.drawBox(587, 369, 912, 786, image, new RGBAverage(0, 0, 255)); // Center skystone
 
+        // Saves Bitmap image to the phone
         cameraUtil.saveImage(image);
 
+        // Gets the average colors of both boxes (in RGB)
         box1 = cameraUtil.getBoxAverage(box1);
         box2 = cameraUtil.getBoxAverage(box2);
 
 
+        // Stops camera
         cameraUtil.stopCamera();
 
         // First arg needs to be the left skystone box
@@ -186,7 +198,7 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
 
 
         // Moves away from foundation
-        robot.drive.encoderDrive(200, driveStyle.FORWARD, 0.4);
+        robot.drive.encoderDrive(115, driveStyle.FORWARD, 0.4);
 
         sleep(sleepTime);
 
@@ -198,6 +210,9 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         robot.drive.encoderDrive(1500, driveStyle.STRAFE_LEFT,0.8);
 
         sleep(sleepTime);
+
+        // Drives into the skybridge to verify that there is enough room for another robbot to park
+        robot.drive.timeDrive(500, 0.4, driveStyle.BACKWARD);
 
 
     }
