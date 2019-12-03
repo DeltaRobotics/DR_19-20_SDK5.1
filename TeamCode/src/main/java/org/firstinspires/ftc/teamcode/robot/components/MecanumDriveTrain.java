@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -21,11 +22,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class MecanumDriveTrain extends LinearOpMode
 {
 
-    public static final double WHEEL_CIRCUMFERENCE_INCHES = 9.276;
+    private static final double WHEEL_CIRCUMFERENCE_INCHES = 9.276;
 
-    public static final int COUNTS_PER_ROTATION = 560;
+    private static final int COUNTS_PER_ROTATION = 560;
 
-    public static final double INCHES_TO_COUNTS = COUNTS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
+    private static final double INCHES_TO_COUNTS = COUNTS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
 
 
 
@@ -35,7 +36,8 @@ public class MecanumDriveTrain extends LinearOpMode
     public DcMotor motorLB;
 
     public BNO055IMU imu;
-    public Orientation angles;
+
+    public Telemetry telemetry;
 
    /*Argument Breakdown:
      dirX - Represents left joystick X value
@@ -43,13 +45,15 @@ public class MecanumDriveTrain extends LinearOpMode
      pivot - Represents right joystick X value
     */
 
-   public MecanumDriveTrain(HardwareMap hardwareMap)
+   public MecanumDriveTrain(HardwareMap hardwareMap, Telemetry telemetry)
    {
 
        motorRF = hardwareMap.dcMotor.get("motorRF");
        motorRB = hardwareMap.dcMotor.get("motorRB");
        motorLF = hardwareMap.dcMotor.get("motorLF");
        motorLB = hardwareMap.dcMotor.get("motorLB");
+
+       this.telemetry = telemetry;
 
        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -67,7 +71,7 @@ public class MecanumDriveTrain extends LinearOpMode
 
    }
 
-   public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior behavior)
+   private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior behavior)
    {
        motorRF.setZeroPowerBehavior(behavior);
        motorLF.setZeroPowerBehavior(behavior);
@@ -102,7 +106,7 @@ public class MecanumDriveTrain extends LinearOpMode
     /*
     Argument Breakdown:
     encoderDelta - Desired total change of the starting encoder value. How far the robot will go via encoder count readings
-    driveStyle - Desired direction the robot will drived. Uses enumeration declared at the top of the class
+    driveStyle - Desired direction the robot will drive. Uses enumeration declared at the top of the class
     motorPower - Desired motor power the firstMeetMecanum motors will run at
     motors - Array that contains the firstMeetMecanum motors. This is passed in so we can use the motors from an outside class (OpMode) in this class
      */
@@ -134,12 +138,10 @@ public class MecanumDriveTrain extends LinearOpMode
                 */
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
-
-
                 break;
 
 
@@ -153,10 +155,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -168,10 +170,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -183,10 +185,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -197,10 +199,10 @@ public class MecanumDriveTrain extends LinearOpMode
                 forwardLeft(motorPower);
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -212,10 +214,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRF.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -227,10 +229,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRF.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -242,10 +244,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -257,10 +259,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -272,10 +274,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -314,12 +316,10 @@ public class MecanumDriveTrain extends LinearOpMode
                 */
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
-
-
                 break;
 
 
@@ -333,10 +333,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -348,10 +348,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -363,10 +363,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -377,10 +377,10 @@ public class MecanumDriveTrain extends LinearOpMode
                 forwardLeft(motorPower);
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -392,10 +392,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRF.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -407,10 +407,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRF.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -422,10 +422,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -437,10 +437,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() <= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -452,10 +452,10 @@ public class MecanumDriveTrain extends LinearOpMode
 
                 while (motorRB.getCurrentPosition() >= target)
                 {
-
+                    telemetry.addData("Current Position", motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
                 }
-
-
                 break;
             }
 
@@ -586,15 +586,19 @@ public class MecanumDriveTrain extends LinearOpMode
         Orientation angles;
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double PivotDeg = 0;
+        double PivotDeg;
         PivotDeg = (TargetOr - AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
 
         if (PivotDeg > 0)
         {
             pivotLeft(motorPower);
 
-            while (TargetOr > AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle)) {
+            while (TargetOr > AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))
+            {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                telemetry.addData("Orientation Target", TargetOr);
+                telemetry.addData("Current Orientation", AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+                telemetry.update();
             }
             //Stops all the motors
             stopMotors();
@@ -603,8 +607,12 @@ public class MecanumDriveTrain extends LinearOpMode
         {
             pivotRight(motorPower);
 
-            while (TargetOr < AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle)) {
+            while (TargetOr < AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))
+            {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                telemetry.addData("Orientation Target", TargetOr);
+                telemetry.addData("Current Orientation", AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+                telemetry.update();
             }
 
             //Stops all the motors
@@ -614,63 +622,63 @@ public class MecanumDriveTrain extends LinearOpMode
     }
 
 
-    public void forward(double motorPower)
+    private void forward(double motorPower)
     {
         motorRF.setPower(teleOpDrive(0, -motorPower, 0)[0]);
         motorRB.setPower(teleOpDrive(0, -motorPower, 0)[1]);
         motorLB.setPower(teleOpDrive(0, -motorPower, 0)[2]);
         motorLF.setPower(teleOpDrive(0, -motorPower, 0)[3]);
     }
-    public void backward(double motorPower)
+    private void backward(double motorPower)
     {
         motorRF.setPower(teleOpDrive(0, motorPower, 0)[0]);
         motorRB.setPower(teleOpDrive(0, motorPower, 0)[1]);
         motorLB.setPower(teleOpDrive(0, motorPower, 0)[2]);
         motorLF.setPower(teleOpDrive(0, motorPower, 0)[3]);
     }
-    public void strafeLeft(double motorPower)
+    private void strafeLeft(double motorPower)
     {
         motorRF.setPower(teleOpDrive(-motorPower, 0, 0)[0]);
         motorRB.setPower(teleOpDrive(-motorPower, 0, 0)[1]);
         motorLB.setPower(teleOpDrive(-motorPower, 0, 0)[2]);
         motorLF.setPower(teleOpDrive(-motorPower, 0, 0)[3]);
     }
-    public void strafeRight(double motorPower)
+    private void strafeRight(double motorPower)
     {
         motorRF.setPower(teleOpDrive(motorPower, 0, 0)[0]);
         motorRB.setPower(teleOpDrive(motorPower, 0, 0)[1]);
         motorLB.setPower(teleOpDrive(motorPower, 0, 0)[2]);
         motorLF.setPower(teleOpDrive(motorPower, 0, 0)[3]);
     }
-    public void forwardLeft(double motorPower)
+    private void forwardLeft(double motorPower)
     {
         motorRF.setPower(teleOpDrive(-motorPower, -motorPower, 0)[0]);
         motorRB.setPower(teleOpDrive(-motorPower, -motorPower, 0)[1]);
         motorLB.setPower(teleOpDrive(-motorPower, -motorPower, 0)[2]);
         motorLF.setPower(teleOpDrive(-motorPower, -motorPower, 0)[3]);
     }
-    public void forwardRight(double motorPower)
+    private void forwardRight(double motorPower)
     {
         motorRF.setPower(teleOpDrive(motorPower, -motorPower, 0)[0]);
         motorRB.setPower(teleOpDrive(motorPower, -motorPower, 0)[1]);
         motorLB.setPower(teleOpDrive(motorPower, -motorPower, 0)[2]);
         motorLF.setPower(teleOpDrive(motorPower, -motorPower, 0)[3]);
     }
-    public void backwardLeft(double motorPower)
+    private void backwardLeft(double motorPower)
     {
        motorRF.setPower(teleOpDrive(-motorPower, motorPower, 0)[0]);
        motorRB.setPower(teleOpDrive(-motorPower, motorPower, 0)[1]);
        motorLB.setPower(teleOpDrive(-motorPower, motorPower, 0)[2]);
        motorLF.setPower(teleOpDrive(-motorPower, motorPower, 0)[3]);
     }
-    public void backwardRight(double motorPower)
+    private void backwardRight(double motorPower)
     {
        motorRF.setPower(teleOpDrive(motorPower, motorPower, 0)[0]);
        motorRB.setPower(teleOpDrive(motorPower, motorPower, 0)[1]);
        motorLB.setPower(teleOpDrive(motorPower, motorPower, 0)[2]);
        motorLF.setPower(teleOpDrive(motorPower, motorPower, 0)[3]);
     }
-    public void pivotLeft(double motorPower)
+    private void pivotLeft(double motorPower)
     {
         motorRF.setPower(teleOpDrive(0, 0, -motorPower)[0]);
         motorRB.setPower(teleOpDrive(0, 0, -motorPower)[1]);
@@ -678,7 +686,7 @@ public class MecanumDriveTrain extends LinearOpMode
         motorLF.setPower(teleOpDrive(0, 0, -motorPower)[3]);
 
     }
-    public void pivotRight(double motorPower)
+    private void pivotRight(double motorPower)
     {
         motorRF.setPower(teleOpDrive(0, 0, motorPower)[0]);
         motorRB.setPower(teleOpDrive(0, 0, motorPower)[1]);
@@ -686,7 +694,7 @@ public class MecanumDriveTrain extends LinearOpMode
         motorLF.setPower(teleOpDrive(0, 0, motorPower)[3]);
     }
 
-    public void stopMotors()
+    private void stopMotors()
     {
         //Stops all the motors
         motorRF.setPower(teleOpDrive(0, 0, 0)[0]);

@@ -24,7 +24,7 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         int sleepTime = 250;
 
         // Robot object
-        GenOneRobot robot = new GenOneRobot(hardwareMap);
+        GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
 
         // CameraUtil ojbect
         CameraUtil cameraUtil = new CameraUtil(this);

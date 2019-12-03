@@ -18,7 +18,7 @@ public class GenOneTeleOp extends LinearOpMode
 
     public void runOpMode()
     {
-        GenOneRobot robot = new GenOneRobot(hardwareMap);
+        GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
 
         robot.blockMover.initGrabber();
 

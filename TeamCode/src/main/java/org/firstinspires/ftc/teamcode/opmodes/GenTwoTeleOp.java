@@ -19,7 +19,7 @@ public class GenTwoTeleOp extends LinearOpMode
 
     public void runOpMode()
     {
-        GenTwoRobot robot = new GenTwoRobot(hardwareMap);
+        GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
 
         robot.blockMover.initGrabber();
 

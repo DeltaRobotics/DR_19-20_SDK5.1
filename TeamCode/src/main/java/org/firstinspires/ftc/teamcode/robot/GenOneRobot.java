@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.components.GenOneBlockMover;
 import org.firstinspires.ftc.teamcode.robot.components.MecanumDriveTrain;
 
@@ -17,10 +19,10 @@ public class GenOneRobot
     */
 
     // Constructor
-    public GenOneRobot(HardwareMap hardwareMap)
+    public GenOneRobot(HardwareMap hardwareMap, Telemetry telemetry)
     {
         // Drive class for first meet with mecanum wheels
-        drive = new MecanumDriveTrain(hardwareMap);
+        drive = new MecanumDriveTrain(hardwareMap, telemetry);
 
         // Block mover class for first meet
         blockMover = new GenOneBlockMover(hardwareMap);

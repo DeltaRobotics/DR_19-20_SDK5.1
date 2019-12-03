@@ -14,6 +14,8 @@ public class GenTwoBlockMover
 
     public DcMotor blockArm;
 
+    public DcMotor lift;
+
     public Servo intake_left;
 
     public Servo intake_right;
@@ -43,6 +45,14 @@ public class GenTwoBlockMover
         intake_right = hardwareMap.servo.get("intakeR");
 
         blockArm = hardwareMap.dcMotor.get("blockArm");
+
+        lift = hardwareMap.dcMotor.get("lift");
+
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -99,6 +109,9 @@ public class GenTwoBlockMover
         }
 
         blockArm.setPower(armPower);
+
+        // Lift control
+        lift.setPower(-gamepad.right_stick_y);
 
     }
 

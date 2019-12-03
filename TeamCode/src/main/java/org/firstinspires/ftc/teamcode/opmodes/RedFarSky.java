@@ -14,7 +14,7 @@ public class RedFarSky extends LinearOpMode
     {
         int sleepTime = 500;
 
-        GenOneRobot robot = new GenOneRobot(hardwareMap);
+        GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
 
         waitForStart();
 

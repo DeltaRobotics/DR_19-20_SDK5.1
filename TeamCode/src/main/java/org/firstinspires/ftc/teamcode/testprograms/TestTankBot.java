@@ -22,7 +22,7 @@ public class TestTankBot extends LinearOpMode
     DcMotor motorLB = null;
     DcMotor shooter = null;
 
-    MecanumDriveTrain firstMeetMecanum = new MecanumDriveTrain(hardwareMap);
+    MecanumDriveTrain firstMeetMecanum = new MecanumDriveTrain(hardwareMap, telemetry);
 
     public void runOpMode()
     {
