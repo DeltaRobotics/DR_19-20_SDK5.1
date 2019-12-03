@@ -14,11 +14,13 @@ public class GenTwoBlockMover
 
     public DcMotor blockArm;
 
-    public DcMotor lift;
-
     public Servo intake_left;
 
     public Servo intake_right;
+
+    public DcMotor lift_right;
+
+    public DcMotor lift_left;
 
 
     public double armPower = 0;
@@ -46,13 +48,22 @@ public class GenTwoBlockMover
 
         blockArm = hardwareMap.dcMotor.get("blockArm");
 
-        lift = hardwareMap.dcMotor.get("lift");
+        lift_left = hardwareMap.dcMotor.get("lift_left");
 
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift_right = hardwareMap.dcMotor.get("lift_right");
 
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        lift_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        lift_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        lift_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        lift_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -111,7 +122,8 @@ public class GenTwoBlockMover
         blockArm.setPower(armPower);
 
         // Lift control
-        lift.setPower(-gamepad.right_stick_y);
+        lift_left.setPower(gamepad.right_stick_y);
+        lift_right.setPower(gamepad.right_stick_y);
 
     }
 
