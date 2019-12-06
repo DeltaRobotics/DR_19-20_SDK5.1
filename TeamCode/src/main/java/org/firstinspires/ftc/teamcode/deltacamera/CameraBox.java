@@ -2,18 +2,23 @@ package org.firstinspires.ftc.teamcode.deltacamera;
 
 import android.graphics.Bitmap;
 
+// Stores information about an analysis area for the camera
 public class CameraBox
 {
-    public int xMin = 0;
-    public int xMax = 0;
-    public int yMin = 0;
-    public int yMax = 0;
+   // Box coordinates
+   public  int xMin = 0;
+   public  int xMax = 0;
+   public  int yMin = 0;
+   public  int yMax = 0;
 
-    public Bitmap image = null;
+   // Image that contains the area
+   public  Bitmap image = null;
 
-    public RGBAverage average;
+   // The RGB average of all the pixels in the area
+   public  RGBAverage average;
 
 
+    // Constructor
     public CameraBox(int xMin, int xMax, int yMin, int yMax, Bitmap image, RGBAverage average)
     {
         this.xMin = xMin;
