@@ -26,10 +26,10 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
         // Robot object
         GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
 
-        // CameraUtil ojbect
+        // CameraUtil object
         CameraUtil cameraUtil = new CameraUtil(this);
 
-        // SkystoneCameraEval ojbect
+        // SkystoneCameraEval object
         SkystoneCameraEval skystoneCameraEval = new SkystoneCameraEval();
 
         // Local SkystonPositions enum object
@@ -213,7 +213,5 @@ public class ThirdMeetAutoBlue extends LinearOpModeCamera
 
         // Drives into the skybridge to verify that there is enough room for another robbot to park
         robot.drive.timeDrive(500, 0.4, driveStyle.BACKWARD);
-
-
     }
 }

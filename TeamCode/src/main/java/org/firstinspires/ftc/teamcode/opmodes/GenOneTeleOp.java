@@ -14,8 +14,6 @@ public class GenOneTeleOp extends LinearOpMode
 {
     private double speed = 0.5;
 
-    //MyDcMotor shooter = null;
-
     public void runOpMode()
     {
         GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
@@ -36,7 +34,6 @@ public class GenOneTeleOp extends LinearOpMode
             robot.drive.motorLF.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
             robot.blockMover.armControl(gamepad2);
-
 
             if(gamepad1.a)
             {
@@ -75,8 +72,6 @@ public class GenOneTeleOp extends LinearOpMode
 
             telemetry.addData("speed", speed);
 
+        }
     }
-
-    }
-
 }

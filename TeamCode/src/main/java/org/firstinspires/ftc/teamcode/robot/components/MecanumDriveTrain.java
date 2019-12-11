@@ -12,13 +12,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-
-/**
- * Created by User on 10/7/2017.
- */
-
-
-
 public class MecanumDriveTrain extends LinearOpMode
 {
 
@@ -480,10 +473,7 @@ public class MecanumDriveTrain extends LinearOpMode
 
                     sleep(time);
 
-
                     break;
-
-
                 }
 
             case BACKWARD:
@@ -491,7 +481,6 @@ public class MecanumDriveTrain extends LinearOpMode
                 backward(motorPower);
 
                 sleep(time);
-
 
                 break;
 
@@ -502,7 +491,6 @@ public class MecanumDriveTrain extends LinearOpMode
                 strafeLeft(motorPower);
 
                 sleep(time);
-
 
                 break;
             }
@@ -569,9 +557,7 @@ public class MecanumDriveTrain extends LinearOpMode
             {
                 pivotRight(motorPower);
 
-
                 sleep(time);
-
 
                 break;
             }
@@ -706,6 +692,4 @@ public class MecanumDriveTrain extends LinearOpMode
     @Override
     public void runOpMode()
     {}
-
-
 }

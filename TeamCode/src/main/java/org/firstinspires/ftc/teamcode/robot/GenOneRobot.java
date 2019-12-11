@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.robot.components.MecanumDriveTrain;
 
 public class GenOneRobot
 {
-
     public MecanumDriveTrain drive;
     public GenOneBlockMover blockMover;
 
@@ -27,7 +26,4 @@ public class GenOneRobot
         // Block mover class for first meet
         blockMover = new GenOneBlockMover(hardwareMap);
     }
-
-// Test commit comment woo
-
 }

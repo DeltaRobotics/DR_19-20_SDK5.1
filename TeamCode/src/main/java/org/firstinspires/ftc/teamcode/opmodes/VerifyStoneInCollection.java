@@ -12,6 +12,10 @@ public class VerifyStoneInCollection extends LinearOpMode
 {
     OpticalDistanceSensor ods;
 
+    boolean stoneInCollection = false;
+
+    int ods_target = 500;
+
     @Override
     public void runOpMode()
     {
@@ -23,7 +27,17 @@ public class VerifyStoneInCollection extends LinearOpMode
 
         while(opModeIsActive())
         {
+            if(!stoneInCollection && ods.getRawLightDetected() >= ods_target)
+            {
+                stoneInCollection = true;
+            }
+            else if(ods.getRawLightDetected() <= ods_target)
+            {
+                stoneInCollection = false;
+            }
+
             telemetry.addData("ODS Value", ods.getRawLightDetected());
+            telemetry.addData("Stone In Collection", stoneInCollection);
             telemetry.update();
         }
     }

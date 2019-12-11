@@ -196,7 +196,5 @@ public class ThirdMeetAutoRed extends LinearOpModeCamera
         robot.drive.encoderDrive(1500, driveStyle.STRAFE_LEFT,0.8);
 
         sleep(sleepTime);
-
-
     }
 }

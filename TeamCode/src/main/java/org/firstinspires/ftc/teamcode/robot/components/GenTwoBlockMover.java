@@ -25,17 +25,22 @@ public class GenTwoBlockMover
 
     public double armPower = 0;
 
-    private static final double DOWN_POWER = 1.0;
-    private static final double UP_POWER = 1.0;
-    private static final double HOLD_POWER = 1.0;
-    private static final int POSITION_DELTA = 20;
-    public static final int PLACE_POSITION = 3500;
-    //private static final int TRAVEL_POSITION = 3000;
-    public static final int HOME_POSITION = 500;
+
+    public static final double DOWN_POWER = 0.3;
+    public static final double UP_POWER = 0.3;
+    public static final double HOLD_POWER = 1.0;
+    public static final int POSITION_DELTA = 15;
+    public static final int COLLECT_POSITION = -580;
+    public static final int DELIVER_POSITION = 500;
+
 
     public static final double GRABBER_OPEN = 0.9;
     public static final double GRABBER_INIT = 0.9;
     public static final double GRABBER_CLOSE = 0.57;
+
+    public static final double ARM_MAX_POWER = 0.3;
+
+    public static final int LIFT_MAX_POSITION = -2000;
 
     // Constructor/Init
     public GenTwoBlockMover(HardwareMap hardwareMap)
@@ -69,22 +74,22 @@ public class GenTwoBlockMover
 
         blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        //blockArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         blockArm.setTargetPosition(blockArm.getCurrentPosition());
 
-        //blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //blockArm.setPower(1.0);
+        blockArm.setPower(1.0);
 
         grabber_servo.setPosition(GRABBER_INIT);
 
-        intake_left.setPosition(.5);
-
-        intake_right.setPosition(.5);
+        intake_Stop();
 
     }
 
 
-    /*public void armControl(Gamepad gamepad)
+    public void armControl(Gamepad gamepad)
     {
 
         if(gamepad.left_stick_y == 0)
@@ -104,30 +109,35 @@ public class GenTwoBlockMover
 
         if(gamepad.right_trigger > 0.5)
         {
-            blockArm.setTargetPosition(PLACE_POSITION);
+            blockArm.setTargetPosition(COLLECT_POSITION);
         }
-
-        /*if(gamepad.x)
-        {
-            blockArm.setTargetPosition(TRAVEL_POSITION);
-        }
-
-
 
         if(gamepad.left_trigger > 0.5)
         {
-            blockArm.setTargetPosition(HOME_POSITION);
+            blockArm.setTargetPosition(DELIVER_POSITION);
         }
 
         blockArm.setPower(armPower);
 
-        // Lift control
-        lift_left.setPower(gamepad.right_stick_y);
-        lift_right.setPower(gamepad.right_stick_y);
 
+
+
+        // Lift control
+        if(lift_right.getCurrentPosition() >= LIFT_MAX_POSITION || gamepad.right_stick_y > 0)
+        {
+            lift_left.setPower(gamepad.right_stick_y*ARM_MAX_POWER);
+            lift_right.setPower(gamepad.right_stick_y*ARM_MAX_POWER);
+        }
+        else
+        {
+            lift_left.setPower(0);
+            lift_right.setPower(0);
+        }
     }
 
-    public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
+
+
+    /*public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
     {
         int delta = blockArm.getTargetPosition() - target;
 
@@ -157,8 +167,8 @@ public class GenTwoBlockMover
                 telemetry.update();
             }
         }
-    }
-    */
+    }*/
+
 
     public void openGrabber()
     {
@@ -192,7 +202,4 @@ public class GenTwoBlockMover
         intake_left.setPosition(.5);
         intake_right.setPosition(.5);
     }
-
-
-
 }

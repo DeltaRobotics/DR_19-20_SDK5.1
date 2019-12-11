@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import android.graphics.Bitmap;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.deltacamera.CameraBox;
@@ -12,7 +13,8 @@ import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
-@TeleOp(name = "CameraTestBlue", group = "")
+@Disabled
+//@TeleOp(name = "CameraTestBlue", group = "")
 public class CameraTestBlue extends LinearOpModeCamera
 {
 

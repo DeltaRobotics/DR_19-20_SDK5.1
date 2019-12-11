@@ -88,9 +88,9 @@ public class CameraUtil
                 int pixel = box.image.getPixel(x, y);
 
                 // Sets the average for all the pixels in the area (RGB)
-                redAverage += camera.red(pixel);
-                blueAverage += camera.blue(pixel);
-                greenAverage += camera.green(pixel);
+                redAverage += LinearOpModeCamera.red(pixel);
+                blueAverage += LinearOpModeCamera.blue(pixel);
+                greenAverage += LinearOpModeCamera.green(pixel);
             }
         }
 

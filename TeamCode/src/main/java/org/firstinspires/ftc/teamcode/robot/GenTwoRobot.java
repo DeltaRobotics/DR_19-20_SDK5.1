@@ -27,7 +27,4 @@ public class GenTwoRobot
         // Block mover class for first meet
         blockMover = new GenTwoBlockMover(hardwareMap);
     }
-
-// Test commit comment woo
-
 }

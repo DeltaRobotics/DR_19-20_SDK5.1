@@ -21,12 +21,12 @@ public class GenOneBlockMover
     public double armPower = 0;
 
     // Powers for the different states that the arm can be in (going up, down, or not moving)
-    private static final double DOWN_POWER = 1.0;
-    private static final double UP_POWER = 1.0;
-    private static final double HOLD_POWER = 1.0;
+    public static final double DOWN_POWER = 1.0;
+    public static final double UP_POWER = 1.0;
+    public static final double HOLD_POWER = 1.0;
 
     // Preset arm encoder positions
-    private static final int POSITION_DELTA = 20; // How much the target will change each iteration of the code
+    public static final int POSITION_DELTA = 20; // How much the target will change each iteration of the code
     public static final int PLACE_POSITION = 3500; // Target encoder to place/collect skystone
     //private static final int TRAVEL_POSITION = 3000;
     public static final int HOME_POSITION = 500; // Target encoder to home the arm
@@ -68,7 +68,6 @@ public class GenOneBlockMover
 
     public void armControl(Gamepad gamepad)
     {
-
         if(gamepad.left_stick_y == 0)
         {
             armPower = HOLD_POWER;
@@ -102,7 +101,6 @@ public class GenOneBlockMover
         }
 
         blockArm.setPower(armPower);
-
     }
 
     public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
