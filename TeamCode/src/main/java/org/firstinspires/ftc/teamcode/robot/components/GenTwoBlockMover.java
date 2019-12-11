@@ -33,9 +33,9 @@ public class GenTwoBlockMover
     //private static final int TRAVEL_POSITION = 3000;
     public static final int HOME_POSITION = 500;
 
-    public static final double GRABBER_OPEN = 0.25;
-    public static final double GRABBER_INIT = 0.25;
-    public static final double GRABBER_CLOSE = 0.8;
+    public static final double GRABBER_OPEN = 0.9;
+    public static final double GRABBER_INIT = 0.9;
+    public static final double GRABBER_CLOSE = 0.57;
 
     // Constructor/Init
     public GenTwoBlockMover(HardwareMap hardwareMap)
@@ -71,9 +71,9 @@ public class GenTwoBlockMover
 
         blockArm.setTargetPosition(blockArm.getCurrentPosition());
 
-        blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        blockArm.setPower(1.0);
+        //blockArm.setPower(1.0);
 
         grabber_servo.setPosition(GRABBER_INIT);
 
@@ -84,7 +84,7 @@ public class GenTwoBlockMover
     }
 
 
-    public void armControl(Gamepad gamepad)
+    /*public void armControl(Gamepad gamepad)
     {
 
         if(gamepad.left_stick_y == 0)
@@ -112,7 +112,7 @@ public class GenTwoBlockMover
             blockArm.setTargetPosition(TRAVEL_POSITION);
         }
 
-         */
+
 
         if(gamepad.left_trigger > 0.5)
         {
@@ -158,6 +158,7 @@ public class GenTwoBlockMover
             }
         }
     }
+    */
 
     public void openGrabber()
     {

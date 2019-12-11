@@ -48,16 +48,17 @@ public class GenTwoTeleOp extends LinearOpMode
             robot.drive.motorLB.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
             robot.drive.motorLF.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
-            robot.blockMover.armControl(gamepad2);
+            //robot.blockMover.armControl(gamepad2);
+            robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-            if (gamepad1.a) {
+            /*if (gamepad1.a) {
                 speed = 1.0;
             }
 
             if (gamepad1.b) {
                 speed = 0.5;
-            }
+            }*/
 
             if (gamepad2.a) {
                 robot.blockMover.openGrabber();
@@ -81,12 +82,13 @@ public class GenTwoTeleOp extends LinearOpMode
 
 
             //Sends data back to driver station
-            telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
-            telemetry.addData("motor LF power", robot.drive.motorLF.getPower());
-            telemetry.addData("Motor RB power", robot.drive.motorRB.getPower());
-            telemetry.addData("Motor LB power", robot.drive.motorLB.getPower());
-            telemetry.addData("MotorLB Encoder", robot.drive.motorLB.getCurrentPosition());
+            //telemetry.addData("Motor RF Power", robot.drive.motorRF.getPower());
+            //telemetry.addData("motor LF power", robot.drive.motorLF.getPower());
+            //telemetry.addData("Motor RB power", robot.drive.motorRB.getPower());
+            //telemetry.addData("Motor LB power", robot.drive.motorLB.getPower());
+            //telemetry.addData("MotorLB Encoder", robot.drive.motorLB.getCurrentPosition());
 
+            telemetry.addData("Lift Position", robot.blockMover.lift_right.getCurrentPosition());
             telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
             telemetry.addData("Arm Target Position", robot.blockMover.blockArm.getTargetPosition());
             telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());
