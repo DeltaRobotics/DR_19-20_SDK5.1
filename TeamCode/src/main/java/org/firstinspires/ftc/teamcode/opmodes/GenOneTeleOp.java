@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -9,7 +10,8 @@ import org.firstinspires.ftc.teamcode.robot.components.GenOneBlockMover;
 /**
  * Created by User on 4/19/2018.
  */
-@TeleOp(name="GenOneTeleOp", group = "")
+@Disabled
+//@TeleOp(name="GenOneTeleOp", group = "")
 public class GenOneTeleOp extends LinearOpMode
 {
     private double speed = 0.5;

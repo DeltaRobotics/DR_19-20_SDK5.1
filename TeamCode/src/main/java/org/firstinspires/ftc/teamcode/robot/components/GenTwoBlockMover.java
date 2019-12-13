@@ -27,7 +27,7 @@ public class GenTwoBlockMover
     public static final double PRESET_POSITION_POWER = 0.3;
     public static final int POSITION_DELTA = 15;
     public static final int COLLECT_POSITION = 50;
-    public static final int TRAVEL_POSITION = 350;
+    public static final int TRAVEL_POSITION = 250;
     public static final int DELIVER_POSITION = 1080;
 
 
@@ -36,6 +36,7 @@ public class GenTwoBlockMover
     public static final double GRABBER_CLOSE = 0.57;
 
     public static final double ARM_MAX_POWER = 0.3;
+
 
     public static final int LIFT_MAX_POSITION = -2000;
 
@@ -75,40 +76,81 @@ public class GenTwoBlockMover
     }
 
 
-    public void armControl(Gamepad gamepad)
+    public void armControl(Gamepad gamepad2, Gamepad gamepad1, MecanumDriveTrain drive, double speed)
     {
 
-        if(gamepad.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy())
+        if(gamepad2.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy())
         {
             armPower = HOLD_POWER;
         }
-        else if(gamepad.left_stick_y < 0)
+        else if(gamepad2.left_stick_y < 0)
         {
             blockArm.setTargetPosition(blockArm.getTargetPosition() - POSITION_DELTA);
             armPower = UP_POWER;
         }
-        else if(gamepad.left_stick_y > 0)
+        else if(gamepad2.left_stick_y > 0)
         {
             blockArm.setTargetPosition(blockArm.getTargetPosition() + POSITION_DELTA);
             armPower = DOWN_POWER;
         }
 
-        if(gamepad.right_trigger > 0.5)
+        if(gamepad2.right_trigger > 0.5)
         {
+            openGrabber();
+
             armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(COLLECT_POSITION);
         }
 
-        if(gamepad.left_trigger > 0.5)
+        if(gamepad2.left_trigger > 0.5)
         {
+            closeGrabber();
+
             armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(DELIVER_POSITION);
         }
 
-        if(gamepad.right_bumper)
+        if(gamepad2.right_bumper)
         {
+            openGrabber();
+
+            int target = lift.getTargetPosition() - 700;
+            lift.setPower(-1.0);
+            while(lift.getCurrentPosition() > target)
+            {
+                //sets motor power according to joystick input
+                drive.motorRF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
+                drive.motorRB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
+                drive.motorLB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
+                drive.motorLF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+
+            }
+            lift.setPower(0);
+
             armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(TRAVEL_POSITION);
+            while(blockArm.isBusy())
+            {
+                //sets motor power according to joystick input
+                drive.motorRF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
+                drive.motorRB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
+                drive.motorLB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
+                drive.motorLF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+
+            }
+
+            lift.setPower(0.75);
+            while(lift.getCurrentPosition() < -50)
+            {
+                //sets motor power according to joystick input
+                drive.motorRF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
+                drive.motorRB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
+                drive.motorLB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
+                drive.motorLF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+
+            }
+            lift.setPower(0);
+
         }
 
         blockArm.setPower(armPower);
@@ -117,9 +159,9 @@ public class GenTwoBlockMover
 
 
         // Lift control
-        if(lift.getCurrentPosition() >= LIFT_MAX_POSITION || gamepad.right_stick_y > 0)
+        if(lift.getCurrentPosition() >= LIFT_MAX_POSITION || gamepad1.right_stick_y > 0)
         {
-            lift.setPower(gamepad.right_stick_y*ARM_MAX_POWER);
+            lift.setPower(gamepad1.right_stick_y*ARM_MAX_POWER);
         }
         else
         {
