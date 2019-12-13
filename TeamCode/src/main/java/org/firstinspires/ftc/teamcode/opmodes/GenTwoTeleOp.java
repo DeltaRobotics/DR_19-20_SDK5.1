@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
 import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
-import org.firstinspires.ftc.teamcode.robot.components.GenOneBlockMover;
 
 /**
  * Created by User on 4/19/2018.
@@ -66,10 +64,11 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.intake_Stop();
             }
 
-            telemetry.addData("Lift Position", robot.blockMover.lift_right.getCurrentPosition());
+            telemetry.addData("Lift Position", robot.blockMover.lift.getCurrentPosition());
             telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
             telemetry.addData("Arm Target Position", robot.blockMover.blockArm.getTargetPosition());
             telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());
+            telemetry.addData("Arm isBusy()", robot.blockMover.blockArm.isBusy());
 
             telemetry.addData("Arm Power Variable", robot.blockMover.armPower);
 
