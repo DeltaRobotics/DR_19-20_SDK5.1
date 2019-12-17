@@ -18,11 +18,11 @@ public class RedFarSky extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(1700,driveStyle.STRAFE_RIGHT,0.5);
+        robot.drive.encoderDrive(1700,driveStyle.STRAFE_RIGHT,0.675);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(2000, driveStyle.BACKWARD,0.4);
+        robot.drive.encoderDrive(2000, driveStyle.BACKWARD,0.575);
 
     }
 

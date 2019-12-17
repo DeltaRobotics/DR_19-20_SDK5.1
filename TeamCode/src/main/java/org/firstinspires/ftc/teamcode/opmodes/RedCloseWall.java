@@ -18,7 +18,7 @@ public class RedCloseWall extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(750, driveStyle.BACKWARD,0.4);
+        robot.drive.encoderDrive(750, driveStyle.BACKWARD,0.575);
 
         sleep(sleepTime);
     }

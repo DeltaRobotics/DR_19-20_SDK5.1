@@ -18,7 +18,7 @@ public class BlueCloseWall extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(750, driveStyle.FORWARD,0.4);
+        robot.drive.encoderDrive(750, driveStyle.FORWARD,0.575);
 
         sleep(sleepTime);
     }

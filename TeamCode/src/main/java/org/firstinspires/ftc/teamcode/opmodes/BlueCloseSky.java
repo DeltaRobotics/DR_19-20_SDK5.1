@@ -18,11 +18,11 @@ public class BlueCloseSky extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(750, driveStyle.FORWARD,0.4);
+        robot.drive.encoderDrive(750, driveStyle.FORWARD,0.575);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1500,driveStyle.STRAFE_RIGHT,0.5);
+        robot.drive.encoderDrive(1500,driveStyle.STRAFE_RIGHT,0.675);
 
 
     }

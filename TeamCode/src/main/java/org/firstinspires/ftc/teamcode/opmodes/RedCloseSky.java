@@ -18,11 +18,11 @@ public class RedCloseSky extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(750, driveStyle.BACKWARD,0.4);
+        robot.drive.encoderDrive(750, driveStyle.BACKWARD,0.575);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1700,driveStyle.STRAFE_RIGHT,0.5);
+        robot.drive.encoderDrive(1700,driveStyle.STRAFE_RIGHT,0.675);
 
 
     }

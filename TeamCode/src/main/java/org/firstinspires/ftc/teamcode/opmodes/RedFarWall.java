@@ -18,11 +18,11 @@ public class RedFarWall extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.675);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(2000,driveStyle.BACKWARD,0.4);
+        robot.drive.encoderDrive(2000,driveStyle.BACKWARD,0.575);
 
         sleep(sleepTime);
     }
