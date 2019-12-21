@@ -4,7 +4,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -28,11 +27,6 @@ public class MecanumDriveTrain extends LinearOpMode
     public DcMotor motorRB;
     public DcMotor motorLF;
     public DcMotor motorLB;
-
-    public static final double X_DEAD_BAND = 0.1;
-    public static final double Y_DEAD_BAND = 0.1;
-
-    public double driveSpeed = 1.0;
 
     public BNO055IMU imu;
 
@@ -78,21 +72,8 @@ public class MecanumDriveTrain extends LinearOpMode
        motorRB.setZeroPowerBehavior(behavior);
    }
 
-
    public double[] teleOpDrive(double dirX, double dirY, double pivot)
     {
-        // Dead-band for driving straight (accounts for slight movement in the X direction)
-        if(dirX >= -X_DEAD_BAND && dirX <= X_DEAD_BAND)
-        {
-            dirX = 0;
-        }
-
-        // Dead-band for driving straight (accounts for slight movement in the Y direction)
-        if(dirY >= -Y_DEAD_BAND && dirY <= Y_DEAD_BAND)
-        {
-            dirY = 0;
-        }
-
         //Array is used to store motors so they can be easily accessed in the method call based on the return value
         double[] motorPowers = new double[4];
         motorPowers[0] = -(dirY + dirX) - pivot;//robot.motorRF.setPower(speed*((-gamepad1.left_stick_y - gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
@@ -112,24 +93,6 @@ public class MecanumDriveTrain extends LinearOpMode
         return motorPowers;
     }
 
-    public void driveControl(Gamepad gamepad1)
-    {
-        if (gamepad1.dpad_up)
-        {
-            driveSpeed = 1.0;
-        }
-
-        if (gamepad1.dpad_down)
-        {
-            driveSpeed = 0.5;
-        }
-
-        //sets motor power according to joystick input
-        motorRF.setPower(driveSpeed * teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-        motorRB.setPower(driveSpeed * teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-        motorLB.setPower(driveSpeed * teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-        motorLF.setPower(driveSpeed * teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
-    }
 
     //Method that drives the robot via encoder target values and what the current encoder value of the motors are
 
