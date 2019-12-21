@@ -18,11 +18,11 @@ public class BlueFarSky extends LinearOpMode
 
         waitForStart();
 
-        robot.drive.encoderDrive(1500, driveStyle.STRAFE_RIGHT,0.675);
+        robot.drive.encoderDrive(1500, driveStyle.STRAFE_RIGHT,0.5);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(2000,driveStyle.FORWARD,0.575);
+        robot.drive.encoderDrive(2000,driveStyle.FORWARD,0.4);
 
     }
 
