@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class GenTwoBlockMover
 {
 
+    public  Servo foundation_mover;
+
     public Servo grabber_servo;
 
     public DcMotor blockArm;
@@ -34,6 +36,9 @@ public class GenTwoBlockMover
     public static final double GRABBER_OPEN = 0.9;
     public static final double GRABBER_INIT = 0.9;
     public static final double GRABBER_CLOSE = 0.45;
+    public static final double FOUNDATION_MOVER_OPEN = 0.5;
+    public static final double FOUNDATION_MOVER_CLOSE = 0.1;
+
 
     public static final double ARM_MAX_POWER = 0.3;
 
@@ -43,6 +48,8 @@ public class GenTwoBlockMover
     // Constructor/Init
     public GenTwoBlockMover(HardwareMap hardwareMap)
     {
+        foundation_mover = hardwareMap.servo.get("foundationMover");
+
         grabber_servo = hardwareMap.servo.get("grabber");
 
         intake_left = hardwareMap.servo.get("intakeL");
@@ -70,6 +77,8 @@ public class GenTwoBlockMover
         blockArm.setPower(1.0);
 
         grabber_servo.setPosition(GRABBER_INIT);
+
+        foundation_mover.setPosition(FOUNDATION_MOVER_OPEN);
 
         intake_Stop();
 
@@ -187,6 +196,16 @@ public class GenTwoBlockMover
         }
     }*/
 
+
+    public void foundationUp()
+    {
+        foundation_mover.setPosition(FOUNDATION_MOVER_OPEN);
+    }
+
+    public  void foundationDown()
+    {
+        foundation_mover.setPosition(FOUNDATION_MOVER_CLOSE);
+    }
 
     public void openGrabber()
     {

@@ -49,6 +49,16 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.closeGrabber();
             }
 
+            if(gamepad2.x)
+            {
+                robot.blockMover.foundationDown();
+            }
+
+            if(gamepad2.y)
+            {
+                robot.blockMover.foundationUp();
+            }
+
             if (gamepad1.a)
             {
                 robot.blockMover.intake_In();
@@ -73,6 +83,7 @@ public class GenTwoTeleOp extends LinearOpMode
             telemetry.addData("Arm Power Variable", robot.blockMover.armPower);
 
             telemetry.addData("Grabber Position", robot.blockMover.grabber_servo.getPosition());
+            telemetry.addData("Foundation mover position", robot.blockMover.foundation_mover.getPosition());
 
             telemetry.addData("speed", speed);
 
