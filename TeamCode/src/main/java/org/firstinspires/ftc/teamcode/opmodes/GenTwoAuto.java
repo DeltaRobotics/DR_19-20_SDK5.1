@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.deltacamera.RGBAverage;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystoneCameraEval;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
+import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 import for_camera_opmodes.LinearOpModeCamera;
@@ -23,7 +24,7 @@ public class GenTwoAuto extends LinearOpModeCamera
     {
         int sleepTime = 250;
 
-        GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
+        GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
 
 
         CameraUtil cameraUtil = new CameraUtil(this);
@@ -56,7 +57,6 @@ public class GenTwoAuto extends LinearOpModeCamera
         // First arg needs to be the left skystone box
         // Second arg needs to center skystone box
         position = skystoneCameraEval.getSkystonePosition(box1, box2);
-
 
         telemetry.addData("Position", position);
 
