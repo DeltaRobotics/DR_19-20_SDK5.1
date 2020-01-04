@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
-@Disabled
-//@TeleOp(name = "CameraTestRed", group = "")
+@TeleOp(name = "CameraTestRed", group = "")
 public class CameraTestRed extends LinearOpModeCamera
 {
 
@@ -38,9 +37,9 @@ public class CameraTestRed extends LinearOpModeCamera
         Bitmap image = cameraUtil.takePicture();
 
 
-        CameraBox box1 = cameraUtil.drawBox(543, 296, 911, 784, image, new RGBAverage(255, 0, 0)); // Left skystone
+        CameraBox box1 = cameraUtil.drawBox(345, 64, 1128, 984, image, new RGBAverage(255, 0, 0)); // Left skystone
 
-        CameraBox box2 = cameraUtil.drawBox(815, 593, 919, 784, image, new RGBAverage(0, 0, 255)); // Center skystone
+        CameraBox box2 = cameraUtil.drawBox(613, 356, 1128, 984, image, new RGBAverage(0, 0, 255)); // Center skystone
 
         cameraUtil.saveImage(image);
 

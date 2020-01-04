@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
-@Autonomous(name="GenTwoAuto",group = "Auto")
-public class GenTwoAuto extends LinearOpModeCamera
+@Autonomous(name="GenTwoAutoRed",group = "Auto")
+public class GenTwoAutoRed extends LinearOpModeCamera
 {
 
     public void runOpMode()
@@ -41,10 +41,9 @@ public class GenTwoAuto extends LinearOpModeCamera
 
         Bitmap image = cameraUtil.takePicture();
 
+        CameraBox box1 = cameraUtil.drawBox(345, 64, 1128, 984, image, new RGBAverage(255, 0, 0)); // Left skystone
 
-        CameraBox box1 = cameraUtil.drawBox(543, 296, 911, 784, image, new RGBAverage(255, 0, 0)); // Left skystone
-
-        CameraBox box2 = cameraUtil.drawBox(815, 593, 919, 784, image, new RGBAverage(0, 0, 255)); // Center skystone
+        CameraBox box2 = cameraUtil.drawBox(613, 356, 1128, 984, image, new RGBAverage(0, 0, 255)); // Center skystone
 
         cameraUtil.saveImage(image);
 
@@ -63,6 +62,14 @@ public class GenTwoAuto extends LinearOpModeCamera
         telemetry.update();
         sleep(1000);
 
+
+        robot.drive.encoderDrive(300, driveStyle.FORWARD, 0.75);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(-90, 0.5, robot.drive.imu);
+
+        sleep(sleepTime);
 
 
     }
