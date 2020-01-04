@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.deltacamera.SkystoneCameraEval;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
 import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
+import org.firstinspires.ftc.teamcode.robot.components.GenTwoBlockMover;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 import for_camera_opmodes.LinearOpModeCamera;
@@ -22,7 +23,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
     public void runOpMode()
     {
-        int sleepTime = 250;
+        int sleepTime = 150;
 
         GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
 
@@ -63,13 +64,128 @@ public class GenTwoAutoRed extends LinearOpModeCamera
         sleep(1000);
 
 
-        robot.drive.encoderDrive(300, driveStyle.FORWARD, 0.75);
+        robot.drive.encoderDrive(1200, driveStyle.FORWARD, 0.75);
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(-90, 0.5, robot.drive.imu);
+        robot.drive.OrientationDrive(80, 0.5, robot.drive.imu);
 
         sleep(sleepTime);
+
+        switch(position)
+        {
+            case CENTER:
+            {
+                robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
+            }
+
+            case LEFT:
+            {
+
+            }
+
+            case RIGHT:
+            {
+
+            }
+        }
+
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(79, 0.5, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(300, 1.0, 5, "Moving arm to collect position", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.intake_In();
+
+        sleep(500);
+
+        /*robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.75);
+
+        sleep(sleepTime);*/
+
+        robot.drive.encoderDrive(1100, driveStyle.STRAFE_RIGHT, 0.85);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(300, driveStyle.FORWARD, 0.2);
+
+        sleep(1000);
+
+        robot.blockMover.intake_Stop();
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.closeGrabber();
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 0.75);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(750, driveStyle.STRAFE_RIGHT, 0.5);
+
+        sleep(sleepTime);
+
+        robot.blockMover.foundationDown();
+
+        sleep(sleepTime + 500);
+
+        robot.drive.encoderDrive(2100, driveStyle.STRAFE_LEFT, 0.75);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(0, 0.5, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.blockMover.foundationUp();
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.timeDrive(1000, 0.3, driveStyle.BACKWARD);
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(GenTwoBlockMover.DELIVER_POSITION, 0.5, 5, "Moving to place Skystone", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(1000);
+
+        robot.blockMover.moveArm(GenTwoBlockMover.TRAVEL_POSITION, 0.5, 5 , "Moving arm to travel position", telemetry);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(2500, driveStyle.FORWARD, 1.0);
 
 
     }

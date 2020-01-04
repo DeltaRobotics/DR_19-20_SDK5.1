@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class GenTwoBlockMover
 {
 
@@ -178,7 +180,7 @@ public class GenTwoBlockMover
 
 
 
-    /*public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
+    public void moveArm(int target, double power, int tolerance, String message, Telemetry telemetry)
     {
         int delta = blockArm.getTargetPosition() - target;
 
@@ -208,7 +210,7 @@ public class GenTwoBlockMover
                 telemetry.update();
             }
         }
-    }*/
+    }
 
 
     public void foundationUp()
