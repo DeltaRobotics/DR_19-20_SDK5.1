@@ -68,89 +68,160 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(80, 0.5, robot.drive.imu);
+        switch(position) {
+            case RIGHT: {
+                robot.drive.OrientationDrive(-70, 0.5, robot.drive.imu);
+                sleep(sleepTime);
+                robot.drive.encoderDrive(60, driveStyle.BACKWARD, 0.75);
+                break;
+            }
 
-        sleep(sleepTime);
-
-        switch(position)
-        {
+            case LEFT: // Runs what is in CENTER
             case CENTER:
             {
-                robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
-            }
+                robot.drive.OrientationDrive(80, 0.5, robot.drive.imu);
 
-            case LEFT:
-            {
-                robot.drive.encoderDrive(500, driveStyle.BACKWARD, 0.75);
-            }
+                sleep(sleepTime);
 
-            case RIGHT:
-            {
+                switch (position)
+                {
+                    case CENTER:
+                    {
+                        robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
+                        break;
+                    }
 
+                    case LEFT:
+                    {
+                        robot.drive.encoderDrive(500, driveStyle.BACKWARD, 0.75);
+                        break;
+                    }
+                }
+
+                sleep(sleepTime);
+                robot.drive.OrientationDrive(79, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
             }
         }
+            robot.blockMover.moveArm(300, 1.0, 5, "Moving arm to collect position", telemetry);
 
+            sleep(sleepTime);
 
-        sleep(sleepTime);
+            robot.blockMover.intake_In();
 
-        robot.drive.OrientationDrive(79, 0.5, robot.drive.imu);
-
-        sleep(sleepTime);
-
-        robot.blockMover.moveArm(300, 1.0, 5, "Moving arm to collect position", telemetry);
-
-        sleep(sleepTime);
-
-        robot.blockMover.intake_In();
-
-        sleep(500);
+            sleep(500);
 
         /*robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.75);
 
         sleep(sleepTime);*/
 
-        robot.drive.encoderDrive(1100, driveStyle.STRAFE_RIGHT, 0.85);
+            switch(position)
+            {
+                case LEFT:
+                case CENTER:
+                {
+                    robot.drive.encoderDrive(1100, driveStyle.STRAFE_RIGHT, 0.85);
+                    break;
+                }
 
-        sleep(sleepTime);
+                case RIGHT:
+                {
+                    robot.drive.encoderDrive(1350, driveStyle.STRAFE_LEFT, 0.85);
+                    break;
+                }
+            }
 
-        robot.drive.encoderDrive(300, driveStyle.FORWARD, 0.2);
 
-        sleep(1000);
+            sleep(sleepTime);
 
-        robot.blockMover.intake_Stop();
+            switch (position)
+            {
+                case LEFT:
+                case CENTER:
+                {
+                    robot.drive.encoderDrive(400, driveStyle.FORWARD, 0.2);
 
-        sleep(sleepTime);
+                    sleep(1000);
+                    break;
+                }
 
-        robot.blockMover.openGrabber();
+                case RIGHT:
+                {
+                    robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.2);
 
-        sleep(sleepTime);
+                    sleep(750);
+                    break;
+                }
 
-        robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
+            }
 
-        sleep(sleepTime);
 
-        robot.blockMover.closeGrabber();
 
-        sleep(sleepTime);
+            robot.blockMover.intake_Stop();
 
-        robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+            sleep(sleepTime);
 
-        sleep(sleepTime);
+            robot.blockMover.openGrabber();
 
-        robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+            sleep(sleepTime);
 
-        sleep(sleepTime);
+            robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
+
+            sleep(sleepTime);
+
+            robot.blockMover.closeGrabber();
+
+            sleep(sleepTime);
+
+            switch (position)
+            {
+                case CENTER:
+                case LEFT:
+                {
+                    robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+
+                    sleep(sleepTime);
+
+                    robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+                    break;
+                }
+
+                case RIGHT:
+                {
+                    robot.drive.OrientationDrive(-7, 0.75, robot.drive.imu);
+
+                    sleep(sleepTime);
+
+                    robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
+
+                    sleep(sleepTime);
+
+                    robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+
+                    sleep(sleepTime);
+                    break;
+                }
+            }
+
+
+
+            sleep(sleepTime);
+
 
         switch(position)
         {
             case CENTER:
+            case RIGHT:
             {
                 robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 0.75);
+                break;
             }
 
             case LEFT:
             {
-                robot.drive.encoderDrive(5000, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(4800, driveStyle.BACKWARD, 0.75);
+                break;
             }
         }
 
@@ -176,15 +247,17 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+        robot.drive.encoderDrive(100, driveStyle.STRAFE_LEFT, 0.75);
+
         robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(800, driveStyle.STRAFE_RIGHT, 0.85);
+        robot.drive.encoderDrive(1200, driveStyle.STRAFE_RIGHT, 0.85);
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(1000, 0.3, driveStyle.BACKWARD);
+        robot.drive.timeDrive(1250, 0.4, driveStyle.BACKWARD);
 
         sleep(sleepTime);
 
@@ -200,7 +273,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(2000, 0.5, driveStyle.FORWARD);
+        robot.drive.timeDrive(1400, 0.65, driveStyle.FORWARD);
 
 
     }
