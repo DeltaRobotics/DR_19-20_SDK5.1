@@ -4,6 +4,10 @@ import android.graphics.Bitmap;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraBox;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraUtil;
 import org.firstinspires.ftc.teamcode.deltacamera.RGBAverage;
@@ -21,6 +25,8 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
     public void runOpMode()
     {
         int sleepTime = 150;
+
+        Orientation angles;
 
         GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
 
@@ -91,27 +97,35 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
-
-        sleep(sleepTime);
-
         switch(position)
         {
             case LEFT:
             {
+                robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
+
                 robot.drive.encoderDrive(75, driveStyle.FORWARD, 0.75);
                 break;
             }
 
             case CENTER:
             {
+                robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
+
                 robot.drive.encoderDrive(200, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
             case RIGHT:
             {
-                robot.drive.encoderDrive(700, driveStyle.BACKWARD, 0.75);
+                robot.drive.OrientationDrive(-15, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
+
+                robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
                 break;
             }
         }
@@ -152,10 +166,15 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(-10, 0.5, robot.drive.imu);
+        angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+        if(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle) < -10)
+        {
+            robot.drive.OrientationDrive(-10, 0.5, robot.drive.imu);
 
-        sleep(sleepTime);
+            sleep(sleepTime);
+        }
+
 
         switch(position)
         {
@@ -172,7 +191,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
             case RIGHT:
             {
-                robot.drive.encoderDrive(5075, driveStyle.FORWARD, 1.0);
+                robot.drive.encoderDrive(5275, driveStyle.FORWARD, 1.0);
                 break;
             }
 
@@ -233,6 +252,8 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         //robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.85);
 
         sleep(sleepTime);
+
+        robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
         robot.drive.timeDrive(1200, 0.8, driveStyle.FORWARD);
 

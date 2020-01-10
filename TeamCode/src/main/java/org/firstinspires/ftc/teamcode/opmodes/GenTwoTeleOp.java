@@ -49,12 +49,12 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.closeGrabber();
             }
 
-            if(gamepad2.x)
+            if(gamepad1.left_bumper)
             {
                 robot.blockMover.foundationDown();
             }
 
-            if(gamepad2.y)
+            if(gamepad1.right_bumper)
             {
                 robot.blockMover.foundationUp();
             }

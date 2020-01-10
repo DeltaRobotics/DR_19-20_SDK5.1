@@ -32,9 +32,9 @@ public class GenTwoBlockMover
     public static final double HOLD_POWER = 1.0; // Should ALWAYS be different from the other arm power variables
     public static final double PRESET_POSITION_POWER = 0.3;
     public static final int POSITION_DELTA = 15;
-    public static final int COLLECT_POSITION = 50;
+    public static final int GRAB_POSITION = 0;
     public static final int TRAVEL_POSITION = 250;
-    public static final int DELIVER_POSITION = 1080;
+    public static final int DELIVER_POSITION = 950;
 
 
     public static final double GRABBER_OPEN = 0.9;
@@ -47,7 +47,7 @@ public class GenTwoBlockMover
     public static final double ARM_MAX_POWER = 0.3;
 
 
-    public static final int LIFT_MAX_POSITION = -5000;
+    public static final int LIFT_MAX_POSITION = -1050;
 
     // Constructor/Init
     public GenTwoBlockMover(HardwareMap hardwareMap)
@@ -113,7 +113,7 @@ public class GenTwoBlockMover
             openGrabber();
 
             armPower = PRESET_POSITION_POWER;
-            blockArm.setTargetPosition(COLLECT_POSITION);
+            blockArm.setTargetPosition(GRAB_POSITION);
         }
 
         if (gamepad2.left_trigger > 0.5) {
