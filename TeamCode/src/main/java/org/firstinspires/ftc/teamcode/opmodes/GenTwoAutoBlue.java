@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.deltacamera.RGBAverage;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystoneCameraEval;
 import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
+import org.firstinspires.ftc.teamcode.robot.components.GenTwoBlockMover;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 import for_camera_opmodes.LinearOpModeCamera;
@@ -36,11 +37,19 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         waitForStart();
 
+        robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.85);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(-70, 0.5, robot.drive.imu);
+
+        sleep(500);
+
         Bitmap image = cameraUtil.takePicture();
 
-        CameraBox box1 = cameraUtil.drawBox(533, 259, 1128, 986, image, new RGBAverage(255, 0, 0)); // Left skystone
+        CameraBox box1 = cameraUtil.drawBox(585, 375, 1220, 1032, image, new RGBAverage(255, 0, 0)); // Left skystone
 
-        CameraBox box2 = cameraUtil.drawBox(228, 1, 1128, 986, image, new RGBAverage(0, 0, 255)); // Center skystone
+        CameraBox box2 = cameraUtil.drawBox(232, 16, 1214, 1029, image, new RGBAverage(0, 0, 255)); // Center skystone
 
         cameraUtil.saveImage(image);
 
@@ -67,16 +76,22 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         }
 
         telemetry.addData("Position", position);
+        telemetry.addData("Left Average", box1.average.red - box1.average.blue);
+        telemetry.addData("Center Average", box2.average.red - box2.average.blue);
 
         telemetry.update();
 
-        sleep(1000);
+        sleep(500);
 
-        robot.drive.encoderDrive(1200, driveStyle.FORWARD, 0.75);
+        robot.drive.OrientationDrive(-85, 0.5, robot.drive.imu);
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(65, 0.5, robot.drive.imu);
+        robot.drive.encoderDrive(1050, driveStyle.FORWARD, 0.75);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
 
         sleep(sleepTime);
 
@@ -84,17 +99,19 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         {
             case LEFT:
             {
-                robot.drive.encoderDrive(50, driveStyle.BACKWARD, 0.75);
-                break;
-            }
-
-            case RIGHT:
-            {
+                robot.drive.encoderDrive(75, driveStyle.FORWARD, 0.75);
                 break;
             }
 
             case CENTER:
             {
+                robot.drive.encoderDrive(200, driveStyle.BACKWARD, 0.75);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(700, driveStyle.BACKWARD, 0.75);
                 break;
             }
         }
@@ -131,11 +148,12 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(88, 0.5, robot.drive.imu);
+        robot.drive.encoderDrive(800, driveStyle.STRAFE_LEFT, 0.85);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+        robot.drive.OrientationDrive(-10, 0.5, robot.drive.imu);
+
 
         sleep(sleepTime);
 
@@ -143,24 +161,26 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         {
             case LEFT:
             {
-                robot.drive.encoderDrive(4500, driveStyle.FORWARD, 0.75);
+                robot.drive.encoderDrive(4300, driveStyle.FORWARD, 1.0);
+                break;
+            }
+            case CENTER:
+            {
+                robot.drive.encoderDrive(4575, driveStyle.FORWARD, 1.0);
                 break;
             }
 
             case RIGHT:
             {
+                robot.drive.encoderDrive(5075, driveStyle.FORWARD, 1.0);
                 break;
             }
 
-            case CENTER:
-            {
-                break;
-            }
         }
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(850, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(950, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
@@ -168,7 +188,23 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime + 500);
 
-        robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.OrientationDrive(20, 0.5, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.90);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.blockMover.foundationUp();
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(75, driveStyle.FORWARD, 0.75);
 
         sleep(sleepTime);
 
@@ -176,9 +212,29 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.blockMover.foundationUp();
+        robot.drive.timeDrive(1000, 0.6, driveStyle.BACKWARD);
 
         sleep(sleepTime);
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(GenTwoBlockMover.DELIVER_POSITION, 0.5, 5, "Moving to place Skystone", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(1000);
+
+        robot.blockMover.moveArm(GenTwoBlockMover.TRAVEL_POSITION, 0.5, 5 , "Moving arm to travel position", telemetry);
+
+        //sleep(sleepTime);
+
+        //robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.85);
+
+        sleep(sleepTime);
+
+        robot.drive.timeDrive(1200, 0.8, driveStyle.FORWARD);
 
     }
 }
