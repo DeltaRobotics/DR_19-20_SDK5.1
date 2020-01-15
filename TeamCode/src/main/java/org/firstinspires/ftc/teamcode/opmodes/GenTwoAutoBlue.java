@@ -221,6 +221,8 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         robot.drive.encoderDrive(200,driveStyle.FORWARD,0.5);
 
+        sleep(sleepTime);
+
         robot.blockMover.foundationUp();
 
         sleep(sleepTime);
