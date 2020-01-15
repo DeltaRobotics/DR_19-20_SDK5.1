@@ -193,7 +193,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
                     sleep(sleepTime);
 
-                    robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
+                    robot.drive.encoderDrive(700, driveStyle.BACKWARD, 0.75);
 
                     sleep(sleepTime);
 
@@ -253,7 +253,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(450, driveStyle.STRAFE_RIGHT, 0.85);
+        robot.drive.encoderDrive(350, driveStyle.STRAFE_RIGHT, 0.85);
 
         sleep(sleepTime);
 
@@ -261,7 +261,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.blockMover.moveArm(GenTwoBlockMover.DELIVER_POSITION, 0.5, 5, "Moving to place Skystone", telemetry);
+        robot.blockMover.moveArm(1100, 0.5, 5, "Moving to place Skystone", telemetry);
 
         sleep(sleepTime);
 
