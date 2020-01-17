@@ -27,6 +27,7 @@ public class GenTwoTeleOp extends LinearOpMode
             robot.drive.motorLB.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
             robot.drive.motorLF.setPower(speed * robot.drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
 
+
             robot.blockMover.armControl(gamepad2, gamepad1, robot.drive, speed);
             //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
@@ -72,6 +73,16 @@ public class GenTwoTeleOp extends LinearOpMode
             if (gamepad1.b)
             {
                 robot.blockMover.intake_Stop();
+            }
+
+            if (gamepad2.dpad_left)
+            {
+                robot.blockMover.capstone_on();
+            }
+
+            if (gamepad2.dpad_right)
+            {
+                robot.blockMover.capstone_off();
             }
 
             telemetry.addData("Lift Position", robot.blockMover.lift_left.getCurrentPosition());

@@ -10,6 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class GenTwoBlockMover
 {
 
+    public Servo capstone;
+
     public  Servo foundation_mover;
 
     public Servo grabber_servo;
@@ -42,7 +44,8 @@ public class GenTwoBlockMover
     public static final double GRABBER_CLOSE = 0.45;
     public static final double FOUNDATION_MOVER_OPEN = 0.5;
     public static final double FOUNDATION_MOVER_CLOSE = 0.1;
-
+    public static final double CAPSTONE_OPEN = 0.0;
+    public static final double CAPSTONE_CLOSE = 0.0;
 
     public static final double ARM_MAX_POWER = 0.3;
 
@@ -52,6 +55,8 @@ public class GenTwoBlockMover
     // Constructor/Init
     public GenTwoBlockMover(HardwareMap hardwareMap)
     {
+        capstone = hardwareMap.servo.get("capstone");
+
         foundation_mover = hardwareMap.servo.get("foundationMover");
 
         grabber_servo = hardwareMap.servo.get("grabber");
@@ -91,6 +96,8 @@ public class GenTwoBlockMover
         grabber_servo.setPosition(GRABBER_INIT);
 
         foundation_mover.setPosition(FOUNDATION_MOVER_OPEN);
+
+        capstone.setPosition(CAPSTONE_OPEN);
 
         intake_Stop();
 
@@ -254,5 +261,15 @@ public class GenTwoBlockMover
     {
         intake_left.setPosition(.5);
         intake_right.setPosition(.5);
+    }
+
+    public void capstone_on()
+    {
+        capstone.setPosition(CAPSTONE_CLOSE);
+    }
+
+    public  void capstone_off()
+    {
+        capstone.setPosition(CAPSTONE_OPEN);
     }
 }
