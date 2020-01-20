@@ -138,7 +138,14 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(500);
 
-        robot.drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 0.85);
+        if(position == SkystonePositions.RIGHT)
+        {
+            robot.drive.encoderDrive(1250, driveStyle.STRAFE_RIGHT, 0.85);
+        }
+        else
+        {
+            robot.drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 0.85);
+        }
 
         sleep(sleepTime);
 
@@ -162,7 +169,14 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(700, driveStyle.STRAFE_LEFT, 0.85);
+        if(position == SkystonePositions.RIGHT)
+        {
+            robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+        }
+        else
+        {
+            robot.drive.encoderDrive(750, driveStyle.STRAFE_LEFT, 0.85);
+        }
 
         sleep(sleepTime);
 
@@ -199,7 +213,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(800, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(850, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
@@ -211,7 +225,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1400, driveStyle.STRAFE_LEFT, 0.90);
+        robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.90);
 
         sleep(sleepTime);
 
@@ -252,6 +266,8 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         sleep(sleepTime);
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
+
+        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.8);
 
         robot.drive.timeDrive(1200, 0.8, driveStyle.FORWARD);
 
