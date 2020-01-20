@@ -44,7 +44,7 @@ public class GenTwoBlockMover
     public static final double GRABBER_CLOSE = 0.45;
     public static final double FOUNDATION_MOVER_OPEN = 0.5;
     public static final double FOUNDATION_MOVER_CLOSE = 0.1;
-    public static final double CAPSTONE_OPEN = 1.0;
+    public static final double CAPSTONE_OPEN = 0.0;
     public static final double CAPSTONE_CLOSE = 0.0;
 
     public static final double ARM_MAX_POWER = 0.3;
