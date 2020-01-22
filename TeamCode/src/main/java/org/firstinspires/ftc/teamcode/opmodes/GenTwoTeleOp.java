@@ -32,12 +32,14 @@ public class GenTwoTeleOp extends LinearOpMode
             //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-            if (gamepad1.dpad_up) {
+            if (gamepad1.left_trigger > 0.2) {
+
                 speed = 1.0;
             }
+            else {
 
-            if (gamepad1.dpad_down) {
-                speed = 0.5;
+             speed = 0.5;
+
             }
 
             if (gamepad2.a)
@@ -60,14 +62,19 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.foundationUp();
             }
 
-            if (gamepad1.a)
+            if (gamepad1.right_trigger > 0.2)
             {
                 robot.blockMover.intake_In();
+            }
+            else{
+
+                robot.blockMover.intake_Out();
+
             }
 
             if (gamepad1.y)
             {
-                robot.blockMover.intake_Out();
+
             }
 
             if (gamepad1.b)
