@@ -103,9 +103,12 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
             {
                 robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
 
-                sleep(sleepTime);
+                /*sleep(sleepTime);
 
-                robot.drive.encoderDrive(50, driveStyle.FORWARD, 0.75);
+                robot.drive.encoderDrive(150, driveStyle.BACKWARD, 0.75);
+
+                 */
+
                 break;
             }
 
@@ -115,7 +118,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
                 sleep(sleepTime);
 
-                robot.drive.encoderDrive(200, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(250, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
@@ -125,7 +128,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
                 sleep(sleepTime);
 
-                robot.drive.encoderDrive(900, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(950, driveStyle.BACKWARD, 0.75);
                 break;
             }
         }
@@ -194,18 +197,18 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         {
             case LEFT:
             {
-                robot.drive.encoderDrive(4300, driveStyle.FORWARD, 1.0);
+                robot.drive.encoderDrive(4350, driveStyle.FORWARD, 1.0);
                 break;
             }
             case CENTER:
             {
-                robot.drive.encoderDrive(4575, driveStyle.FORWARD, 1.0);
+                robot.drive.encoderDrive(4625, driveStyle.FORWARD, 1.0);
                 break;
             }
 
             case RIGHT:
             {
-                robot.drive.encoderDrive(5275, driveStyle.FORWARD, 1.0);
+                robot.drive.encoderDrive(5325, driveStyle.FORWARD, 1.0);
                 break;
             }
 

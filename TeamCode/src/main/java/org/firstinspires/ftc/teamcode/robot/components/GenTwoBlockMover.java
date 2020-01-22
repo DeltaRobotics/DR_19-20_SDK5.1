@@ -28,6 +28,12 @@ public class GenTwoBlockMover
 
     public double armPower = 0;
 
+    public static final int LIFT_LEVEL_ENCODER = 100;
+
+    public int lift_level = 0;
+
+    public boolean dpad_up_state = false;
+
 
     public static final double DOWN_POWER = 0.3; // Should never match hold power
     public static final double UP_POWER = 0.3; // Should never match hold power
@@ -104,7 +110,34 @@ public class GenTwoBlockMover
     }
 
 
-    public void armControl(Gamepad gamepad2, Gamepad gamepad1, MecanumDriveTrain drive, double speed) {
+    public void armControl(Gamepad gamepad2, Gamepad gamepad1, MecanumDriveTrain drive, double speed, Telemetry telemetry)
+    {
+
+        if(gamepad2.dpad_up && !dpad_up_state)
+        {
+            dpad_up_state = true;
+
+            lift_level += 1;
+
+        }
+        else if(! gamepad2.dpad_up)
+        {
+            dpad_up_state = false;
+        }
+
+        if(gamepad2.back)
+        {
+            closeGrabber();
+
+            if(blockArm.getCurrentPosition() < TRAVEL_POSITION)
+            {
+                moveArm(TRAVEL_POSITION, 0.5, 5, "Moving arm to travel", telemetry);
+            }
+
+        }
+
+
+
 
         if (gamepad2.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy()) {
             armPower = HOLD_POWER;
