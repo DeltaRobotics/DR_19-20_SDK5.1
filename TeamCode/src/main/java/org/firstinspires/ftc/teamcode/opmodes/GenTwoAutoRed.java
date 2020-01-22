@@ -179,7 +179,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
                 case CENTER:
                 case LEFT:
                 {
-                    robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+                    robot.drive.encoderDrive(900, driveStyle.STRAFE_LEFT, 0.85);
 
                     sleep(sleepTime);
 
@@ -227,7 +227,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(900, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(950, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 

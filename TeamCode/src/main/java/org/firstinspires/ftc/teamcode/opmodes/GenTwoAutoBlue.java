@@ -140,11 +140,11 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         if(position == SkystonePositions.RIGHT)
         {
-            robot.drive.encoderDrive(1250, driveStyle.STRAFE_RIGHT, 0.85);
+            robot.drive.encoderDrive(1300, driveStyle.STRAFE_RIGHT, 0.85);
         }
         else
         {
-            robot.drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 0.85);
+            robot.drive.encoderDrive(1150, driveStyle.STRAFE_RIGHT, 0.85);
         }
 
         sleep(sleepTime);
@@ -171,11 +171,11 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         if(position == SkystonePositions.RIGHT)
         {
-            robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+            robot.drive.encoderDrive(950, driveStyle.STRAFE_LEFT, 0.85);
         }
         else
         {
-            robot.drive.encoderDrive(750, driveStyle.STRAFE_LEFT, 0.85);
+            robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
         }
 
         sleep(sleepTime);
