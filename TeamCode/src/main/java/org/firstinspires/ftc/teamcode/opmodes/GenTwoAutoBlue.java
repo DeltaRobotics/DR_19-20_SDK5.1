@@ -97,37 +97,26 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
+        robot.drive.OrientationDrive(-15, 0.5, robot.drive.imu);
+
+        sleep(sleepTime);
         switch(position)
         {
             case LEFT:
             {
-                robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
-
-                /*sleep(sleepTime);
-
-                robot.drive.encoderDrive(150, driveStyle.BACKWARD, 0.75);
-
-                 */
+                //robot.drive.encoderDrive(50, driveStyle.FORWARD, 0.75);
 
                 break;
             }
 
             case CENTER:
             {
-                robot.drive.OrientationDrive(-30, 0.5, robot.drive.imu);
-
-                sleep(sleepTime);
-
-                robot.drive.encoderDrive(250, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(400, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
             case RIGHT:
             {
-                robot.drive.OrientationDrive(-15, 0.5, robot.drive.imu);
-
-                sleep(sleepTime);
-
                 robot.drive.encoderDrive(950, driveStyle.BACKWARD, 0.75);
                 break;
             }
@@ -141,18 +130,49 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(500);
 
-        if(position == SkystonePositions.RIGHT)
+        switch (position)
         {
-            robot.drive.encoderDrive(1300, driveStyle.STRAFE_RIGHT, 0.85);
-        }
-        else
-        {
-            robot.drive.encoderDrive(1150, driveStyle.STRAFE_RIGHT, 0.85);
+            case LEFT:
+            {
+                robot.drive.encoderDrive(1050, driveStyle.STRAFE_RIGHT, 0.75);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(1150, driveStyle.STRAFE_RIGHT, 0.75);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(1300, driveStyle.STRAFE_RIGHT, 0.75);
+                break;
+            }
         }
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.2);
+        switch (position)
+        {
+            case LEFT:
+            {
+                robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.2);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(500, driveStyle.FORWARD, 0.2);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(550, driveStyle.FORWARD, 0.2);
+                break;
+            }
+        }
 
         sleep(1000);
 
@@ -172,18 +192,52 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        if(position == SkystonePositions.RIGHT)
+        switch(position)
         {
-            robot.drive.encoderDrive(950, driveStyle.STRAFE_LEFT, 0.85);
-        }
-        else
-        {
-            robot.drive.encoderDrive(850, driveStyle.STRAFE_LEFT, 0.85);
+            case LEFT:
+            {
+                robot.drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 0.85);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(1050, driveStyle.STRAFE_LEFT, 0.85);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(950, driveStyle.STRAFE_LEFT, 0.85);
+                break;
+            }
         }
 
         sleep(sleepTime);
 
-        angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        switch (position)
+        {
+            case RIGHT:
+            case CENTER:
+            {
+                robot.drive.OrientationDrive(-10, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
+
+                break;
+            }
+
+            case LEFT:
+            {
+                robot.drive.OrientationDrive(-5, 0.5, robot.drive.imu);
+
+                sleep(sleepTime);
+
+                break;
+            }
+        }
+
+        /*angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         if(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle) < -10)
         {
@@ -191,6 +245,8 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
             sleep(sleepTime);
         }
+
+         */
 
 
         switch(position)
@@ -202,7 +258,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
             }
             case CENTER:
             {
-                robot.drive.encoderDrive(4625, driveStyle.FORWARD, 1.0);
+                robot.drive.encoderDrive(4675, driveStyle.FORWARD, 1.0);
                 break;
             }
 
@@ -248,7 +304,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(500, 0.6, driveStyle.BACKWARD);
+        robot.drive.timeDrive(800, 0.6, driveStyle.BACKWARD);
 
         sleep(sleepTime);
 
@@ -270,7 +326,10 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
-        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.8);
+        if(position != SkystonePositions.RIGHT)
+        {
+            robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.8);
+        }
 
         robot.drive.timeDrive(1200, 0.8, driveStyle.FORWARD);
 

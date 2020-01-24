@@ -214,20 +214,20 @@ public class GenTwoAutoRed extends LinearOpModeCamera
             case CENTER:
             case RIGHT:
             {
-                robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 1.0);
                 break;
             }
 
             case LEFT:
             {
-                robot.drive.encoderDrive(4800, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(4800, driveStyle.BACKWARD, 1.0);
                 break;
             }
         }
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(950, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(1050, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
@@ -235,7 +235,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime + 500);
 
-        robot.drive.encoderDrive(1500, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.75);
 
         sleep(sleepTime);
 
@@ -253,7 +253,26 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(350, driveStyle.STRAFE_RIGHT, 0.85);
+        switch (position)
+        {
+            case LEFT:
+            {
+                robot.drive.encoderDrive(500, driveStyle.STRAFE_RIGHT, 0.85);
+                break;
+            }
+
+            case CENTER:
+            {
+                robot.drive.encoderDrive(450, driveStyle.STRAFE_RIGHT, 0.85);
+                break;
+            }
+
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(350, driveStyle.STRAFE_RIGHT, 0.85);
+                break;
+            }
+        }
 
         sleep(sleepTime);
 
