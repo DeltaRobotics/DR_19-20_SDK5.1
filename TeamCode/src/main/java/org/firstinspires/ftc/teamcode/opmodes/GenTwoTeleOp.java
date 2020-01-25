@@ -40,7 +40,7 @@ public class GenTwoTeleOp extends LinearOpMode
             else
             {
 
-             speed = 0.5;
+             speed = 0.4;
 
             }
 
@@ -90,6 +90,8 @@ public class GenTwoTeleOp extends LinearOpMode
             {
                 robot.blockMover.capstone_off();
             }
+
+            telemetry.addData("Lift Level", robot.blockMover.lift_level);
 
             telemetry.addData("Lift Position", robot.blockMover.lift_left.getCurrentPosition());
             telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
