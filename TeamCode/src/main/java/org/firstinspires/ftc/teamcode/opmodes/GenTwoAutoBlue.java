@@ -196,7 +196,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
         {
             case LEFT:
             {
-                robot.drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 0.85);
+                robot.drive.encoderDrive(900, driveStyle.STRAFE_LEFT, 0.85);
                 break;
             }
 
@@ -208,14 +208,26 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
             case RIGHT:
             {
-                robot.drive.encoderDrive(950, driveStyle.STRAFE_LEFT, 0.85);
+                robot.drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 0.85);
                 break;
             }
         }
 
+
         sleep(sleepTime);
 
-        switch (position)
+        angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        if(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle) < -7)
+        {
+            robot.drive.OrientationDrive(-7, 0.3, robot.drive.imu);
+
+            sleep(sleepTime);
+        }
+
+
+
+        /*switch (position)
         {
             case RIGHT:
             case CENTER:
@@ -229,13 +241,15 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
             case LEFT:
             {
-                robot.drive.OrientationDrive(-5, 0.5, robot.drive.imu);
 
-                sleep(sleepTime);
+
+
 
                 break;
             }
         }
+        */
+
 
         /*angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -304,7 +318,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(800, 0.6, driveStyle.BACKWARD);
+        robot.drive.timeDrive(1000, 0.4, driveStyle.BACKWARD);
 
         sleep(sleepTime);
 
@@ -326,7 +340,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
-        if(position != SkystonePositions.RIGHT)
+        if(position != SkystonePositions.LEFT)
         {
             robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.8);
         }

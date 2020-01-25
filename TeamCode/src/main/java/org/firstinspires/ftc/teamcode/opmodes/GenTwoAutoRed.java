@@ -227,7 +227,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1050, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(900, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
