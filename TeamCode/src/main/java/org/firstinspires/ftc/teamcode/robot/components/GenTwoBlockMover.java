@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot.components;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -28,15 +29,11 @@ public class GenTwoBlockMover
 
     public double armPower = 0;
 
-    public static final int LIFT_LEVEL_ENCODER = -350;
-
     public int lift_level = 0;
 
     public boolean dpad_up_state = false;
 
-
-    public static final double DOWN_POWER = 0.3; // Should never match hold power
-    public static final double UP_POWER = 0.3; // Should never match hold power
+    public static final double DEFAULT_ARM_POWER = 0.3;
     public static final double HOLD_POWER = 1.0; // Should ALWAYS be different from the other arm power variables
     public static final double PRESET_POSITION_POWER = 0.3;
     public static final int POSITION_DELTA = 15;
@@ -53,29 +50,30 @@ public class GenTwoBlockMover
     public static final double CAPSTONE_OPEN = 0.1;
     public static final double CAPSTONE_CLOSE = 0.99;
 
-    public static final double ARM_MAX_POWER = 0.3;
+    public static final int LIFT_MAX_POSITION = -999999999;
 
+    public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, 400, 800, 1200, 1600};
 
-    public static final int LIFT_MAX_POSITION = -1400;
+    public LinearOpMode linearOpMode;
 
     // Constructor/Init
-    public GenTwoBlockMover(HardwareMap hardwareMap)
+    public GenTwoBlockMover(LinearOpMode linearOpMode)
     {
-        capstone = hardwareMap.servo.get("capstone");
+        capstone = linearOpMode.hardwareMap.servo.get("capstone");
 
-        foundation_mover = hardwareMap.servo.get("foundationMover");
+        foundation_mover = linearOpMode.hardwareMap.servo.get("foundationMover");
 
-        grabber_servo = hardwareMap.servo.get("grabber");
+        grabber_servo = linearOpMode.hardwareMap.servo.get("grabber");
 
-        intake_left = hardwareMap.servo.get("intakeL");
+        intake_left = linearOpMode.hardwareMap.servo.get("intakeL");
 
-        intake_right = hardwareMap.servo.get("intakeR");
+        intake_right = linearOpMode.hardwareMap.servo.get("intakeR");
 
-        blockArm = hardwareMap.dcMotor.get("blockArm");
+        blockArm = linearOpMode.hardwareMap.dcMotor.get("blockArm");
 
-        lift_left = hardwareMap.dcMotor.get("lift_left");
+        lift_left = linearOpMode.hardwareMap.dcMotor.get("lift_left");
 
-        lift_right = hardwareMap.dcMotor.get("lift_right");
+        lift_right = linearOpMode.hardwareMap.dcMotor.get("lift_right");
 
         lift_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -105,44 +103,46 @@ public class GenTwoBlockMover
 
         capstone.setPosition(CAPSTONE_OPEN);
 
+        this.linearOpMode = linearOpMode;
+
         intake_Stop();
 
     }
 
 
-    public void armControl(Gamepad gamepad2, Gamepad gamepad1, MecanumDriveTrain drive, double speed, Telemetry telemetry)
+    public void armControl(MecanumDriveTrain drive, double speed)
     {
 
-        if(gamepad2.dpad_up && !dpad_up_state)
+        if(linearOpMode.gamepad2.dpad_up && !dpad_up_state && lift_level < LIFT_LEVEL_POSITIONS.length)
         {
             dpad_up_state = true;
 
             lift_level += 1;
 
         }
-        else if(!gamepad2.dpad_up)
+        else if(!linearOpMode.gamepad2.dpad_up)
         {
             dpad_up_state = false;
         }
 
-        if(gamepad2.back)
+        if(linearOpMode.gamepad2.back)
         {
             closeGrabber();
 
             if(blockArm.getCurrentPosition() < TRAVEL_POSITION)
             {
-                moveArm(TRAVEL_POSITION, 0.5, 5, "Moving arm to travel", telemetry);
+                moveArm(TRAVEL_POSITION, 0.3, 5, "Moving arm to travel", linearOpMode.telemetry);
             }
 
-            if((lift_left.getCurrentPosition() > lift_level * LIFT_LEVEL_ENCODER))
+            if((lift_left.getCurrentPosition() > LIFT_LEVEL_POSITIONS[lift_level]))
                 {
                 lift_left.setPower(-0.75);
                 lift_right.setPower(-0.75);
 
-                while(lift_left.getCurrentPosition() > (lift_level * LIFT_LEVEL_ENCODER) && !gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION)
+                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION)
                 {
 
-                    if (gamepad1.left_trigger > 0.2)
+                    if (linearOpMode.gamepad1.left_trigger > 0.2)
                     {
 
                         speed = 1.0;
@@ -155,15 +155,15 @@ public class GenTwoBlockMover
                     }
 
                     //sets motor power according to joystick input
-                    drive.motorRF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-                    drive.motorRB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-                    drive.motorLB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-                    drive.motorLF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+                    drive.motorRF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[0]);
+                    drive.motorRB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[1]);
+                    drive.motorLB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[2]);
+                    drive.motorLF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[3]);
 
                     //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-                    if (gamepad1.left_trigger > 0.2)
+                    if (linearOpMode.gamepad1.left_trigger > 0.2)
                     {
 
                         speed = 1.0;
@@ -175,27 +175,27 @@ public class GenTwoBlockMover
 
                     }
 
-                    if (gamepad2.a)
+                    if (linearOpMode.gamepad2.a)
                     {
                         openGrabber();
                     }
 
-                    if (gamepad2.b)
+                    if (linearOpMode.gamepad2.b)
                     {
                         closeGrabber();
                     }
 
-                    if(gamepad1.left_bumper)
+                    if(linearOpMode.gamepad1.left_bumper)
                     {
                         foundationDown();
                     }
 
-                    if(gamepad1.right_bumper)
+                    if(linearOpMode.gamepad1.right_bumper)
                     {
                         foundationUp();
                     }
 
-                    if (gamepad1.right_trigger > 0.2)
+                    if (linearOpMode.gamepad1.right_trigger > 0.2)
                     {
                         intake_In();
                     }
@@ -206,24 +206,24 @@ public class GenTwoBlockMover
 
                     }
 
-                    if (gamepad1.y)
+                    if (linearOpMode.gamepad1.y)
                     {
                         intake_Out();
                     }
 
 
-                    if (gamepad2.dpad_left)
+                    if (linearOpMode.gamepad2.dpad_left)
                     {
                         capstone_on();
                     }
 
-                    if (gamepad2.dpad_right)
+                    if (linearOpMode.gamepad2.dpad_right)
                     {
                         capstone_off();
                     }
 
-                    telemetry.addData("Moving to lift level " + lift_level + ". At position: ", lift_left.getCurrentPosition());
-                    telemetry.update();
+                    linearOpMode.telemetry.addData("Moving to lift level " + lift_level + ". At position: ", lift_left.getCurrentPosition());
+                    linearOpMode.telemetry.update();
                 }
             }
 
@@ -234,7 +234,7 @@ public class GenTwoBlockMover
 
         }
 
-        if(gamepad1.dpad_down)
+        if(linearOpMode.gamepad1.dpad_down)
         {
             lift_level = 0;
         }
@@ -242,60 +242,55 @@ public class GenTwoBlockMover
 
 
 
-        if (gamepad2.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy()) {
+        if (linearOpMode.gamepad2.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy())
+        {
             armPower = HOLD_POWER;
-        } else if (gamepad2.left_stick_y < 0) {
+        }
+        else if (linearOpMode.gamepad2.left_stick_y < 0)
+        {
             blockArm.setTargetPosition(blockArm.getTargetPosition() - POSITION_DELTA);
-            armPower = UP_POWER;
-        } else if (gamepad2.left_stick_y > 0) {
+            armPower = DEFAULT_ARM_POWER;
+        } else if (linearOpMode.gamepad2.left_stick_y > 0)
+        {
             blockArm.setTargetPosition(blockArm.getTargetPosition() + POSITION_DELTA);
-            armPower = DOWN_POWER;
+            armPower = DEFAULT_ARM_POWER;
         }
 
-        if (gamepad2.right_trigger > 0.5) {
+        if (linearOpMode.gamepad2.right_trigger > 0.5)
+        {
             openGrabber();
 
             armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(GRAB_POSITION);
         }
 
-        if (gamepad2.left_trigger > 0.5) {
+        if (linearOpMode.gamepad2.left_trigger > 0.5)
+        {
             closeGrabber();
 
             armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(DELIVER_POSITION);
         }
 
-        if (gamepad2.right_bumper) {
+        if (linearOpMode.gamepad2.right_bumper)
+        {
+            armPower = PRESET_POSITION_POWER;
+
             openGrabber();
 
-            int target = lift_left.getTargetPosition() - 700;
-            /*
-            lift.setPower(-1.0);
-            while (lift.getCurrentPosition() > target) {
-                //sets motor power according to joystick input
-                drive.motorRF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-                drive.motorRB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-                drive.motorLB.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-                drive.motorLF.setPower(speed * drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
-
-            }
-            lift.setPower(0);*/
-
-            armPower = PRESET_POSITION_POWER;
             blockArm.setTargetPosition(TRAVEL_POSITION);
-            while (blockArm.isBusy() && !gamepad2.dpad_down) {
+            while (blockArm.isBusy() && !linearOpMode.gamepad2.dpad_down) {
 
                 //sets motor power according to joystick input
-               drive.motorRF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-               drive.motorRB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-               drive.motorLB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-               drive.motorLF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
+               drive.motorRF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[0]);
+               drive.motorRB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[1]);
+               drive.motorLB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[2]);
+               drive.motorLF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[3]);
 
                 //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-                if (gamepad1.left_trigger > 0.2)
+                if (linearOpMode.gamepad1.left_trigger > 0.2)
                 {
 
                     speed = 1.0;
@@ -307,27 +302,27 @@ public class GenTwoBlockMover
 
                 }
 
-                if (gamepad2.a)
+                if (linearOpMode.gamepad2.a)
                 {
                     openGrabber();
                 }
 
-                if (gamepad2.b)
+                if (linearOpMode.gamepad2.b)
                 {
                     closeGrabber();
                 }
 
-                if(gamepad1.left_bumper)
+                if(linearOpMode.gamepad1.left_bumper)
                 {
                     foundationDown();
                 }
 
-                if(gamepad1.right_bumper)
+                if(linearOpMode.gamepad1.right_bumper)
                 {
                     foundationUp();
                 }
 
-                if (gamepad1.right_trigger > 0.2)
+                if (linearOpMode.gamepad1.right_trigger > 0.2)
                 {
                     intake_In();
                 }
@@ -338,18 +333,18 @@ public class GenTwoBlockMover
 
                 }
 
-                if (gamepad1.y)
+                if (linearOpMode.gamepad1.y)
                 {
                    intake_Out();
                 }
 
 
-                if (gamepad2.dpad_left)
+                if (linearOpMode.gamepad2.dpad_left)
                 {
                     capstone_on();
                 }
 
-                if (gamepad2.dpad_right)
+                if (linearOpMode.gamepad2.dpad_right)
                 {
                     capstone_off();
                 }
@@ -357,30 +352,10 @@ public class GenTwoBlockMover
 
             lift_left.setPower(0.75);
             lift_right.setPower(0.75);
-            while (lift_left.getCurrentPosition() < -50 && !gamepad2.dpad_down) {
+            while (lift_left.getCurrentPosition() < -50 && !linearOpMode.gamepad2.dpad_down)
+            {
 
-                if (gamepad1.left_trigger > 0.2)
-                {
-
-                    speed = 1.0;
-                }
-                else
-                {
-
-                    speed = 0.4;
-
-                }
-                //sets motor power according to joystick input
-                //sets motor power according to joystick input
-                drive.motorRF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[0]);
-                drive.motorRB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[1]);
-                drive.motorLB.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[2]);
-                drive.motorLF.setPower(speed *drive.teleOpDrive(gamepad1.right_stick_x, gamepad1.right_stick_y, gamepad1.left_stick_x)[3]);
-
-                //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
-
-
-                if (gamepad1.left_trigger > 0.2)
+                if (linearOpMode.gamepad1.left_trigger > 0.2)
                 {
 
                     speed = 1.0;
@@ -392,27 +367,47 @@ public class GenTwoBlockMover
 
                 }
 
-                if (gamepad2.a)
+                if (linearOpMode.gamepad1.left_trigger > 0.2)
+                {
+
+                    speed = 1.0;
+                }
+                else
+                {
+
+                    speed = 0.4;
+
+                }
+
+                //sets motor power according to joystick input
+                //sets motor power according to joystick input
+                drive.motorRF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[0]);
+                drive.motorRB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[1]);
+                drive.motorLB.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[2]);
+                drive.motorLF.setPower(speed *drive.teleOpDrive(linearOpMode.gamepad1.right_stick_x, linearOpMode.gamepad1.right_stick_y, linearOpMode.gamepad1.left_stick_x)[3]);
+
+
+                if (linearOpMode.gamepad2.a)
                 {
                     openGrabber();
                 }
 
-                if (gamepad2.b)
+                if (linearOpMode.gamepad2.b)
                 {
                     closeGrabber();
                 }
 
-                if(gamepad1.left_bumper)
+                if(linearOpMode.gamepad1.left_bumper)
                 {
                     foundationDown();
                 }
 
-                if(gamepad1.right_bumper)
+                if(linearOpMode.gamepad1.right_bumper)
                 {
                     foundationUp();
                 }
 
-                if (gamepad1.right_trigger > 0.2)
+                if (linearOpMode.gamepad1.right_trigger > 0.2)
                 {
                     intake_In();
                 }
@@ -423,18 +418,18 @@ public class GenTwoBlockMover
 
                 }
 
-                if (gamepad1.y)
+                if (linearOpMode.gamepad1.y)
                 {
                     intake_Out();
                 }
 
 
-                if (gamepad2.dpad_left)
+                if (linearOpMode.gamepad2.dpad_left)
                 {
                     capstone_on();
                 }
 
-                if (gamepad2.dpad_right)
+                if (linearOpMode.gamepad2.dpad_right)
                 {
                     capstone_off();
                 }
@@ -448,12 +443,24 @@ public class GenTwoBlockMover
 
 
         // Lift control
-        if (lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || gamepad2.right_stick_y > 0) {
-            lift_left.setPower(gamepad2.right_stick_y);
-            lift_right.setPower(gamepad2.right_stick_y);
-        } else {
+        if (lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0)
+        {
+            lift_left.setPower(linearOpMode.gamepad2.right_stick_y);
+            lift_right.setPower(linearOpMode.gamepad2.right_stick_y);
+        }
+        else
+        {
             lift_left.setPower(0);
             lift_right.setPower(0);
+        }
+
+        if(linearOpMode.gamepad2.y)
+        {
+            blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            blockArm.setTargetPosition(0);
+
+            blockArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 
@@ -537,6 +544,10 @@ public class GenTwoBlockMover
 
     public void capstone_on()
     {
+        closeGrabber();
+
+        linearOpMode.sleep(200);
+
         capstone.setPosition(CAPSTONE_CLOSE);
     }
 

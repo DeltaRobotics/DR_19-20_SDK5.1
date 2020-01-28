@@ -25,7 +25,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
     {
         int sleepTime = 150;
 
-        GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
+        GenTwoRobot robot = new GenTwoRobot(this);
 
 
         CameraUtil cameraUtil = new CameraUtil(this);

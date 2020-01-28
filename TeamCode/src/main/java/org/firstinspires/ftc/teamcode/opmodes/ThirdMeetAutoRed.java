@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import android.graphics.Bitmap;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.deltacamera.CameraBox;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraUtil;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
+@Disabled
 @Autonomous(name = "ThirdMeetAutoRed", group = "")
 public class ThirdMeetAutoRed extends LinearOpModeCamera
 {

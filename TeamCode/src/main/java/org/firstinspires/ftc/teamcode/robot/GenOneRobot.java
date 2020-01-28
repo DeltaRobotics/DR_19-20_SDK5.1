@@ -21,7 +21,7 @@ public class GenOneRobot
     public GenOneRobot(HardwareMap hardwareMap, Telemetry telemetry)
     {
         // Drive class for first meet with mecanum wheels
-        drive = new MecanumDriveTrain(hardwareMap, telemetry);
+        //drive = new MecanumDriveTrain(hardwareMap, telemetry);
 
         // Block mover class for first meet
         blockMover = new GenOneBlockMover(hardwareMap);

@@ -28,7 +28,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         Orientation angles;
 
-        GenTwoRobot robot = new GenTwoRobot(hardwareMap, telemetry);
+        GenTwoRobot robot = new GenTwoRobot(this);
 
 
         CameraUtil cameraUtil = new CameraUtil(this);

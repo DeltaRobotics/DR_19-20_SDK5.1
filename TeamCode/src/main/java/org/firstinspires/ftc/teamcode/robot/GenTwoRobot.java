@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -19,12 +20,12 @@ public class GenTwoRobot
     */
 
     // Constructor
-    public GenTwoRobot(HardwareMap hardwareMap, Telemetry telemetry)
+    public GenTwoRobot(LinearOpMode linearOpMode)
     {
         // Drive class for first meet with mecanum wheels
-        drive = new MecanumDriveTrain(hardwareMap, telemetry);
+        drive = new MecanumDriveTrain(linearOpMode);
 
         // Block mover class for first meet
-        blockMover = new GenTwoBlockMover(hardwareMap);
+        blockMover = new GenTwoBlockMover(linearOpMode);
     }
 }

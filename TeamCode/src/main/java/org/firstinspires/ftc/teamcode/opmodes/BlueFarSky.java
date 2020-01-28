@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robot.GenOneRobot;
+import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
 import org.firstinspires.ftc.teamcode.robot.components.driveStyle;
 
 @Autonomous(name="BlueFarSky",group = "Auto")
@@ -14,7 +15,7 @@ public class BlueFarSky extends LinearOpMode
     {
         int sleepTime = 500;
 
-        GenOneRobot robot = new GenOneRobot(hardwareMap, telemetry);
+        GenTwoRobot robot = new GenTwoRobot(this);
 
         waitForStart();
 
