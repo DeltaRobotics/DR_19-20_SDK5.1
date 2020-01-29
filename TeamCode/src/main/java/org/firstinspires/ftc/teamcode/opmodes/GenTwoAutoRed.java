@@ -68,166 +68,173 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        switch(position) {
-            case RIGHT: {
-                robot.drive.OrientationDrive(-70, 0.5, robot.drive.imu);
-                sleep(sleepTime);
-                robot.drive.encoderDrive(60, driveStyle.BACKWARD, 0.75);
-                break;
-            }
+        robot.drive.OrientationDrive(-80, 0.5, robot.drive.imu);
 
-            case LEFT: // Runs what is in CENTER
-            case CENTER:
-            {
-                robot.drive.OrientationDrive(80, 0.5, robot.drive.imu);
-
-                sleep(sleepTime);
-
-                switch (position)
-                {
-                    case CENTER:
-                    {
-                        robot.drive.encoderDrive(975, driveStyle.BACKWARD, 0.75);
-                        break;
-                    }
-
-                    case LEFT:
-                    {
-                        robot.drive.encoderDrive(500, driveStyle.BACKWARD, 0.75);
-                        break;
-                    }
-                }
-
-                sleep(sleepTime);
-                robot.drive.OrientationDrive(79, 0.5, robot.drive.imu);
-
-                sleep(sleepTime);
-            }
-        }
-            robot.blockMover.moveArm(300, 1.0, 5, "Moving arm to collect position", telemetry);
-
-            sleep(sleepTime);
-
-            robot.blockMover.intake_In();
-
-            sleep(500);
-
-        /*robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.75);
-
-        sleep(sleepTime);*/
-
-            switch(position)
-            {
-                case LEFT:
-                case CENTER:
-                {
-                    robot.drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 0.85);
-                    break;
-                }
-
-                case RIGHT:
-                {
-                    robot.drive.encoderDrive(1250, driveStyle.STRAFE_LEFT, 0.85);
-                    break;
-                }
-            }
-
-
-            sleep(sleepTime);
-
-            switch (position)
-            {
-                case LEFT:
-                case CENTER:
-                {
-                    robot.drive.encoderDrive(400, driveStyle.FORWARD, 0.2);
-
-                    sleep(1000);
-                    break;
-                }
-
-                case RIGHT:
-                {
-                    robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.2);
-
-                    sleep(750);
-                    break;
-                }
-
-            }
-
-
-
-            robot.blockMover.intake_Stop();
-
-            sleep(sleepTime);
-
-            robot.blockMover.openGrabber();
-
-            sleep(sleepTime);
-
-            robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
-
-            sleep(sleepTime);
-
-            robot.blockMover.closeGrabber();
-
-            sleep(sleepTime);
-
-            switch (position)
-            {
-                case CENTER:
-                case LEFT:
-                {
-                    robot.drive.encoderDrive(800, driveStyle.STRAFE_LEFT, 0.85);
-
-                    sleep(sleepTime);
-
-                    robot.drive.OrientationDrive(80, 0.75, robot.drive.imu);
-                    break;
-                }
-
-                case RIGHT:
-                {
-                    robot.drive.OrientationDrive(-7, 0.75, robot.drive.imu);
-
-                    sleep(sleepTime);
-
-                    robot.drive.encoderDrive(700, driveStyle.BACKWARD, 0.75);
-
-                    sleep(sleepTime);
-
-                    robot.drive.OrientationDrive(75, 0.75, robot.drive.imu);
-
-                    sleep(sleepTime);
-                    break;
-                }
-            }
-
-
-
-            sleep(sleepTime);
-
+        sleep(sleepTime);
 
         switch(position)
         {
-            case CENTER:
             case RIGHT:
             {
-                robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 1.0);
+                robot.drive.encoderDrive(200, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
             case LEFT:
             {
-                robot.drive.encoderDrive(4800, driveStyle.BACKWARD, 1.0);
+                robot.drive.encoderDrive(1100, driveStyle.BACKWARD, 0.75);
+                break;
+            }
+            case CENTER:
+            {
+                robot.drive.encoderDrive(550, driveStyle.BACKWARD, 0.75);
+                break;
+            }
+        }
+        robot.blockMover.moveArm(300, 1.0, 5, "Moving arm to collect position", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.intake_In();
+
+        sleep(500);
+
+        /*robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.75);
+
+        sleep(sleepTime);*/
+
+        switch (position)
+        {
+            case CENTER:
+            case RIGHT:
+            {
+                robot.drive.encoderDrive(1250, driveStyle.STRAFE_LEFT, 0.75);
+                break;
+            }
+
+            case LEFT:
+            {
+                robot.drive.encoderDrive(1200, driveStyle.STRAFE_LEFT, 0.75);
+                break;
+            }
+        }
+
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(600, driveStyle.FORWARD, 0.2);
+
+
+        robot.blockMover.intake_Stop();
+
+        sleep(sleepTime);
+
+        robot.blockMover.openGrabber();
+
+        sleep(sleepTime);
+
+        robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
+
+        sleep(sleepTime);
+
+        robot.blockMover.closeGrabber();
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(-7, 0.75, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(800, driveStyle.BACKWARD, 0.75);
+
+        sleep(sleepTime);
+
+        robot.drive.OrientationDrive(75, 0.75, robot.drive.imu);
+
+        sleep(sleepTime);
+
+
+
+        switch(position)
+        {
+            case CENTER:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB - 4850);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
+                {
+                    telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
+                }
+                //Stops all the motors
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(4950, driveStyle.BACKWARD, 1.0);
+                break;
+            }
+            case RIGHT:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB - 4200);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
+                {
+                    telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
+                }
+                //Stops all the motors
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 1.0);
+                break;
+            }
+
+            case LEFT:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB - 5350);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
+                {
+                   telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                   telemetry.addData("Target Position", target);
+                   telemetry.update();
+                }
+                //Stops all the motors
+               robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+               robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+               robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+               robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(5650, driveStyle.BACKWARD, 1.0);
                 break;
             }
         }
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(900, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(650, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
@@ -235,7 +242,11 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime + 500);
 
-        robot.drive.encoderDrive(1600, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.OrientationDrive(70, 0.4, robot.drive.imu);
+
+        sleep(sleepTime);
+
+        robot.drive.encoderDrive(1250, driveStyle.STRAFE_LEFT, 0.75);
 
         sleep(sleepTime);
 
@@ -253,7 +264,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        switch (position)
+        /*switch (position)
         {
             case LEFT:
             {
@@ -274,9 +285,13 @@ public class GenTwoAutoRed extends LinearOpModeCamera
             }
         }
 
+
+
         sleep(sleepTime);
 
-        robot.drive.timeDrive(625, 0.4, driveStyle.BACKWARD);
+         */
+
+        robot.drive.timeDrive(1200, 0.4, driveStyle.BACKWARD);
 
         sleep(sleepTime);
 

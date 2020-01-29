@@ -335,7 +335,7 @@ public class MecanumDriveTrain
                 double target = (encoderReadingLB - encoderDelta);
                 backward(motorPower);
 
-                while (motorRB.getCurrentPosition() >= target&& linearOpMode.opModeIsActive())
+                while (motorRB.getCurrentPosition() >= target && linearOpMode.opModeIsActive())
                 {
                     linearOpMode.telemetry.addData("Current Position", motorRB.getCurrentPosition());
                     linearOpMode.telemetry.addData("Target Position", target);
@@ -590,7 +590,7 @@ public class MecanumDriveTrain
         {
             pivotLeft(motorPower);
 
-            while (TargetOr > AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))
+            while (TargetOr > AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle) && linearOpMode.opModeIsActive())
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 linearOpMode.telemetry.addData("Orientation Target", TargetOr);
@@ -604,7 +604,7 @@ public class MecanumDriveTrain
         {
             pivotRight(motorPower);
 
-            while (TargetOr < AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle))
+            while (TargetOr < AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle) && linearOpMode.opModeIsActive())
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 linearOpMode.telemetry.addData("Orientation Target", TargetOr);

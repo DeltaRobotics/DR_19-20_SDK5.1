@@ -476,7 +476,7 @@ public class GenTwoBlockMover
 
         if(delta < 0)
         {
-            while(blockArm.getCurrentPosition() < blockArm.getTargetPosition() - tolerance)
+            while(blockArm.getCurrentPosition() < blockArm.getTargetPosition() - tolerance && linearOpMode.opModeIsActive())
             {
                 telemetry.addData("Arm Movement", message);
                 telemetry.addData("Current Position", blockArm.getCurrentPosition());
@@ -487,7 +487,7 @@ public class GenTwoBlockMover
         }
         else if(delta > 0)
         {
-            while(blockArm.getCurrentPosition() > blockArm.getTargetPosition() + tolerance)
+            while(blockArm.getCurrentPosition() > blockArm.getTargetPosition() + tolerance && linearOpMode.opModeIsActive())
             {
                 telemetry.addData("Arm Movement", message);
                 telemetry.addData("Current Position", blockArm.getCurrentPosition());
