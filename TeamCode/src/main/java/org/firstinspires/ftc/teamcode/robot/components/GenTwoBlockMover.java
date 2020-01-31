@@ -50,7 +50,9 @@ public class GenTwoBlockMover
     public static final double CAPSTONE_OPEN = 0.1;
     public static final double CAPSTONE_CLOSE = 0.99;
 
-    public static final int LIFT_MAX_POSITION = -999999999;
+    public static final int LIFT_MAX_POSITION = -7000;
+
+    public static final int LIFT_MIN_POSITION = -200;
 
     public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, 400, 800, 1200, 1600};
 
@@ -139,7 +141,7 @@ public class GenTwoBlockMover
                 lift_left.setPower(-0.75);
                 lift_right.setPower(-0.75);
 
-                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION)
+                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION && lift_left.getCurrentPosition() < LIFT_MIN_POSITION)
                 {
 
                     if (linearOpMode.gamepad1.left_trigger > 0.2)
@@ -443,7 +445,7 @@ public class GenTwoBlockMover
 
 
         // Lift control
-        if (lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0)
+        if ((lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift_left.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0))
         {
             lift_left.setPower(linearOpMode.gamepad2.right_stick_y);
             lift_right.setPower(linearOpMode.gamepad2.right_stick_y);
