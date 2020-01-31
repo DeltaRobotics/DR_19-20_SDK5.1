@@ -50,7 +50,7 @@ public class GenTwoBlockMover
     public static final double CAPSTONE_OPEN = 0.1;
     public static final double CAPSTONE_CLOSE = 0.99;
 
-    public static final int LIFT_MAX_POSITION = -7000;
+    public static final int LIFT_MAX_POSITION = -6000;
 
     public static final int LIFT_MIN_POSITION = -200;
 
@@ -445,7 +445,7 @@ public class GenTwoBlockMover
 
 
         // Lift control
-        if ((lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift_left.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0))
+        if (((lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift_left.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0)) || linearOpMode.gamepad2.left_bumper)
         {
             lift_left.setPower(linearOpMode.gamepad2.right_stick_y);
             lift_right.setPower(linearOpMode.gamepad2.right_stick_y);
