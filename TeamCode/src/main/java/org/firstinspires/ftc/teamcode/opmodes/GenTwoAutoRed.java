@@ -309,6 +309,8 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
+        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.85);
+
         robot.drive.timeDrive(1400, 0.65, driveStyle.FORWARD);
 
 
