@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.testprograms;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
-
+@Disabled
 /**
  * Created by User on 10/5/2017.
  */

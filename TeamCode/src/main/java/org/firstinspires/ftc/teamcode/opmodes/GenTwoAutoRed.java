@@ -234,7 +234,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(650, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(550, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
@@ -242,11 +242,12 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         sleep(sleepTime + 500);
 
-        robot.drive.OrientationDrive(70, 0.4, robot.drive.imu);
+
+        robot.drive.OrientationDrive(72, 0.4, robot.drive.imu);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(1250, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.encoderDrive(1550, driveStyle.STRAFE_LEFT, 0.75);
 
         sleep(sleepTime);
 
@@ -309,7 +310,7 @@ public class GenTwoAutoRed extends LinearOpModeCamera
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
-        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.85);
+        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.85);
 
         robot.drive.timeDrive(1400, 0.65, driveStyle.FORWARD);
 

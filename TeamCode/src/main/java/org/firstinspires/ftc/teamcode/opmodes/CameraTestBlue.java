@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.deltacamera.SkystonePositions;
 
 import for_camera_opmodes.LinearOpModeCamera;
 
+@Disabled
 @TeleOp(name = "CameraTestBlue", group = "")
 public class CameraTestBlue extends LinearOpModeCamera
 {
