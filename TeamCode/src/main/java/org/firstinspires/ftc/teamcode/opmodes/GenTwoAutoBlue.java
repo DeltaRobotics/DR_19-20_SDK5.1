@@ -318,7 +318,7 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(1000, 0.4, driveStyle.BACKWARD);
+        robot.drive.timeDrive(1400, 0.4, driveStyle.BACKWARD);
 
         sleep(sleepTime);
 
@@ -340,10 +340,12 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         robot.blockMover.moveArm(0, 0.5, 5, "Moving arm down", telemetry);
 
-        if(position != SkystonePositions.LEFT)
+        /*if(position != SkystonePositions.LEFT)
         {
             robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.8);
         }
+
+         */
 
         robot.drive.timeDrive(1200, 0.8, driveStyle.FORWARD);
 

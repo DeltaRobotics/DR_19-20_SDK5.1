@@ -54,7 +54,7 @@ public class GenTwoBlockMover
 
     public static final int LIFT_MIN_POSITION = -200;
 
-    public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, 400, 800, 1200, 1600};
+    public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, -2900, -4350, -5550, -5900};
 
     public LinearOpMode linearOpMode;
 
@@ -115,7 +115,7 @@ public class GenTwoBlockMover
     public void armControl(MecanumDriveTrain drive, double speed)
     {
 
-        if(linearOpMode.gamepad2.dpad_up && !dpad_up_state && lift_level < LIFT_LEVEL_POSITIONS.length)
+        if(linearOpMode.gamepad2.dpad_up && !dpad_up_state && lift_level < (LIFT_LEVEL_POSITIONS.length - 1))
         {
             dpad_up_state = true;
 
@@ -141,7 +141,7 @@ public class GenTwoBlockMover
                 lift_left.setPower(-0.75);
                 lift_right.setPower(-0.75);
 
-                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION && lift_left.getCurrentPosition() < LIFT_MIN_POSITION)
+                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION)
                 {
 
                     if (linearOpMode.gamepad1.left_trigger > 0.2)
@@ -276,7 +276,7 @@ public class GenTwoBlockMover
 
         if (linearOpMode.gamepad2.right_bumper)
         {
-            armPower = PRESET_POSITION_POWER;
+            blockArm.setPower(PRESET_POSITION_POWER);
 
             openGrabber();
 
