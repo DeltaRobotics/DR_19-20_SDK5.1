@@ -13,6 +13,12 @@ public class GenTwoTeleOp extends LinearOpMode
 {
     private double speed = 0.5;
 
+    private double FOUNDATION_SPEED = 0.55;
+
+    private boolean foundationState =  false;
+
+    private boolean rightBumperState = false;
+
     public void runOpMode()
     {
         GenTwoRobot robot = new GenTwoRobot(this);
@@ -32,17 +38,39 @@ public class GenTwoTeleOp extends LinearOpMode
             //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-            if (gamepad1.left_trigger > 0.2)
+            if(gamepad1.left_bumper)
+            {
+                speed = FOUNDATION_SPEED;
+            }
+            else if (gamepad1.left_trigger > 0.2)
             {
 
                 speed = 1.0;
             }
             else
             {
-
-             speed = 0.4;
-
+                speed = 0.4;
             }
+
+            if(gamepad1.right_bumper && !rightBumperState)
+            {
+                rightBumperState = true;
+
+                if(foundationState)
+                {
+                    foundationState = false;
+                }
+                else
+                {
+                    foundationState = true;
+                }
+            }
+            else if(!gamepad1.right_bumper)
+            {
+                rightBumperState = false;
+            }
+
+
 
             if (gamepad2.a)
             {
@@ -52,16 +80,6 @@ public class GenTwoTeleOp extends LinearOpMode
             if (gamepad2.b)
             {
                 robot.blockMover.closeGrabber();
-            }
-
-            if(gamepad1.left_bumper)
-            {
-                robot.blockMover.foundationDown();
-            }
-
-            if(gamepad1.right_bumper)
-            {
-                robot.blockMover.foundationUp();
             }
 
             if (gamepad1.right_trigger > 0.2)
@@ -91,6 +109,17 @@ public class GenTwoTeleOp extends LinearOpMode
             {
                 robot.blockMover.capstone_off();
             }
+
+            if(foundationState)
+            {
+                robot.blockMover.foundationDown();
+            }
+            else
+            {
+                robot.blockMover.foundationUp();
+            }
+
+
 
             telemetry.addData("Lift Level", robot.blockMover.lift_level);
 

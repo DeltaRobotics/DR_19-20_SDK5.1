@@ -236,7 +236,7 @@ public class GenTwoBlockMover
 
         }
 
-        if(linearOpMode.gamepad1.dpad_down)
+        if(linearOpMode.gamepad2.dpad_down)
         {
             lift_level = 0;
         }
