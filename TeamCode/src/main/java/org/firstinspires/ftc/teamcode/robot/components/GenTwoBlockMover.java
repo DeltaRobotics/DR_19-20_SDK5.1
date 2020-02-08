@@ -23,6 +23,8 @@ public class GenTwoBlockMover
 
     public Servo intake_right;
 
+    public Servo stone_pusher;
+
     public DcMotor lift_left;
 
     public DcMotor lift_right;
@@ -49,6 +51,8 @@ public class GenTwoBlockMover
     public static final double FOUNDATION_MOVER_CLOSE = 0.1;
     public static final double CAPSTONE_OPEN = 0.1;
     public static final double CAPSTONE_CLOSE = 0.99;
+    public static final double STONE_PUSH = 1.0;
+    public static final double STONE_PUSH_HOME = 0.22;
 
     public static final int LIFT_MAX_POSITION = -6000;
 
@@ -77,6 +81,8 @@ public class GenTwoBlockMover
 
         lift_right = linearOpMode.hardwareMap.dcMotor.get("lift_right");
 
+        stone_pusher = linearOpMode.hardwareMap.servo.get("stone_pusher");
+
         lift_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         lift_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -104,6 +110,8 @@ public class GenTwoBlockMover
         foundation_mover.setPosition(FOUNDATION_MOVER_OPEN);
 
         capstone.setPosition(CAPSTONE_OPEN);
+
+        stone_push_home();
 
         this.linearOpMode = linearOpMode;
 
@@ -557,4 +565,7 @@ public class GenTwoBlockMover
     {
         capstone.setPosition(CAPSTONE_OPEN);
     }
+
+    public void push_stone(){stone_pusher.setPosition(STONE_PUSH);}
+    public void stone_push_home(){stone_pusher.setPosition(STONE_PUSH_HOME);}
 }

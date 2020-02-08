@@ -87,8 +87,6 @@ public class GenTwoAutoBlue extends LinearOpModeCamera
 
         telemetry.update();
 
-        sleep(500);
-
         robot.drive.OrientationDrive(-85, 0.5, robot.drive.imu);
 
         sleep(sleepTime);

@@ -93,7 +93,7 @@ public class GenTwoTeleOp extends LinearOpMode
 
             }
 
-            if (gamepad1.y)
+            if (gamepad1.dpad_left)
             {
                 robot.blockMover.intake_Out();
             }
@@ -117,6 +117,15 @@ public class GenTwoTeleOp extends LinearOpMode
             else
             {
                 robot.blockMover.foundationUp();
+            }
+
+            if(gamepad1.dpad_down)
+            {
+                robot.blockMover.push_stone();
+            }
+            else
+            {
+                robot.blockMover.stone_push_home();
             }
 
 
