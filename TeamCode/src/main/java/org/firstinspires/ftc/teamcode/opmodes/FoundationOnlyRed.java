@@ -25,7 +25,9 @@ public class FoundationOnlyRed extends LinearOpMode
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(2200, driveStyle.STRAFE_RIGHT, 0.75);
+        robot.drive.encoderDrive(1900, driveStyle.STRAFE_RIGHT, 0.75);
+
+        robot.drive.encoderDrive(300, driveStyle.STRAFE_RIGHT, 0.45);
 
         sleep(sleepTime);
 
@@ -64,19 +66,19 @@ public class FoundationOnlyRed extends LinearOpMode
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(1000, 0.75, driveStyle.STRAFE_LEFT);
+        robot.drive.timeDrive(1350, 0.55, driveStyle.STRAFE_LEFT);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(100, driveStyle.STRAFE_RIGHT, 0.5);
+        robot.drive.encoderDrive(200, driveStyle.STRAFE_RIGHT, 0.5);
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(2500, driveStyle.FORWARD, 0.75);
+        robot.drive.encoderDrive(2800, driveStyle.FORWARD, 0.75);
 
         sleep(sleepTime);
 
-        robot.drive.timeDrive(400, 0.5, driveStyle.STRAFE_LEFT);
+        robot.drive.timeDrive(850, 0.35, driveStyle.STRAFE_LEFT);
 
         sleep(sleepTime);
     }
