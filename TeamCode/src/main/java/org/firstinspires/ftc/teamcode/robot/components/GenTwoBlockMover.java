@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.robot.components;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -17,6 +15,8 @@ public class GenTwoBlockMover
 
     public Servo grabber_servo;
 
+    public Servo auto_arm;
+
     public DcMotor blockArm;
 
     public Servo intake_left;
@@ -25,11 +25,7 @@ public class GenTwoBlockMover
 
     public Servo stone_pusher;
 
-    public DcMotor lift_left;
-
-    public DcMotor lift_right;
-
-    public double armPower = 0;
+    public DcMotor lift;
 
     public int lift_level = 0;
 
@@ -53,6 +49,14 @@ public class GenTwoBlockMover
     public static final double CAPSTONE_CLOSE = 0.99;
     public static final double STONE_PUSH = 1.0;
     public static final double STONE_PUSH_HOME = 0.22;
+    public static final double AUTO_ARM_HOME = 0.93;
+    public static final double AUTO_ARM_DOWN = 0.27;
+
+    public static final int LIFT_POSITION_DELTA = 5;
+
+    public static final double LIFT_PRESET_POWER = -1.0;
+
+    public static final double LIFT_DEFAULT_POWER = -1.0;
 
     public static final int LIFT_MAX_POSITION = -6000;
 
@@ -77,23 +81,23 @@ public class GenTwoBlockMover
 
         blockArm = linearOpMode.hardwareMap.dcMotor.get("blockArm");
 
-        lift_left = linearOpMode.hardwareMap.dcMotor.get("lift_left");
-
-        lift_right = linearOpMode.hardwareMap.dcMotor.get("lift_right");
+        lift = linearOpMode.hardwareMap.dcMotor.get("lift");
 
         stone_pusher = linearOpMode.hardwareMap.servo.get("stone_pusher");
 
-        lift_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //auto_arm = linearOpMode.hardwareMap.servo.get("auto_arm");
 
-        lift_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        lift_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        lift_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setTargetPosition(lift.getTargetPosition());
 
-        lift_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        lift.setPower(LIFT_DEFAULT_POWER);
 
         blockArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -110,6 +114,8 @@ public class GenTwoBlockMover
         foundation_mover.setPosition(FOUNDATION_MOVER_OPEN);
 
         capstone.setPosition(CAPSTONE_OPEN);
+
+
 
         stone_push_home();
 
@@ -144,12 +150,13 @@ public class GenTwoBlockMover
                 moveArm(TRAVEL_POSITION, 0.3, 5, "Moving arm to travel", linearOpMode.telemetry);
             }
 
-            if((lift_left.getCurrentPosition() > LIFT_LEVEL_POSITIONS[lift_level]))
+            if((lift.getTargetPosition() > LIFT_LEVEL_POSITIONS[lift_level]))
                 {
-                lift_left.setPower(-0.75);
-                lift_right.setPower(-0.75);
+                    lift.setTargetPosition(LIFT_LEVEL_POSITIONS[lift_level]);
+                    lift.setPower(LIFT_PRESET_POWER);
 
-                while(lift_left.getCurrentPosition() > (LIFT_LEVEL_POSITIONS[lift_level]) && !linearOpMode.gamepad2.dpad_down && lift_left.getCurrentPosition() > LIFT_MAX_POSITION)
+
+                while(lift.isBusy() && !linearOpMode.gamepad2.dpad_down && lift.getCurrentPosition() > LIFT_MAX_POSITION)
                 {
 
                     if (linearOpMode.gamepad1.left_trigger > 0.2)
@@ -232,13 +239,11 @@ public class GenTwoBlockMover
                         capstone_off();
                     }
 
-                    linearOpMode.telemetry.addData("Moving to lift level " + lift_level + ". At position: ", lift_left.getCurrentPosition());
+                    linearOpMode.telemetry.addData("Moving to lift level " + lift_level + ". At position: ", lift.getCurrentPosition());
                     linearOpMode.telemetry.update();
                 }
             }
 
-                lift_left.setPower(0);
-                lift_right.setPower(0);
 
                 lift_level = 0;
 
@@ -252,25 +257,25 @@ public class GenTwoBlockMover
 
 
 
-        if (linearOpMode.gamepad2.left_stick_y == 0 && armPower != HOLD_POWER && !blockArm.isBusy())
+        if (linearOpMode.gamepad2.left_stick_y == 0 && blockArm.getPower() != HOLD_POWER && !blockArm.isBusy())
         {
-            armPower = HOLD_POWER;
+            blockArm.setPower(HOLD_POWER);
         }
         else if (linearOpMode.gamepad2.left_stick_y < 0)
         {
             blockArm.setTargetPosition(blockArm.getTargetPosition() - POSITION_DELTA);
-            armPower = DEFAULT_ARM_POWER;
+            blockArm.setPower(DEFAULT_ARM_POWER);
         } else if (linearOpMode.gamepad2.left_stick_y > 0)
         {
             blockArm.setTargetPosition(blockArm.getTargetPosition() + POSITION_DELTA);
-            armPower = DEFAULT_ARM_POWER;
+            blockArm.setPower(DEFAULT_ARM_POWER);
         }
 
         if (linearOpMode.gamepad2.right_trigger > 0.5)
         {
             openGrabber();
 
-            armPower = PRESET_POSITION_POWER;
+            blockArm.setPower(PRESET_POSITION_POWER);
             blockArm.setTargetPosition(GRAB_POSITION);
         }
 
@@ -278,11 +283,11 @@ public class GenTwoBlockMover
         {
             closeGrabber();
 
-            armPower = PRESET_POSITION_POWER;
+            blockArm.setPower(PRESET_POSITION_POWER);
             blockArm.setTargetPosition(DELIVER_POSITION);
         }
 
-        if (linearOpMode.gamepad2.right_bumper)
+        if (linearOpMode.gamepad2.right_bumper) // Travel position
         {
             blockArm.setPower(PRESET_POSITION_POWER);
 
@@ -360,9 +365,10 @@ public class GenTwoBlockMover
                 }
             }
 
-            lift_left.setPower(0.75);
-            lift_right.setPower(0.75);
-            while (lift_left.getCurrentPosition() < -50 && !linearOpMode.gamepad2.dpad_down)
+            lift.setTargetPosition(-50);
+            lift.setPower(PRESET_POSITION_POWER);
+
+            while (lift.isBusy() && !linearOpMode.gamepad2.dpad_down)
             {
 
                 if (linearOpMode.gamepad1.left_trigger > 0.2)
@@ -444,24 +450,15 @@ public class GenTwoBlockMover
                     capstone_off();
                 }
             }
-            lift_left.setPower(0);
-            lift_right.setPower(0);
 
         }
-
-        blockArm.setPower(armPower);
 
 
         // Lift control
-        if (((lift_left.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift_left.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0)) || linearOpMode.gamepad2.left_bumper)
+        if (((lift.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0)) || linearOpMode.gamepad2.left_bumper)
         {
-            lift_left.setPower(linearOpMode.gamepad2.right_stick_y);
-            lift_right.setPower(linearOpMode.gamepad2.right_stick_y);
-        }
-        else
-        {
-            lift_left.setPower(0);
-            lift_right.setPower(0);
+            lift.setTargetPosition(lift.getCurrentPosition() - LIFT_POSITION_DELTA);
+            lift.setPower(LIFT_DEFAULT_POWER);
         }
 
         if(linearOpMode.gamepad2.y)
@@ -568,4 +565,7 @@ public class GenTwoBlockMover
 
     public void push_stone(){stone_pusher.setPosition(STONE_PUSH);}
     public void stone_push_home(){stone_pusher.setPosition(STONE_PUSH_HOME);}
+
+    public void auto_arm_home(){auto_arm.setPosition(AUTO_ARM_HOME);}
+    public void auto_arm_down(){auto_arm.setPosition(AUTO_ARM_DOWN);}
 }
