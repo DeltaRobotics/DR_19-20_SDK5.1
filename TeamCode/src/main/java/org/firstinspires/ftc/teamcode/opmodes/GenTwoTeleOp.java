@@ -133,6 +133,8 @@ public class GenTwoTeleOp extends LinearOpMode
             telemetry.addData("Lift Level", robot.blockMover.lift_level);
 
             telemetry.addData("Lift Position", robot.blockMover.lift.getCurrentPosition());
+            telemetry.addData("Lift Target Position", robot.blockMover.lift.getTargetPosition());
+            telemetry.addData("Lift Power", robot.blockMover.lift.getPower());
             telemetry.addData("Arm Position", robot.blockMover.blockArm.getCurrentPosition());
             telemetry.addData("Arm Target Position", robot.blockMover.blockArm.getTargetPosition());
             telemetry.addData("Arm Power", robot.blockMover.blockArm.getPower());

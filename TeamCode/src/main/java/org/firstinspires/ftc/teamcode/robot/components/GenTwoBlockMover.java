@@ -52,15 +52,18 @@ public class GenTwoBlockMover
     public static final double AUTO_ARM_HOME = 0.93;
     public static final double AUTO_ARM_DOWN = 0.27;
 
-    public static final int LIFT_POSITION_DELTA = 5;
+    public static final int LIFT_POSITION_DELTA = 50;
 
-    public static final double LIFT_PRESET_POWER = -1.0;
+    public static final double LIFT_PRESET_POWER = 1.0;
 
-    public static final double LIFT_DEFAULT_POWER = -1.0;
+    public static final double LIFT_DEFAULT_POWER = 1.0;
 
     public static final int LIFT_MAX_POSITION = -6000;
 
     public static final int LIFT_MIN_POSITION = -200;
+    public static final int LIFT_HOLD_POSITION = -1000;
+    public static final double LIFT_HOLD_HIGH = 0.5;
+    public static final double LIFT_HOLD_LOW = 0;
 
     public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, -2900, -4350, -5550, -5900};
 
@@ -91,11 +94,9 @@ public class GenTwoBlockMover
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        lift.setTargetPosition(lift.getTargetPosition());
+        lift.setTargetPosition(lift.getCurrentPosition());
 
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
 
         lift.setPower(LIFT_DEFAULT_POWER);
 
@@ -455,10 +456,43 @@ public class GenTwoBlockMover
 
 
         // Lift control
-        if (((lift.getCurrentPosition() >= LIFT_MAX_POSITION || linearOpMode.gamepad2.right_stick_y > 0) && (lift.getCurrentPosition() <= LIFT_MIN_POSITION || linearOpMode.gamepad2.right_stick_y < 0)) || linearOpMode.gamepad2.left_bumper)
+        // Moves lift up
+        if (linearOpMode.gamepad2.right_stick_y < 0 &&  (lift.getCurrentPosition() >= LIFT_MAX_POSITION // Safety
+                || linearOpMode.gamepad2.left_bumper)) // Override
         {
-            lift.setTargetPosition(lift.getCurrentPosition() - LIFT_POSITION_DELTA);
-            lift.setPower(LIFT_DEFAULT_POWER);
+            if(lift.getPower() != LIFT_DEFAULT_POWER)
+            {
+                lift.setPower(LIFT_DEFAULT_POWER);
+            }
+
+            lift.setTargetPosition(lift.getTargetPosition() - LIFT_POSITION_DELTA);
+            //lift.setPower(LIFT_DEFAULT_POWER);
+        }
+        // Moves lift down
+        else if (linearOpMode.gamepad2.right_stick_y > 0 &&  (lift.getCurrentPosition() <= LIFT_MIN_POSITION // Safety
+                || linearOpMode.gamepad2.left_bumper)) // Override
+        {
+            if(lift.getPower() != LIFT_DEFAULT_POWER)
+            {
+                lift.setPower(LIFT_DEFAULT_POWER);
+            }
+
+            lift.setTargetPosition(lift.getTargetPosition() + LIFT_POSITION_DELTA);
+            //lift.setPower(LIFT_DEFAULT_POWER);
+        }
+        else
+        {
+            if(lift.getPower() == LIFT_DEFAULT_POWER)
+            {
+                if(lift.getCurrentPosition() < LIFT_HOLD_POSITION)
+                {
+                    lift.setPower(LIFT_HOLD_HIGH);
+                }
+                else
+                {
+                    lift.setPower(LIFT_HOLD_LOW);
+                }
+            }
         }
 
         if(linearOpMode.gamepad2.y)
