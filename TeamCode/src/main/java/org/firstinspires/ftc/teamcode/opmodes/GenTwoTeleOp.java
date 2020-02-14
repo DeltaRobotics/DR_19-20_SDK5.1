@@ -128,6 +128,15 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.stone_push_home();
             }
 
+            if(gamepad1.dpad_right)
+            {
+                robot.blockMover.auto_arm_down();
+            }
+            else
+            {
+                robot.blockMover.auto_arm_home();
+            }
+
 
 
             telemetry.addData("Lift Level", robot.blockMover.lift_level);
