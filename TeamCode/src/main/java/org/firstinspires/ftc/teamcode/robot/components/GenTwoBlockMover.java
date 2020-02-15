@@ -56,7 +56,7 @@ public class GenTwoBlockMover
 
     public static final double LIFT_DEFAULT_POWER = 1.0;
 
-    public static final int LIFT_MAX_POSITION = -6900;
+    public static final int LIFT_MAX_POSITION = -6700;
 
     public static final int LIFT_MIN_POSITION = -200;
     public static final int LIFT_HOLD_POSITION = -2000;
@@ -153,6 +153,10 @@ public class GenTwoBlockMover
             if((lift.getTargetPosition() > LIFT_LEVEL_POSITIONS[lift_level]))
                 {
                     lift.setTargetPosition(LIFT_LEVEL_POSITIONS[lift_level]);
+                    if(lift.getMode() != DcMotor.RunMode.RUN_TO_POSITION)
+                    {
+                        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    }
                     lift.setPower(LIFT_PRESET_POWER);
 
 
@@ -366,6 +370,10 @@ public class GenTwoBlockMover
             }
 
             lift.setTargetPosition(-50);
+            if(lift.getMode() != DcMotor.RunMode.RUN_TO_POSITION)
+            {
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
             lift.setPower(PRESET_POSITION_POWER);
 
             while (lift.isBusy() && !linearOpMode.gamepad2.dpad_down)
