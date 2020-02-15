@@ -49,17 +49,17 @@ public class GenTwoBlockMover
     public static final double CAPSTONE_CLOSE = 0.99;
     public static final double STONE_PUSH = 1.0;
     public static final double STONE_PUSH_HOME = 0.22;
-    public static final double AUTO_ARM_HOME = 0.88;
-    public static final double AUTO_ARM_DOWN = 0.37;
+    public static final double AUTO_ARM_HOME = 0.97;
+    public static final double AUTO_ARM_DOWN = 0.44;
 
     public static final double LIFT_PRESET_POWER = 1.0;
 
     public static final double LIFT_DEFAULT_POWER = 1.0;
 
-    public static final int LIFT_MAX_POSITION = -6000;
+    public static final int LIFT_MAX_POSITION = -6900;
 
     public static final int LIFT_MIN_POSITION = -200;
-    public static final int LIFT_HOLD_POSITION = -1000;
+    public static final int LIFT_HOLD_POSITION = -2000;
     public static final double LIFT_HOLD_HIGH = 0.5;
     public static final double LIFT_HOLD_LOW = 0;
 
@@ -70,23 +70,25 @@ public class GenTwoBlockMover
     // Constructor/Init
     public GenTwoBlockMover(LinearOpMode linearOpMode)
     {
-        capstone = linearOpMode.hardwareMap.servo.get("capstone");
+        this.linearOpMode = linearOpMode;
 
-        foundation_mover = linearOpMode.hardwareMap.servo.get("foundationMover");
+        capstone = this.linearOpMode.hardwareMap.servo.get("capstone");
 
-        grabber_servo = linearOpMode.hardwareMap.servo.get("grabber");
+        foundation_mover = this.linearOpMode.hardwareMap.servo.get("foundationMover");
 
-        intake_left = linearOpMode.hardwareMap.servo.get("intakeL");
+        grabber_servo = this.linearOpMode.hardwareMap.servo.get("grabber");
 
-        intake_right = linearOpMode.hardwareMap.servo.get("intakeR");
+        intake_left = this.linearOpMode.hardwareMap.servo.get("intakeL");
 
-        blockArm = linearOpMode.hardwareMap.dcMotor.get("blockArm");
+        intake_right = this.linearOpMode.hardwareMap.servo.get("intakeR");
 
-        lift = linearOpMode.hardwareMap.dcMotor.get("lift");
+        blockArm = this.linearOpMode.hardwareMap.dcMotor.get("blockArm");
 
-        stone_pusher = linearOpMode.hardwareMap.servo.get("stone_pusher");
+        lift = this.linearOpMode.hardwareMap.dcMotor.get("lift");
 
-        auto_arm = linearOpMode.hardwareMap.servo.get("auto_arm");
+        stone_pusher = this.linearOpMode.hardwareMap.servo.get("stone_pusher");
+
+        auto_arm = this.linearOpMode.hardwareMap.servo.get("auto_arm");
 
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -114,13 +116,12 @@ public class GenTwoBlockMover
 
         capstone.setPosition(CAPSTONE_OPEN);
 
-        auto_arm_home();
+        auto_arm.setPosition(AUTO_ARM_HOME);
 
-        stone_push_home();
+        stone_pusher.setPosition(STONE_PUSH_HOME);
 
-        this.linearOpMode = linearOpMode;
-
-        intake_Stop();
+        intake_left.setPosition(.5);
+        intake_right.setPosition(.5);
 
     }
 

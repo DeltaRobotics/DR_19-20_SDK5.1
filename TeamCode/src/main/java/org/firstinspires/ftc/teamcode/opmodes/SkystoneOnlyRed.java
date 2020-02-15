@@ -93,9 +93,12 @@ public class SkystoneOnlyRed extends LinearOpModeCamera
 
         robot.drive.encoderDrive(350, driveStyle.STRAFE_RIGHT, 0.4);
 
+        // Grab Skystone
+        robot.blockMover.auto_arm_down();
+
         sleep(1000);
 
-        robot.drive.encoderDrive(375, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 0.75);
 
         sleep(sleepTime);
 
