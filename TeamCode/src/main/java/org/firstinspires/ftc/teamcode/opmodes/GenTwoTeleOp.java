@@ -13,11 +13,13 @@ public class GenTwoTeleOp extends LinearOpMode
 {
     private double speed = 0.5;
 
-    private double FOUNDATION_SPEED = 0.55;
-
     private boolean foundationState =  false;
 
+    private boolean autoArmState = false;
+
     private boolean rightBumperState = false;
+
+    private boolean leftBumperState = false;
 
     public void runOpMode()
     {
@@ -38,11 +40,7 @@ public class GenTwoTeleOp extends LinearOpMode
             //robot.blockMover.blockArm.setPower(gamepad2.left_stick_y);
 
 
-            if(gamepad1.left_bumper)
-            {
-                speed = FOUNDATION_SPEED;
-            }
-            else if (gamepad1.left_trigger > 0.2)
+            if (gamepad1.left_trigger > 0.2)
             {
 
                 speed = 1.0;
@@ -128,14 +126,26 @@ public class GenTwoTeleOp extends LinearOpMode
                 robot.blockMover.stone_push_home();
             }
 
-            if(gamepad1.dpad_right)
+            if(gamepad1.left_bumper && !leftBumperState)
             {
-                robot.blockMover.auto_arm_down();
+                leftBumperState = true;
+                if (!autoArmState)
+                {
+                    autoArmState = true;
+                    robot.blockMover.auto_arm_down();
+                }
+                else
+                {
+                    autoArmState = false;
+                    robot.blockMover.auto_arm_home();
+                }
+
             }
-            else
+            else if(!gamepad1.left_bumper)
             {
-                robot.blockMover.auto_arm_home();
+                leftBumperState = false;
             }
+
 
 
 

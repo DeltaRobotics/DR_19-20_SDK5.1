@@ -63,7 +63,7 @@ public class GenTwoBlockMover
     public static final double LIFT_HOLD_HIGH = 0.5;
     public static final double LIFT_HOLD_LOW = 0;
 
-    public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, -2900, -4350, -5550, -5900};
+    public static final int[] LIFT_LEVEL_POSITIONS = new int[]{0, -1400, -2170, -3000, -4000, -4650, -5300, -6150, -6700};
 
     public LinearOpMode linearOpMode;
 
@@ -374,7 +374,7 @@ public class GenTwoBlockMover
             {
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            lift.setPower(PRESET_POSITION_POWER);
+            lift.setPower(LIFT_PRESET_POWER);
 
             while (lift.isBusy() && !linearOpMode.gamepad2.dpad_down)
             {
