@@ -178,6 +178,7 @@ public class GenTwoBlockMover
 
         }
 
+        // Decrements lift_level variable
         if(linearOpMode.gamepad2.dpad_down && !dpad_down_state && lift_level > 1)
         {
             dpad_down_state = true;
@@ -195,7 +196,7 @@ public class GenTwoBlockMover
         {
             blockArm.setPower(HOLD_POWER);
         }
-        else if (linearOpMode.gamepad2.left_stick_y < 0)
+        else if (linearOpMode.gamepad2.left_stick_y < 0 && blockArm.getTargetPosition() > 0)
         {
             blockArm.setTargetPosition(blockArm.getTargetPosition() - POSITION_DELTA);
             blockArm.setPower(DEFAULT_ARM_POWER);
@@ -282,6 +283,7 @@ public class GenTwoBlockMover
             }
         }
 
+        // Arm encoder reset
         if(linearOpMode.gamepad2.y)
         {
             blockArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
