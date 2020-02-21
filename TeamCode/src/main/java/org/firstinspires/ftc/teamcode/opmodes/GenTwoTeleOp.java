@@ -136,12 +136,12 @@ public class GenTwoTeleOp extends LinearOpMode
             if (!autoArmState)
             {
                 autoArmState = true;
-                robot.blockMover.auto_arm_down();
+                robot.blockMover.auto_arm_right_down();
             }
             else
             {
                 autoArmState = false;
-                robot.blockMover.auto_arm_home();
+                robot.blockMover.auto_arm_right_home();
             }
 
         }

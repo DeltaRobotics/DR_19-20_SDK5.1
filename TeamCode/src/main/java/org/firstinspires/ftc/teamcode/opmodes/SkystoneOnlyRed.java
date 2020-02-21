@@ -4,6 +4,10 @@ import android.graphics.Bitmap;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraBox;
 import org.firstinspires.ftc.teamcode.deltacamera.CameraUtil;
 import org.firstinspires.ftc.teamcode.deltacamera.RGBAverage;
@@ -20,6 +24,8 @@ public class SkystoneOnlyRed extends LinearOpModeCamera
     @Override
     public void runOpMode()
     {
+        Orientation angles;
+
         int sleepTime = 150;
 
         GenTwoRobot robot = new GenTwoRobot(this);
@@ -91,16 +97,28 @@ public class SkystoneOnlyRed extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(350, driveStyle.STRAFE_RIGHT, 0.4);
+        robot.drive.encoderDrive(550, driveStyle.STRAFE_RIGHT, 0.4);
 
         // Grab Skystone
-        robot.blockMover.auto_arm_down();
+        robot.blockMover.auto_arm_right_down();
 
         sleep(1000);
 
-        robot.drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 0.75);
+        robot.drive.encoderDrive(600, driveStyle.STRAFE_LEFT, 0.75);
 
-        sleep(sleepTime);
+        /*sleep(sleepTime);
+
+        angles = robot.drive.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        telemetry.addData("Current Orientation", AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+        telemetry.update();
+
+        sleep(2000);
+
+         */
+
+        robot.drive.OrientationDrive(85, 0.5, robot.drive.imu);
+
+       sleep(sleepTime);
 
         switch(position)
         {
@@ -178,5 +196,88 @@ public class SkystoneOnlyRed extends LinearOpModeCamera
                 break;
             }
         }
+
+        robot.blockMover.auto_arm_right_home();
+
+        sleep(750);
+
+        switch(position)
+        {
+            case CENTER:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + 3425);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
+                {
+                    telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
+                }
+                //Stops all the motors
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(4950, driveStyle.BACKWARD, 1.0);
+                break;
+            }
+            case RIGHT:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + 2500);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
+                {
+                    telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
+                }
+                //Stops all the motors
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(4500, driveStyle.BACKWARD, 1.0);
+                break;
+            }
+
+            case LEFT:
+            {
+                double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
+                double target = (encoderReadingLB + 3675);
+
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+
+                while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
+                {
+                    telemetry.addData("Current Position", robot.drive.motorRB.getCurrentPosition());
+                    telemetry.addData("Target Position", target);
+                    telemetry.update();
+                }
+                //Stops all the motors
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0, 0)[3]);
+                //robot.drive.encoderDrive(5650, driveStyle.BACKWARD, 1.0);
+                break;
+            }
+        }
+
+
     }
 }
