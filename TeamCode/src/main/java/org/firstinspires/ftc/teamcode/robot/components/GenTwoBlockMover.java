@@ -181,8 +181,11 @@ public class GenTwoBlockMover
                 }
             }
 
+                if(lift_level < (LIFT_LEVEL_POSITIONS.length - 1))
+                {
+                    lift_level += 1;
 
-                lift_level += 1;
+                }
 
         }
 
