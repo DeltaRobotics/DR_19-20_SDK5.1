@@ -79,7 +79,7 @@ public class GenTwoTeleOp extends LinearOpMode
             robot.blockMover.closeGrabber();
         }
 
-        if (linearOpMode.gamepad1.right_trigger > 0.2)
+        if (linearOpMode.gamepad2.right_stick_x > 0.5 || linearOpMode.gamepad1.right_trigger > 0.2)
         {
             if(robot.blockMover.capstone.getPosition() == GenTwoBlockMover.CAPSTONE_CLOSE)
             {
@@ -99,7 +99,7 @@ public class GenTwoTeleOp extends LinearOpMode
 
         }
 
-        if (linearOpMode.gamepad1.right_bumper)
+        if (linearOpMode.gamepad2.right_stick_x < -0.5 || linearOpMode.gamepad1.right_bumper)
         {
             robot.blockMover.intake_Out();
         }
