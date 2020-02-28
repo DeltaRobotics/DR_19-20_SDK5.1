@@ -87,19 +87,19 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
         {
             case RIGHT:
             {
-                robot.drive.encoderDrive(1050, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(60, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
             case CENTER:
             {
-                robot.drive.encoderDrive(400, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(450, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
             case LEFT:
             {
-                robot.drive.encoderDrive(1050, driveStyle.BACKWARD, 0.75);
+                robot.drive.encoderDrive(875, driveStyle.BACKWARD, 0.75);
                 break;
             }
 
@@ -135,12 +135,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case CENTER:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB - 2625);
+                double target = (encoderReadingLB - 2575);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
@@ -159,12 +159,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case RIGHT:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB - 1800);
+                double target = (encoderReadingLB - 3000);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
@@ -186,10 +186,10 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
                 double target = (encoderReadingLB - 2275);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
@@ -225,12 +225,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case CENTER:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB + 3775);
+                double target = (encoderReadingLB + 3700);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
                 {
@@ -249,12 +249,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case RIGHT:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB + 3100);
+                double target = (encoderReadingLB + 3600);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
                 {
@@ -279,12 +279,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case LEFT:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB + 3000);
+                double target = (encoderReadingLB + 3475);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, -0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, -0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() <= target && opModeIsActive())
                 {
@@ -306,7 +306,7 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(450, driveStyle.STRAFE_LEFT, 0.4);
+        robot.drive.encoderDrive(550, driveStyle.STRAFE_LEFT, 0.4);
 
         sleep(sleepTime);
 
@@ -333,7 +333,7 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.OrientationDrive(-87, 0.35, robot.drive.imu);
+        robot.drive.OrientationDrive(-86, 0.35, robot.drive.imu);
 
         sleep(sleepTime);
 
@@ -344,10 +344,10 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
                 double target = (encoderReadingLB - 4100);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
@@ -366,12 +366,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case RIGHT:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB - 3700);
+                double target = (encoderReadingLB - 4200);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
@@ -391,12 +391,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case LEFT:
             {
                 double encoderReadingLB = robot.drive.motorRB.getCurrentPosition();
-                double target = (encoderReadingLB - 5200);
+                double target = (encoderReadingLB - 3475);
 
-                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[0]);
-                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.95, 0)[1]);
-                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[2]);
-                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 1.0, 0)[3]);
+                robot.drive.motorRF.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[0]);
+                robot.drive.motorRB.setPower(robot.drive.teleOpDrive(0, 0.75, 0)[1]);
+                robot.drive.motorLB.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[2]);
+                robot.drive.motorLF.setPower(robot.drive.teleOpDrive(0, 0.8, 0)[3]);
 
                 while (robot.drive.motorRB.getCurrentPosition() >= target && opModeIsActive())
                 {
