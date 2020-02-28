@@ -114,7 +114,7 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
 
         sleep(1000);
 
-        robot.drive.encoderDrive(675, driveStyle.STRAFE_RIGHT, 0.75);
+        robot.drive.encoderDrive(775, driveStyle.STRAFE_RIGHT, 0.75);
 
         /*sleep(sleepTime);
 
@@ -306,7 +306,7 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
 
         sleep(sleepTime);
 
-        robot.drive.encoderDrive(550, driveStyle.STRAFE_LEFT, 0.4);
+        robot.drive.encoderDrive(350, driveStyle.STRAFE_LEFT, 0.4);
 
         sleep(sleepTime);
 
@@ -319,12 +319,12 @@ public class SkystoneOnlyBlue extends LinearOpModeCamera
             case LEFT:
             case RIGHT:
             {
-                robot.drive.encoderDrive(600, driveStyle.STRAFE_RIGHT, 0.8);
+                robot.drive.encoderDrive(800, driveStyle.STRAFE_RIGHT, 0.8);
                 break;
             }
             case CENTER:
             {
-                robot.drive.encoderDrive(685, driveStyle.STRAFE_RIGHT, 0.8);
+                robot.drive.encoderDrive(800, driveStyle.STRAFE_RIGHT, 0.8);
                 break;
             }
         }
