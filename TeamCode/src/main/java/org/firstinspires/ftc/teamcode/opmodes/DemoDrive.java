@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.robot.GenTwoRobot;
 
-@TeleOp (name="DemoDrive", group = "Demo")
+@TeleOp(name="DemoDrive", group= "Demo")
 public class DemoDrive extends LinearOpMode
 {
     private double speed = 0.55;
