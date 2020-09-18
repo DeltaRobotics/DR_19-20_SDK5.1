@@ -16,9 +16,13 @@ public class GenTwoTeleOp extends LinearOpMode
 
     public static boolean foundationState =  false;
 
-    public static boolean autoArmState = false;
+    public static boolean autoArmLeftState = false;
 
-    public static boolean rightBumperState = false;
+    public static boolean autoArmRightState = false;
+
+    public static boolean rightDpadState = false;
+
+    public static boolean leftDpadState = false;
 
     public static boolean leftBumperState = false;
 
@@ -45,9 +49,9 @@ public class GenTwoTeleOp extends LinearOpMode
             speed = 0.47;
         }
 
-        if(linearOpMode.gamepad1.right_bumper && !rightBumperState)
+        if(linearOpMode.gamepad1.left_bumper && !leftBumperState)
         {
-            rightBumperState = true;
+            leftBumperState = true;
 
             if(foundationState)
             {
@@ -58,9 +62,9 @@ public class GenTwoTeleOp extends LinearOpMode
                 foundationState = true;
             }
         }
-        else if(!linearOpMode.gamepad1.right_bumper)
+        else if(!linearOpMode.gamepad1.left_bumper)
         {
-            rightBumperState = false;
+            leftBumperState = false;
         }
 
 
@@ -75,7 +79,7 @@ public class GenTwoTeleOp extends LinearOpMode
             robot.blockMover.closeGrabber();
         }
 
-        if (linearOpMode.gamepad1.right_trigger > 0.2)
+        if (linearOpMode.gamepad2.right_stick_x > 0.5 || linearOpMode.gamepad1.right_trigger > 0.2)
         {
             if(robot.blockMover.capstone.getPosition() == GenTwoBlockMover.CAPSTONE_CLOSE)
             {
@@ -95,7 +99,7 @@ public class GenTwoTeleOp extends LinearOpMode
 
         }
 
-        if (linearOpMode.gamepad1.dpad_left)
+        if (linearOpMode.gamepad2.right_stick_x < -0.5 || linearOpMode.gamepad1.right_bumper)
         {
             robot.blockMover.intake_Out();
         }
@@ -130,24 +134,43 @@ public class GenTwoTeleOp extends LinearOpMode
             robot.blockMover.stone_push_home();
         }
 
-        if(linearOpMode.gamepad1.left_bumper && !leftBumperState)
+        if(linearOpMode.gamepad1.dpad_left && !leftDpadState)
         {
-            leftBumperState = true;
-            if (!autoArmState)
+            leftDpadState = true;
+            if (!autoArmLeftState)
             {
-                autoArmState = true;
-                robot.blockMover.auto_arm_down();
+                autoArmLeftState = true;
+                robot.blockMover.auto_arm_left_down();
             }
             else
             {
-                autoArmState = false;
-                robot.blockMover.auto_arm_home();
+                autoArmLeftState = false;
+                robot.blockMover.auto_arm_left_home();
             }
 
         }
-        else if(!linearOpMode.gamepad1.left_bumper)
+        else if(!linearOpMode.gamepad1.dpad_left)
         {
-            leftBumperState = false;
+            leftDpadState = false;
+        }
+
+        if(linearOpMode.gamepad1.dpad_right && !rightDpadState)
+        {
+            rightDpadState = true;
+            if(!autoArmRightState)
+            {
+                autoArmRightState = true;
+                robot.blockMover.auto_arm_right_down();
+            }
+            else
+            {
+                autoArmRightState = false;
+                robot.blockMover.auto_arm_right_home();
+            }
+        }
+        else if(!linearOpMode.gamepad1.dpad_right)
+        {
+            rightDpadState = false;
         }
 
 
